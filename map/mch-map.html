@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SwissTopo Map</title>
+    <link
+      href="https://unpkg.com/maplibre-gl@3.x/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+      }
+
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="map"></div>
+    <script src="https://unpkg.com/maplibre-gl@3.x/dist/maplibre-gl.js"></script>
+    <script>
+      const map = new maplibregl.Map({
+        container: "map",
+        style: "mch-style.json",
+        center: [8.2, 46.8],
+        zoom: 7,
+        maxZoom: 12,
+        minZoom: 0,
+        bounds: [5.9559, 45.818, 10.4921, 47.8084],
+      });
+
+      map.on("load", () => {
+        map.addSource("hillshade", {
+          type: "raster",
+          tiles: [
+            "https://api.maptiler.com/tiles/hillshade/{z}/{x}/{y}.webp?key=k0SiRr6RGDFRdeBbNb3v",
+          ],
+          tileSize: 512,
+          attribution:
+            '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a>',
+        });
+
+        map.addLayer({
+          id: "hillshade-layer",
+          type: "raster",
+          source: "hillshade",
+          paint: {
+            "raster-opacity": 0.3,
+          },
+        });
+
+        // add swissboundaries source
+        map.addSource("boundary", {
+          type: "geojson",
+          data: "boundary.json",
+        });
+
+        // Add boundary fill layer
+        map.addLayer({
+          id: "boundary-fill",
+          type: "fill",
+          source: "boundary",
+          paint: {
+            "fill-color": "transparent",
+            "fill-opacity": 0.1,
+          },
+        });
+
+        // Add boundary outline layer
+        map.addLayer({
+          id: "boundary-line",
+          type: "line",
+          source: "boundary",
+          paint: {
+            "line-color": "#000",
+            "line-width": 2,
+            "line-opacity": 0.5,
+          },
+        });
+
+        // Add cities source
+        map.addSource("cities", {
+          type: "geojson",
+          data: "cities.json",
+        });
+
+        const setupCitiesLayer = async () => {
+          try {
+            // Load the image and wait for it to complete
+            const image = await new Promise((resolve, reject) => {
+              map.loadImage("circle.png", (error, image) => {
+                if (error) reject(error);
+                resolve(image);
+              });
+            });
+
+            // Add the image to the map
+            map.addImage("circle-icon", image);
+
+            // Add cities layer
+            map.addLayer({
+              id: "cities-layer",
+              type: "symbol",
+              source: "cities",
+              layout: {
+                "icon-image": "circle-icon",
+                "icon-size": 0.06,
+                "text-field": ["get", "place"],
+                "text-font": ["Open Sans Regular", "Arial Unicode MS Regular"],
+                "text-justify": "left",
+                "text-offset": [0.4, 0.2],
+                "text-anchor": "bottom-left",
+                "text-size": 16,
+              },
+              paint: {
+                "text-color": "black",
+                "text-halo-color": "rgba(255,255,255,.5)",
+                "text-halo-width": 1,
+              },
+              filter: [">=", ["+", 1.25, ["zoom"]], ["get", "minzoom"]],
+            });
+          } catch (error) {
+            console.error("Error setting up cities layer:", error);
+          }
+        };
+        setupCitiesLayer();
+      });
+    </script>
+  </body>
+</html>

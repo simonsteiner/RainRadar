@@ -6,7 +6,7 @@ interface LegendItem {
 
 export function createLegend(
   legendData: LegendItem[],
-  containerId: string = "legend-container"
+  containerId: string = "legend-content"
 ): void {
   const container = document.createElement("div");
   container.className = containerId;

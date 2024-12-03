@@ -13,20 +13,29 @@
 
   <body>
     <div id="map"></div>
-    <div id="coordinates"></div>
-    <div id="zoomlevel"></div>
-    <div id="legend-container"></div>
+    <div id="coordinates" class="info-display"></div>
+    <div id="zoomlevel" class="info-display"></div>
+    <div id="updatedOn" class="info-display"></div>
+    <div id="timeDisplay" class="info-display"></div>
+    <div id="legend-container" class="container-hidden">
+      <button class="toggle-btn" data-target="legend-container">×</button>
+      <h3>Legend</h3>
+      <div id="legend-content" class="container-content"></div>
+    </div>
+    <div id="layer-control" class="container-hidden">
+      <button class="toggle-btn" data-target="layer-control">×</button>
+      <h3>Layers</h3>
+      <div id="layer-content" class="container-content"></div>
+    </div>
 
-    <script type="module" src="/js/map/init-map.js"></script>
     <div class="precipitation-container">
-      <h1>Meteo Swiss Precipitation Clone</h1>
+      <div class="mobile-handle"></div>
       <div class="slider-container">
         <button id="prevStep">←</button>
         <button id="playButton">▶</button>
         <input type="range" id="timeSlider" min="0" value="0" />
         <button id="nextStep">→</button>
       </div>
-      <div id="timeDisplay"></div>
       <div class="speed-container">
         <span>Speed:</span>
         <div class="speed-buttons">
@@ -36,12 +45,25 @@
           <button class="speed-btn" data-speed="250">2x</button>
         </div>
       </div>
-      <div id="updatedOn"></div>
       <h3>Meta Data</h3>
       <div id="precipitationImage"></div>
-      <div id="layer-control" class="layer-control">
-        <h3>Layers</h3>
-      </div>
+      
     </div>
+
+    <script type="module" src="/js/map/init-map.js"></script>
+    <script>
+      document.querySelector('.mobile-handle').addEventListener('click', () => {
+        document.querySelector('.precipitation-container').classList.toggle('expanded');
+      });
+
+      document.querySelectorAll('.toggle-btn, #layer-control h3, #legend-container h3').forEach(element => {
+        element.addEventListener('click', (e) => {
+          if (e.target.tagName === 'H3' || e.target.classList.contains('toggle-btn')) {
+            const container = e.target.closest('#layer-control, #legend-container');
+            container.classList.toggle('container-hidden');
+          }
+        });
+      });
+    </script>
   </body>
 </html>

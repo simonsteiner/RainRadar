@@ -45,7 +45,7 @@ export class LayerManager {
   }
 
   public createLayerCheckboxes(): void {
-    const container = document.getElementById("layer-control");
+    const container = document.getElementById("layer-content");
 
     if (!container) {
       console.error("Layer control container not found");

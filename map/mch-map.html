@@ -19,11 +19,44 @@
         bottom: 0;
         width: 100%;
       }
+
+      .maplibregl-popup {
+        padding: 5px;
+        transition: background-color 0.3s;
+      }
+
+      #coordinates {
+        position: absolute;
+        bottom: 40px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-family: monospace;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      #coordinates:active {
+        background: rgba(200, 200, 200, 0.8);
+      }
+
+      #zoomlevel {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-family: monospace;
+      }
     </style>
   </head>
 
   <body>
     <div id="map"></div>
+    <div id="coordinates"></div>
+    <div id="zoomlevel"></div>
     <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
     <script>
       const map = new maplibregl.Map({
@@ -34,6 +67,58 @@
         maxZoom: 12,
         minZoom: 0,
         bounds: [5.9559, 45.818, 10.4921, 47.8084],
+      });
+
+      // Add back mousemove handler
+      map.on('mousemove', (e) => {
+        document.getElementById('coordinates').innerHTML =
+          `Lon: ${e.lngLat.lng.toFixed(6)} Lat: ${e.lngLat.lat.toFixed(6)}`;
+      });
+
+      // Add click handler for coordinates div
+      document.getElementById('coordinates').addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(document.getElementById('coordinates').textContent);
+          document.getElementById('coordinates').style.background = 'rgba(150, 255, 150, 0.8)';
+          setTimeout(() => {
+            document.getElementById('coordinates').style.background = 'rgba(255, 255, 255, 0.8)';
+          }, 200);
+        } catch (err) {
+          console.error('Failed to copy coordinates:', err);
+        }
+      });
+
+      // Create a popup but don't add it to the map yet
+      const popup = new maplibregl.Popup({
+        closeButton: false,
+        closeOnClick: false
+      });
+
+      map.on('click', async (e) => {
+        const coordinates = `${e.lngLat.lng.toFixed(6)}, ${e.lngLat.lat.toFixed(6)}`;
+
+        try {
+          await navigator.clipboard.writeText(coordinates);
+
+          // Show popup at click location
+          popup
+            .setLngLat(e.lngLat)
+            .setHTML(`<h4>Coordinates copied!</h4>Lon: ${e.lngLat.lng}<br>Lat: ${e.lngLat.lat}`)
+            .addTo(map);
+
+          // Remove popup after 1 second
+          setTimeout(() => {
+            popup.remove();
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy coordinates:', err);
+        }
+      });
+
+      // Add zoom level display update
+      map.on('move', () => {
+        document.getElementById('zoomlevel').innerHTML =
+          `Zoom: ${map.getZoom().toFixed(2)}`;
       });
 
       map.on("load", () => {

@@ -4,7 +4,7 @@ import { locationMarker } from "./configs/locationMarker";
 const ZOOM_LEVEL = 12;
 
 function formatCoordinates(longitude: number, latitude: number): string {
-  return `my location: ${latitude.toFixed(4)}°N, ${longitude.toFixed(4)}°E`;
+  return `my location<br>${latitude.toFixed(4)}°N, ${longitude.toFixed(4)}°E`;
 }
 
 function createLocationGeoJSON(longitude: number, latitude: number) {
@@ -27,7 +27,7 @@ function updateLocation(map: Map, longitude: number, latitude: number): void {
   const coordsDisplay = document.getElementById("myCoords");
   if (coordsDisplay) {
     coordsDisplay.style.display = "block";
-    coordsDisplay.textContent = formatCoordinates(longitude, latitude);
+    coordsDisplay.innerHTML = formatCoordinates(longitude, latitude);
   }
 
   const source = map.getSource(locationMarker.source) as GeoJSONSource;

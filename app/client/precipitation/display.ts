@@ -8,7 +8,11 @@ import { PrecipitationRenderer } from "./render";
 
 const renderer = new PrecipitationRenderer();
 
-export async function updateImage(index: number, pictures: PictureInfo[], map: Map) {
+export async function updateImage(
+  index: number,
+  pictures: PictureInfo[],
+  map: Map
+) {
   const picture = pictures[index];
   if (picture) {
     renderer.renderImage(picture);

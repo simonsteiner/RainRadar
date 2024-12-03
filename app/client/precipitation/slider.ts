@@ -29,7 +29,7 @@ class AnimationController {
     const { slider, speedButtons } = this.controls;
     slider.max = (this.pictures.length - 1).toString();
     slider.value = findLatestMeasurementIndex(this.pictures).toString();
-    
+
     this.setupSpeedControls();
     this.setupPlayButton();
     this.setupSliderInput();
@@ -69,7 +69,8 @@ class AnimationController {
       this.controls.playButton.classList.add("playing");
       this.animationInterval = window.setInterval(() => {
         let currentIndex = parseInt(this.controls.slider.value);
-        currentIndex = currentIndex >= this.pictures.length - 1 ? 0 : currentIndex + 1;
+        currentIndex =
+          currentIndex >= this.pictures.length - 1 ? 0 : currentIndex + 1;
         this.controls.slider.value = currentIndex.toString();
         updateImage(currentIndex, this.pictures, this.map);
       }, this.animationSpeed);
@@ -77,7 +78,7 @@ class AnimationController {
   }
 
   private setupPlayButton() {
-    this.controls.playButton?.addEventListener("click", () => 
+    this.controls.playButton?.addEventListener("click", () =>
       this.isPlaying ? this.pause() : this.play()
     );
   }
@@ -128,7 +129,7 @@ export function setupSlider(pictures: PictureInfo[], map: Map) {
     prevButton: document.getElementById("prevStep") as HTMLElement,
     nextButton: document.getElementById("nextStep") as HTMLElement,
     playButton: document.getElementById("playButton") as HTMLElement,
-    speedButtons: document.querySelectorAll(".speed-btn")
+    speedButtons: document.querySelectorAll(".speed-btn"),
   };
 
   if (controls.slider) {

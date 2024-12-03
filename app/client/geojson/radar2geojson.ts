@@ -4,50 +4,55 @@
  * to standard geographic coordinates (WGS84) and creates valid GeoJSON polygons.
  */
 
-import { decodeCoordinates } from './decode';
-import { RadarData, GeoJSONFeature, GeoJSONFeatureCollection } from './types';
+import { decodeCoordinates } from "./decode";
+import { RadarData, GeoJSONFeature, GeoJSONFeatureCollection } from "./types";
 
 /**
  * Creates a GeoJSON feature from coordinates and color
  */
-function createFeature(coordinates: [number, number][], color: string): GeoJSONFeature | null {
-    if (coordinates.length < 3) return null;
+function createFeature(
+  coordinates: [number, number][],
+  color: string
+): GeoJSONFeature | null {
+  if (coordinates.length < 3) return null;
 
-    const validCoordinates = coordinates.filter(([x, y]) => 
-        x != null && y != null && !isNaN(x) && !isNaN(y)
-    );
+  const validCoordinates = coordinates.filter(
+    ([x, y]) => x != null && y != null && !isNaN(x) && !isNaN(y)
+  );
 
-    if (validCoordinates.length < 3) return null;
+  if (validCoordinates.length < 3) return null;
 
-    return {
-        type: "Feature",
-        properties: { color: `#${color}` },
-        geometry: {
-            type: "Polygon",
-            coordinates: [[...validCoordinates]]
-        }
-    };
+  return {
+    type: "Feature",
+    properties: { color: `#${color}` },
+    geometry: {
+      type: "Polygon",
+      coordinates: [[...validCoordinates]],
+    },
+  };
 }
 
 /**
  * Converts radar data into GeoJSON format.
  */
 export function radar2geojson(radarData: RadarData): GeoJSONFeatureCollection {
-    if (!radarData?.coords || !Array.isArray(radarData?.areas)) {
-        throw new Error('Invalid radar data format');
-    }
+  if (!radarData?.coords || !Array.isArray(radarData?.areas)) {
+    throw new Error("Invalid radar data format");
+  }
 
-    const features = radarData.areas.flatMap(area =>
-        area.shapes.flatMap(shape =>
-            shape.map(segment => {
-                const coords = decodeCoordinates(segment, radarData.coords);
-                return createFeature(coords, area.color);
-            }).filter((feature): feature is GeoJSONFeature => feature !== null)
-        )
-    );
+  const features = radarData.areas.flatMap((area) =>
+    area.shapes.flatMap((shape) =>
+      shape
+        .map((segment) => {
+          const coords = decodeCoordinates(segment, radarData.coords);
+          return createFeature(coords, area.color);
+        })
+        .filter((feature): feature is GeoJSONFeature => feature !== null)
+    )
+  );
 
-    return {
-        type: "FeatureCollection",
-        features
-    };
+  return {
+    type: "FeatureCollection",
+    features,
+  };
 }

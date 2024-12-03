@@ -1,8 +1,8 @@
-import { VersionsData, AnimationData } from './types';
+import { VersionsData, AnimationData } from "./types";
 
 const API_ENDPOINTS = {
-  versions: '/api/versions',
-  precipitation: '/api/precipitation'
+  versions: "/api/versions",
+  precipitation: "/api/precipitation",
 } as const;
 
 export async function fetchJson<T>(url: string): Promise<T> {
@@ -10,7 +10,7 @@ export async function fetchJson<T>(url: string): Promise<T> {
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
-  return await response.json() as T;
+  return (await response.json()) as T;
 }
 
 export async function fetchVersionsData(): Promise<VersionsData> {
@@ -19,6 +19,8 @@ export async function fetchVersionsData(): Promise<VersionsData> {
 
 export async function fetchPrecipitationAnimation(): Promise<AnimationData> {
   const versionsData = await fetchVersionsData();
-  const precipVersion = versionsData['precipitation/animation'];
-  return fetchJson<AnimationData>(`${API_ENDPOINTS.precipitation}/${precipVersion}`);
+  const precipVersion = versionsData["precipitation/animation"];
+  return fetchJson<AnimationData>(
+    `${API_ENDPOINTS.precipitation}/${precipVersion}`
+  );
 }

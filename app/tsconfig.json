@@ -11,12 +11,6 @@
     "removeComments": true,
     "sourceMap": true
   },
-  "include": [
-    "*.ts",
-    "server/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["*.ts", "server/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }

@@ -1,4 +1,3 @@
-
 import { LayerSpecification } from "maplibre-gl";
 
 export interface LayerConfig {

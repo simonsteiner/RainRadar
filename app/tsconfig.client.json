@@ -10,7 +10,5 @@
     "removeComments": true,
     "sourceMap": true
   },
-  "include": [
-    "client/**/*.ts"
-  ]
+  "include": ["client/**/*.ts"]
 }

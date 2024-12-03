@@ -25,7 +25,7 @@ export class PrecipitationRenderer {
   }
 
   private getFilenameFromPath(path: string): string {
-    return path.split('/').pop() || path;
+    return path.split("/").pop() || path;
   }
 
   private outputImageMetadata(picture: PictureInfo): string {
@@ -35,11 +35,7 @@ export class PrecipitationRenderer {
         <tr>
           <td>Radar URL:</td>
           <td>
-            <a href="api${
-              picture.radar_url
-            }" target="_blank">${
-              this.getFilenameFromPath(picture.radar_url)
-            }</a>
+            <a href="api${picture.radar_url}" target="_blank">${this.getFilenameFromPath(picture.radar_url)}</a>
           </td>
         </tr>
         <tr><td>Timepoint:</td><td>${picture.timepoint}</td></tr>

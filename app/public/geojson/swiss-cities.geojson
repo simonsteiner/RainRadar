@@ -1,919 +1,919 @@
 {
-	"type": "FeatureCollection",
-	"features": [
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [6.143081171825813, 46.20974991004319]
-			},
-			"properties": {
-				"place": "Genève",
-				"place_de": "Genf",
-				"place_it": "Ginevra",
-				"place_en": "Geneva",
-				"minzoom": 5
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.953074547319552, 46.00831817154917]
-			},
-			"properties": { "place": "Lugano", "minzoom": 5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.542187926446598, 47.37228965494155]
-			},
-			"properties": {
-				"place": "Zürich",
-				"place_fr": "Zurich",
-				"place_it": "Zurigo",
-				"place_en": "Zurich",
-				"minzoom": 5
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.588633455016724, 47.55674909984902]
-			},
-			"properties": {
-				"place": "Basel",
-				"place_fr": "Bâle",
-				"place_it": "Baslilea",
-				"minzoom": 8
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.438098674723499, 46.94798676021646]
-			},
-			"properties": {
-				"place": "Bern",
-				"place_fr": "Berne",
-				"place_it": "Berna",
-				"minzoom": 8
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.526623274220466, 46.85593641114406]
-			},
-			"properties": {
-				"place": "Chur",
-				"place_fr": "Coire",
-				"place_it": "Coira",
-				"minzoom": 8
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.357873490636469, 46.22766008802124]
-			},
-			"properties": { "place": "Sion", "minzoom": 8 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.990064593285698, 46.3170763798296]
-			},
-			"properties": { "place": "Brig", "minzoom": 8.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.064219123519912, 47.042468351807294]
-			},
-			"properties": { "place": "Glarus", "minzoom": 8.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.859282487465284, 46.68426721193938]
-			},
-			"properties": { "place": "Interlaken", "minzoom": 8.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [6.633194868663464, 46.519226438992206]
-			},
-			"properties": {
-				"place": "Lausanne",
-				"place_it": "Losanna",
-				"minzoom": 8.5
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.300948452552596, 47.047869076798115]
-			},
-			"properties": {
-				"place": "Luzern",
-				"place_fr": "Lucerne",
-				"place_it": "Lucerna",
-				"place_en": "Lucerne",
-				"minzoom": 8.5
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [6.928972513419754, 46.99487977991327]
-			},
-			"properties": {
-				"place": "Neuchâtel",
-				"place_de": "Neuenburg",
-				"minzoom": 8.5
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.909772641525212, 47.349094049608425]
-			},
-			"properties": { "place": "Olten", "minzoom": 8.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.675893982565018, 46.513979380368305]
-			},
-			"properties": { "place": "Piotta", "minzoom": 8.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.873416432336578, 46.53423575972184]
-			},
-			"properties": { "place": "Samedan", "minzoom": 8.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.635973465438477, 47.70483026774444]
-			},
-			"properties": {
-				"place": "Schaffhausen",
-				"place_fr": "Schaffhouse",
-				"place_it": "Sciaffusa",
-				"minzoom": 8.5
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [10.29977659680928, 46.796882840518904]
-			},
-			"properties": { "place": "Scuol", "minzoom": 8.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.374463085256892, 47.4239311069597]
-			},
-			"properties": {
-				"place": "St. Gallen",
-				"place_fr": "St-Gall",
-				"place_it": "S. Gallo",
-				"minzoom": 8.5
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.639791799982723, 46.87810583439577]
-			},
-			"properties": { "place": "Altdorf UR", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.299725053392377, 47.47429110111279]
-			},
-			"properties": { "place": "Baden", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.969487935094593, 46.35794451439565]
-			},
-			"properties": { "place": "Biasca", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.241926514853627, 47.133575205072525]
-			},
-			"properties": {
-				"place": "Biel/Bienne",
-				"place_fr": "Bienne",
-				"place_it": "Bienna",
-				"place_en": "Biel",
-				"minzoom": 9
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.6226845254557185, 47.057840542982795]
-			},
-			"properties": {
-				"place": "Burgdorf",
-				"place_fr": "Berthoud",
-				"minzoom": 9
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.842690383668348, 46.807096268663145]
-			},
-			"properties": { "place": "Davos Dorf", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.347969720047669, 47.365237816268376]
-			},
-			"properties": {
-				"place": "Delémont",
-				"place_de": "Delsberg",
-				"minzoom": 9
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.85300334502347, 46.70432378205569]
-			},
-			"properties": { "place": "Disentis/Mustér", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.155735690664841, 46.80435944223287]
-			},
-			"properties": {
-				"place": "Fribourg",
-				"place_de": "Freiburg",
-				"place_it": "Friborgo",
-				"minzoom": 9
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.286365397217362, 46.4730141137261]
-			},
-			"properties": { "place": "Gstaad", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.20394985069793, 46.774040916916036]
-			},
-			"properties": { "place": "Ilanz", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.175492598232365, 47.6458116701905]
-			},
-			"properties": { "place": "Kreuzlingen", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.06011786762596, 47.55953377269654]
-			},
-			"properties": { "place": "Laufenburg", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.627506331031008, 46.37878373560866]
-			},
-			"properties": {
-				"place": "Leukerbad",
-				"place_fr": "Loèche-les-Bains",
-				"minzoom": 9
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.793857309946988, 46.16600923219894]
-			},
-			"properties": { "place": "Locarno", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.696336338007974, 46.40203751227995]
-			},
-			"properties": { "place": "Maloja", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.073443139889836, 46.101943103271196]
-			},
-			"properties": { "place": "Martigny", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.182442889569877, 46.72835253672443]
-			},
-			"properties": { "place": "Meiringen", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.233256900875409, 46.394115126128625]
-			},
-			"properties": { "place": "Mesocco", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [6.912206116542312, 46.43472569662347]
-			},
-			"properties": { "place": "Montreux", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [6.230272723039672, 46.38599753364804]
-			},
-			"properties": { "place": "Nyon", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.824571254224189, 47.22785841054137]
-			},
-			"properties": { "place": "Rapperswil SG", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.624267405386267, 46.75457107932291]
-			},
-			"properties": { "place": "Thun", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.440731452122849, 46.69947919408133]
-			},
-			"properties": { "place": "Thusis", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.306700142842134, 46.506305883188745]
-			},
-			"properties": { "place": "Ulrichen", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.518336633687225, 47.14069455441008]
-			},
-			"properties": { "place": "Vaduz", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.08919029746821, 47.299609071837565]
-			},
-			"properties": { "place": "Wattwil", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.041920021900374, 47.46149600715354]
-			},
-			"properties": { "place": "Wil SG", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.989993600481553, 47.11930702534995]
-			},
-			"properties": { "place": "Willisau", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.72930842510624, 47.500531147738066]
-			},
-			"properties": { "place": "Winterthur", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [6.640517046208899, 46.77761613250819]
-			},
-			"properties": { "place": "Yverdon-les-Bains", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.74870645957427, 46.02059967111043]
-			},
-			"properties": { "place": "Zermatt", "minzoom": 9 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.937609173322077, 46.455810915373405]
-			},
-			"properties": { "place": "Acquarossa", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.563782549837557, 46.49328739324656]
-			},
-			"properties": { "place": "Adelboden", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [6.961571986217738, 46.317701824666216]
-			},
-			"properties": { "place": "Aigle", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.275021918326084, 47.19131791148836]
-			},
-			"properties": { "place": "Alt St. Johann", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.593733811413262, 46.634543128843035]
-			},
-			"properties": { "place": "Andermatt", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.694973323410715, 47.31435940749056]
-			},
-			"properties": { "place": "Balsthal", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.022435937663714, 46.1941388135872]
-			},
-			"properties": {
-				"place": "Bellinzona",
-				"place_fr": "Bellinzone",
-				"minzoom": 9.5
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.747686606561238, 46.62825848317265]
-			},
-			"properties": {
-				"place": "Bergün/Bravuogn",
-				"place_fr": "Bergün",
-				"place_it": "Bergün",
-				"place_en": "Bergün",
-				"minzoom": 9.5
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.057581378573534, 46.61994357865088]
-			},
-			"properties": { "place": "Bulle", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.602823104256881, 46.316178228224416]
-			},
-			"properties": { "place": "Cevio", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.028064718179873, 45.83497240735851]
-			},
-			"properties": { "place": "Chiasso", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.52266803337394, 47.57412115864997]
-			},
-			"properties": { "place": "Eglisau", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.06654395298333, 46.99347490562088]
-			},
-			"properties": { "place": "Entlebuch", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.49602627296345, 46.11225258265227]
-			},
-			"properties": { "place": "Evolène", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.031782416251986, 46.625594590086216]
-			},
-			"properties": { "place": "Grindelwald", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.8391941593408365, 46.196340298092274]
-			},
-			"properties": { "place": "Grächen", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.173459201015586, 47.32911611342113]
-			},
-			"properties": { "place": "Hallwil", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.846184616155281, 47.11381703036257]
-			},
-			"properties": { "place": "Huttwil", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [6.825011093582762, 47.10020061469285]
-			},
-			"properties": { "place": "La Chaux-de-Fonds", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.786245727029514, 46.94106397950628]
-			},
-			"properties": { "place": "Langnau im Emmental", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.998292364487062, 46.92021501290645]
-			},
-			"properties": { "place": "Linthal", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [6.797074021240302, 46.66861119802517]
-			},
-			"properties": { "place": "Moudon", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [6.937385655925395, 46.82034223572827]
-			},
-			"properties": { "place": "Payerne", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.2903458933886425, 46.73621192929241]
-			},
-			"properties": { "place": "Plaffeien", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.076737453951394, 47.417377364553445]
-			},
-			"properties": {
-				"place": "Porrentruy",
-				"place_de": "Pruntrut",
-				"minzoom": 9.5
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [10.058360898882778, 46.32479120890118]
-			},
-			"properties": { "place": "Poschiavo", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.586273238980954, 47.467202000802416]
-			},
-			"properties": { "place": "Rheineck", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [10.364206057484928, 46.94644101579843]
-			},
-			"properties": { "place": "Samnaun Dorf", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.440416528234268, 47.04806754649842]
-			},
-			"properties": { "place": "Sargans", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.687548323846032, 46.96998822794282]
-			},
-			"properties": { "place": "Schiers", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.653932047370834, 47.02259879273486]
-			},
-			"properties": { "place": "Schwyz", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.5320094443430605, 47.20879404098872]
-			},
-			"properties": {
-				"place": "Solothurn",
-				"place_fr": "Soleure",
-				"place_it": "Soletta",
-				"minzoom": 9.5
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [10.42447205578129, 46.60232405933144]
-			},
-			"properties": { "place": "Sta. Maria Val Müstair", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.859713896315432, 47.65867720198409]
-			},
-			"properties": { "place": "Stein am Rhein", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [6.37947121685105, 46.71309579617464]
-			},
-			"properties": { "place": "Vallorbe", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.179286612586793, 46.61542982716267]
-			},
-			"properties": { "place": "Vals", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [10.094148587120365, 46.698667136983126]
-			},
-			"properties": { "place": "Zernez", "minzoom": 9.5 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.512827375991371, 47.174865622222235]
-			},
-			"properties": {
-				"place": "Zug",
-				"place_fr": "Zoug",
-				"place_it": "Zugo",
-				"minzoom": 9.5
-			}
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.297026319112547, 47.54729342987797]
-			},
-			"properties": { "place": "Amriswil", "minzoom": 10 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [9.408914616481775, 47.330327579693204]
-			},
-			"properties": { "place": "Appenzell", "minzoom": 10 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.544649931673076, 47.40635549104652]
-			},
-			"properties": { "place": "Breitenbach", "minzoom": 10 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.34277177622307, 47.34922332222418]
-			},
-			"properties": { "place": "Bremgarten AG", "minzoom": 10 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [6.506391739331857, 46.61314950543325]
-			},
-			"properties": { "place": "Cossonay-Ville", "minzoom": 10 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.476722923508287, 46.30829203011838]
-			},
-			"properties": { "place": "Crans-Montana", "minzoom": 10 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.746871535065711, 47.12931586575121]
-			},
-			"properties": { "place": "Einsiedeln", "minzoom": 10 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.408284543467897, 46.819866040653274]
-			},
-			"properties": { "place": "Engelberg", "minzoom": 10 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.293607543873543, 47.16777043462214]
-			},
-			"properties": { "place": "Hochdorf", "minzoom": 10 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.81062270984716, 47.46506853705051]
-			},
-			"properties": { "place": "Sissach", "minzoom": 10 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.106142466828011, 47.171169238013974]
-			},
-			"properties": { "place": "Sursee", "minzoom": 10 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [7.103714426230027, 47.223779975317875]
-			},
-			"properties": { "place": "Tramelan", "minzoom": 10 }
-		},
-		{
-			"type": "Feature",
-			"geometry": {
-				"type": "Point",
-				"coordinates": [8.716777928269712, 47.34915256193973]
-			},
-			"properties": { "place": "Uster", "minzoom": 10 }
-		}
-	]
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.143081171825813, 46.20974991004319]
+      },
+      "properties": {
+        "place": "Genève",
+        "place_de": "Genf",
+        "place_it": "Ginevra",
+        "place_en": "Geneva",
+        "minzoom": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.953074547319552, 46.00831817154917]
+      },
+      "properties": { "place": "Lugano", "minzoom": 5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.542187926446598, 47.37228965494155]
+      },
+      "properties": {
+        "place": "Zürich",
+        "place_fr": "Zurich",
+        "place_it": "Zurigo",
+        "place_en": "Zurich",
+        "minzoom": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.588633455016724, 47.55674909984902]
+      },
+      "properties": {
+        "place": "Basel",
+        "place_fr": "Bâle",
+        "place_it": "Baslilea",
+        "minzoom": 8
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.438098674723499, 46.94798676021646]
+      },
+      "properties": {
+        "place": "Bern",
+        "place_fr": "Berne",
+        "place_it": "Berna",
+        "minzoom": 8
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.526623274220466, 46.85593641114406]
+      },
+      "properties": {
+        "place": "Chur",
+        "place_fr": "Coire",
+        "place_it": "Coira",
+        "minzoom": 8
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.357873490636469, 46.22766008802124]
+      },
+      "properties": { "place": "Sion", "minzoom": 8 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.990064593285698, 46.3170763798296]
+      },
+      "properties": { "place": "Brig", "minzoom": 8.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.064219123519912, 47.042468351807294]
+      },
+      "properties": { "place": "Glarus", "minzoom": 8.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.859282487465284, 46.68426721193938]
+      },
+      "properties": { "place": "Interlaken", "minzoom": 8.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.633194868663464, 46.519226438992206]
+      },
+      "properties": {
+        "place": "Lausanne",
+        "place_it": "Losanna",
+        "minzoom": 8.5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.300948452552596, 47.047869076798115]
+      },
+      "properties": {
+        "place": "Luzern",
+        "place_fr": "Lucerne",
+        "place_it": "Lucerna",
+        "place_en": "Lucerne",
+        "minzoom": 8.5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.928972513419754, 46.99487977991327]
+      },
+      "properties": {
+        "place": "Neuchâtel",
+        "place_de": "Neuenburg",
+        "minzoom": 8.5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.909772641525212, 47.349094049608425]
+      },
+      "properties": { "place": "Olten", "minzoom": 8.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.675893982565018, 46.513979380368305]
+      },
+      "properties": { "place": "Piotta", "minzoom": 8.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.873416432336578, 46.53423575972184]
+      },
+      "properties": { "place": "Samedan", "minzoom": 8.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.635973465438477, 47.70483026774444]
+      },
+      "properties": {
+        "place": "Schaffhausen",
+        "place_fr": "Schaffhouse",
+        "place_it": "Sciaffusa",
+        "minzoom": 8.5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.29977659680928, 46.796882840518904]
+      },
+      "properties": { "place": "Scuol", "minzoom": 8.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.374463085256892, 47.4239311069597]
+      },
+      "properties": {
+        "place": "St. Gallen",
+        "place_fr": "St-Gall",
+        "place_it": "S. Gallo",
+        "minzoom": 8.5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.639791799982723, 46.87810583439577]
+      },
+      "properties": { "place": "Altdorf UR", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.299725053392377, 47.47429110111279]
+      },
+      "properties": { "place": "Baden", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.969487935094593, 46.35794451439565]
+      },
+      "properties": { "place": "Biasca", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.241926514853627, 47.133575205072525]
+      },
+      "properties": {
+        "place": "Biel/Bienne",
+        "place_fr": "Bienne",
+        "place_it": "Bienna",
+        "place_en": "Biel",
+        "minzoom": 9
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.6226845254557185, 47.057840542982795]
+      },
+      "properties": {
+        "place": "Burgdorf",
+        "place_fr": "Berthoud",
+        "minzoom": 9
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.842690383668348, 46.807096268663145]
+      },
+      "properties": { "place": "Davos Dorf", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.347969720047669, 47.365237816268376]
+      },
+      "properties": {
+        "place": "Delémont",
+        "place_de": "Delsberg",
+        "minzoom": 9
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.85300334502347, 46.70432378205569]
+      },
+      "properties": { "place": "Disentis/Mustér", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.155735690664841, 46.80435944223287]
+      },
+      "properties": {
+        "place": "Fribourg",
+        "place_de": "Freiburg",
+        "place_it": "Friborgo",
+        "minzoom": 9
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.286365397217362, 46.4730141137261]
+      },
+      "properties": { "place": "Gstaad", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.20394985069793, 46.774040916916036]
+      },
+      "properties": { "place": "Ilanz", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.175492598232365, 47.6458116701905]
+      },
+      "properties": { "place": "Kreuzlingen", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.06011786762596, 47.55953377269654]
+      },
+      "properties": { "place": "Laufenburg", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.627506331031008, 46.37878373560866]
+      },
+      "properties": {
+        "place": "Leukerbad",
+        "place_fr": "Loèche-les-Bains",
+        "minzoom": 9
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.793857309946988, 46.16600923219894]
+      },
+      "properties": { "place": "Locarno", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.696336338007974, 46.40203751227995]
+      },
+      "properties": { "place": "Maloja", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.073443139889836, 46.101943103271196]
+      },
+      "properties": { "place": "Martigny", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.182442889569877, 46.72835253672443]
+      },
+      "properties": { "place": "Meiringen", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.233256900875409, 46.394115126128625]
+      },
+      "properties": { "place": "Mesocco", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.912206116542312, 46.43472569662347]
+      },
+      "properties": { "place": "Montreux", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.230272723039672, 46.38599753364804]
+      },
+      "properties": { "place": "Nyon", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.824571254224189, 47.22785841054137]
+      },
+      "properties": { "place": "Rapperswil SG", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.624267405386267, 46.75457107932291]
+      },
+      "properties": { "place": "Thun", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.440731452122849, 46.69947919408133]
+      },
+      "properties": { "place": "Thusis", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.306700142842134, 46.506305883188745]
+      },
+      "properties": { "place": "Ulrichen", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.518336633687225, 47.14069455441008]
+      },
+      "properties": { "place": "Vaduz", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.08919029746821, 47.299609071837565]
+      },
+      "properties": { "place": "Wattwil", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.041920021900374, 47.46149600715354]
+      },
+      "properties": { "place": "Wil SG", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.989993600481553, 47.11930702534995]
+      },
+      "properties": { "place": "Willisau", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.72930842510624, 47.500531147738066]
+      },
+      "properties": { "place": "Winterthur", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.640517046208899, 46.77761613250819]
+      },
+      "properties": { "place": "Yverdon-les-Bains", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.74870645957427, 46.02059967111043]
+      },
+      "properties": { "place": "Zermatt", "minzoom": 9 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.937609173322077, 46.455810915373405]
+      },
+      "properties": { "place": "Acquarossa", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.563782549837557, 46.49328739324656]
+      },
+      "properties": { "place": "Adelboden", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.961571986217738, 46.317701824666216]
+      },
+      "properties": { "place": "Aigle", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.275021918326084, 47.19131791148836]
+      },
+      "properties": { "place": "Alt St. Johann", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.593733811413262, 46.634543128843035]
+      },
+      "properties": { "place": "Andermatt", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.694973323410715, 47.31435940749056]
+      },
+      "properties": { "place": "Balsthal", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.022435937663714, 46.1941388135872]
+      },
+      "properties": {
+        "place": "Bellinzona",
+        "place_fr": "Bellinzone",
+        "minzoom": 9.5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.747686606561238, 46.62825848317265]
+      },
+      "properties": {
+        "place": "Bergün/Bravuogn",
+        "place_fr": "Bergün",
+        "place_it": "Bergün",
+        "place_en": "Bergün",
+        "minzoom": 9.5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.057581378573534, 46.61994357865088]
+      },
+      "properties": { "place": "Bulle", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.602823104256881, 46.316178228224416]
+      },
+      "properties": { "place": "Cevio", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.028064718179873, 45.83497240735851]
+      },
+      "properties": { "place": "Chiasso", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.52266803337394, 47.57412115864997]
+      },
+      "properties": { "place": "Eglisau", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.06654395298333, 46.99347490562088]
+      },
+      "properties": { "place": "Entlebuch", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.49602627296345, 46.11225258265227]
+      },
+      "properties": { "place": "Evolène", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.031782416251986, 46.625594590086216]
+      },
+      "properties": { "place": "Grindelwald", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.8391941593408365, 46.196340298092274]
+      },
+      "properties": { "place": "Grächen", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.173459201015586, 47.32911611342113]
+      },
+      "properties": { "place": "Hallwil", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.846184616155281, 47.11381703036257]
+      },
+      "properties": { "place": "Huttwil", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.825011093582762, 47.10020061469285]
+      },
+      "properties": { "place": "La Chaux-de-Fonds", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.786245727029514, 46.94106397950628]
+      },
+      "properties": { "place": "Langnau im Emmental", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.998292364487062, 46.92021501290645]
+      },
+      "properties": { "place": "Linthal", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.797074021240302, 46.66861119802517]
+      },
+      "properties": { "place": "Moudon", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.937385655925395, 46.82034223572827]
+      },
+      "properties": { "place": "Payerne", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.2903458933886425, 46.73621192929241]
+      },
+      "properties": { "place": "Plaffeien", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.076737453951394, 47.417377364553445]
+      },
+      "properties": {
+        "place": "Porrentruy",
+        "place_de": "Pruntrut",
+        "minzoom": 9.5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.058360898882778, 46.32479120890118]
+      },
+      "properties": { "place": "Poschiavo", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.586273238980954, 47.467202000802416]
+      },
+      "properties": { "place": "Rheineck", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.364206057484928, 46.94644101579843]
+      },
+      "properties": { "place": "Samnaun Dorf", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.440416528234268, 47.04806754649842]
+      },
+      "properties": { "place": "Sargans", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.687548323846032, 46.96998822794282]
+      },
+      "properties": { "place": "Schiers", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.653932047370834, 47.02259879273486]
+      },
+      "properties": { "place": "Schwyz", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.5320094443430605, 47.20879404098872]
+      },
+      "properties": {
+        "place": "Solothurn",
+        "place_fr": "Soleure",
+        "place_it": "Soletta",
+        "minzoom": 9.5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.42447205578129, 46.60232405933144]
+      },
+      "properties": { "place": "Sta. Maria Val Müstair", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.859713896315432, 47.65867720198409]
+      },
+      "properties": { "place": "Stein am Rhein", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.37947121685105, 46.71309579617464]
+      },
+      "properties": { "place": "Vallorbe", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.179286612586793, 46.61542982716267]
+      },
+      "properties": { "place": "Vals", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.094148587120365, 46.698667136983126]
+      },
+      "properties": { "place": "Zernez", "minzoom": 9.5 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.512827375991371, 47.174865622222235]
+      },
+      "properties": {
+        "place": "Zug",
+        "place_fr": "Zoug",
+        "place_it": "Zugo",
+        "minzoom": 9.5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.297026319112547, 47.54729342987797]
+      },
+      "properties": { "place": "Amriswil", "minzoom": 10 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.408914616481775, 47.330327579693204]
+      },
+      "properties": { "place": "Appenzell", "minzoom": 10 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.544649931673076, 47.40635549104652]
+      },
+      "properties": { "place": "Breitenbach", "minzoom": 10 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.34277177622307, 47.34922332222418]
+      },
+      "properties": { "place": "Bremgarten AG", "minzoom": 10 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.506391739331857, 46.61314950543325]
+      },
+      "properties": { "place": "Cossonay-Ville", "minzoom": 10 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.476722923508287, 46.30829203011838]
+      },
+      "properties": { "place": "Crans-Montana", "minzoom": 10 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.746871535065711, 47.12931586575121]
+      },
+      "properties": { "place": "Einsiedeln", "minzoom": 10 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.408284543467897, 46.819866040653274]
+      },
+      "properties": { "place": "Engelberg", "minzoom": 10 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.293607543873543, 47.16777043462214]
+      },
+      "properties": { "place": "Hochdorf", "minzoom": 10 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.81062270984716, 47.46506853705051]
+      },
+      "properties": { "place": "Sissach", "minzoom": 10 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.106142466828011, 47.171169238013974]
+      },
+      "properties": { "place": "Sursee", "minzoom": 10 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.103714426230027, 47.223779975317875]
+      },
+      "properties": { "place": "Tramelan", "minzoom": 10 }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.716777928269712, 47.34915256193973]
+      },
+      "properties": { "place": "Uster", "minzoom": 10 }
+    }
+  ]
 }

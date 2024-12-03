@@ -1,7 +1,7 @@
 import { VersionsData, AnimationData } from "./types";
 
 const API_ENDPOINTS = {
-  versions: "/api/versions",
+  versions: "/api/versions.json",
   precipitation: "/api/precipitation",
 } as const;
 
@@ -21,6 +21,6 @@ export async function fetchPrecipitationAnimation(): Promise<AnimationData> {
   const versionsData = await fetchVersionsData();
   const precipVersion = versionsData["precipitation/animation"];
   return fetchJson<AnimationData>(
-    `${API_ENDPOINTS.precipitation}/${precipVersion}`
+    `${API_ENDPOINTS.precipitation}/${precipVersion}/animation.json`
   );
 }

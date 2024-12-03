@@ -19,12 +19,12 @@ app.use("/api", corsHeaders);
 
 // Proxy routes
 app.use(
-  "/api/versions",
+  "/api/versions.json",
   createProxy(METEOSWISS.BASE_URL, () => METEOSWISS.VERSIONS_PATH)
 );
 
 app.use(
-  "/api/precipitation/:version",
+  "/api/precipitation/:version/animation.json",
   createProxy(
     METEOSWISS.BASE_URL,
     (req: express.Request) =>

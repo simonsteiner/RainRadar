@@ -2,7 +2,7 @@ import maplibregl, { Map, MapMouseEvent } from 'maplibre-gl';
 import { mapConfig } from './map-config';
 import { LAYER_CONFIGS } from './layers-config';
 import { LayerManager } from './layer-manager';
-import { initializePrecipitationDisplay } from '../main';
+import { initializePrecipitationDisplay } from '../precipitation/display-manager';
 
 class MapInitializer {
   private map: Map;

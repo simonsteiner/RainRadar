@@ -1,9 +1,9 @@
 import { Map } from "maplibre-gl";
-import { fetchPrecipitationAnimation } from "./precipitation/api";
-import { extractPictureInfo } from "./precipitation/utils";
-import { PictureInfo } from "./precipitation/types";
-import { setupSlider, findLatestMeasurementIndex } from "./precipitation/slider";
-import { updateImage, updateLastUpdatedText } from "./precipitation/display";
+import { fetchPrecipitationAnimation } from "./api";
+import { extractPictureInfo } from "./utils";
+import { PictureInfo } from "./types";
+import { setupSlider, findLatestMeasurementIndex } from "./slider";
+import { updateImage, updateLastUpdatedText } from "./display";
 
 class PrecipitationDisplayManager {
   constructor(private map: Map) {}

@@ -1,3 +1,4 @@
+/* Base info display styles */
 .info-display {
     position: absolute;
     background: var(--white-transparent);
@@ -6,15 +7,18 @@
     font-family: monospace;
 }
 
-#coordinates,
-#zoomlevel,
-#myCoords {
+/* Position utilities */
+.info-display--right {
     right: var(--spacing-md);
 }
 
-#timeDisplay,
+.info-display--left {
+    left: var(--spacing-md);
+}
+
+/* Individual display components */
 #updatedOn {
-    left: 10px;
+    top: var(--spacing-md);
 }
 
 #coordinates {
@@ -29,16 +33,13 @@
 
 #myCoords {
     top: 115px;
-    right: 10px;
+    right: var(--spacing-md);
     text-align: right;
-}
-
-#updatedOn {
-    top: 10px;
 }
 
 #timeDisplay {
     bottom: 55px;
+    left: var(--spacing-md);
     text-align: center;
     margin: 10px 0;
     font-size: var(--font-size-md);
@@ -46,6 +47,12 @@
     transition: all 0.3s ease-in-out;
 }
 
+/* State modifications */
+body:has(.precipitation-container.expanded) #timeDisplay {
+    bottom: calc(30vh - 20px);
+}
+
+/* Media queries */
 @media (max-width: 768px) {
     #coordinates {
         display: none;
@@ -55,13 +62,5 @@
         bottom: 75px;
         left: 50%;
         transform: translateX(-50%);
-    }
-
-    body:has(.precipitation-container.expanded) {
-        #timeDisplay {
-            bottom: calc(30vh - 20px);
-            left: 50%;
-            transform: translateX(-50%);
-        }
     }
 }

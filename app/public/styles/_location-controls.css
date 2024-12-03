@@ -1,32 +1,77 @@
+:root {
+    --location-btn-size: 29px;
+    --location-icon-size: 17px;
+    --location-active-color: #4285f4;
+}
+
 #locate-button {
     position: absolute;
     top: 80px;
-    right: 10px;
+    right: var(--spacing-md);
     cursor: pointer;
 }
 
 .location-button {
-    width: 29px;
-    height: 29px;
+    width: var(--location-btn-size);
+    height: var(--location-btn-size);
     background: none;
     border: none;
-    cursor: pointer;
     padding: 6px;
+    cursor: pointer;
 }
 
 .location-button .maplibregl-ctrl-icon {
     display: block;
-    width: 17px;
-    height: 17px;
+    width: var(--location-icon-size);
+    height: var(--location-icon-size);
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0 0 13 3.06V1h-2v2.06A8.994 8.994 0 0 0 3.06 11H1v2h2.06A8.994 8.994 0 0 0 11 20.94V23h2v-2.06A8.994 8.994 0 0 0 20.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z'/%3E%3C/svg%3E") center/contain no-repeat;
 }
 
 .location-button.active {
-    background-color: #4285f4 !important;
-    /* Google Maps-like blue */
+    background-color: var(--location-active-color);
+}
 
-    .maplibregl-ctrl-icon {
-        filter: invert(1);
-        /* Make the icon white */
+.location-button.active .maplibregl-ctrl-icon {
+    filter: invert(1);
+}
+
+.maplibregl-ctrl button:not(:disabled):hover .maplibregl-ctrl-icon {
+    filter: none;
+}
+
+/* Loading state */
+.loading {
+    position: relative;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.loading>* {
+    visibility: hidden;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-top-color: var(--accent-color);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: spin 1s linear infinite;
+}
+
+/* Animations */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
     }
 }

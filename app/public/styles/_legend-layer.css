@@ -1,6 +1,8 @@
+/* Common styles for control containers */
 #legend-container,
 #layer-control {
     position: absolute;
+    right: var(--spacing-xs);
     background: var(--white-transparent-high);
     padding: var(--spacing-xs);
     border-radius: var(--border-radius);
@@ -8,22 +10,27 @@
     z-index: 1;
 
     h3 {
-        margin: 0 0 var(--spacing-xs) 0;
+        margin: var(--spacing-xs);
         font-size: var(--font-size-xs);
+        cursor: pointer;
     }
 }
 
+/* Container positions */
+#legend-container,
+#layer-control {
+    right: var(--spacing-md);
+}
 
 #legend-container {
-    bottom: 60px;
-    right: 10px;
+    bottom: 65px;
 }
 
 #layer-control {
     bottom: 40px;
-    right: 10px;
 }
 
+/* Legend styles */
 .legend-item {
     display: flex;
     align-items: center;
@@ -36,15 +43,16 @@
     margin-right: 10px;
 }
 
-.legend-text {
+.legend-text,
+#layer-control label {
     font-size: 12px;
 }
 
+/* Layer control styles */
 #layer-control {
     label {
         display: block;
         margin: 5px 0;
-        font-size: 12px;
     }
 
     input[type="checkbox"] {
@@ -52,72 +60,72 @@
     }
 }
 
+/* Toggle button styles */
+.toggle-btn {
+    position: absolute;
+    top: 0;
+    right: var(--spacing-xs);
+    padding: var(--spacing-xs);
+    font-size: var(--font-size-md);
+    color: var(--text-color);
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+        color: var(--text-color-dark);
+    }
+}
+
+/* Hidden container styles */
+.container-hidden {
+    padding: var(--spacing-sm);
+    background: transparent;
+    box-shadow: none;
+
+    .container-content,
+    .toggle-btn {
+        display: none;
+    }
+
+    h3 {
+        cursor: pointer;
+        margin: 0;
+
+        &::after {
+            content: "  ▲";
+        }
+
+        &:hover {
+            background: var(--white);
+        }
+    }
+}
+
+/* Mobile styles */
 @media (max-width: 768px) {
 
     #legend-container,
     #layer-control {
+        right: var(--spacing-md);
         transition: bottom 0.3s ease-in-out;
     }
 
     #legend-container {
         bottom: 110px;
-        right: var(--spacing-md);
     }
 
     #layer-control {
-        bottom: 90px;
-        right: var(--spacing-md);
+        bottom: 85px;
     }
 
     body:has(.precipitation-container.expanded) {
-
         #legend-container {
-            bottom: calc(30vh + 5px);
+            bottom: calc(30vh + 20px);
         }
 
         #layer-control {
-            bottom: calc(30vh - 15px);
+            bottom: calc(30vh - 5px);
         }
-
     }
-}
-
-.toggle-btn {
-    position: absolute;
-    top: 0;
-    right: var(--spacing-xs);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: var(--spacing-xs);
-    font-size: var(--font-size-md);
-    color: var(--text-color);
-}
-
-.toggle-btn:hover {
-    color: var(--text-color-dark);
-}
-
-.container-hidden {
-    padding: var(--spacing-sm);
-    background: transparent;
-    box-shadow: none;
-}
-
-.container-hidden .container-content,
-.container-hidden .toggle-btn {
-    display: none;
-}
-
-.container-hidden h3 {
-    cursor: pointer;
-    margin: 0 !important;
-}
-
-.container-hidden h3::after {
-    content: "  ▲";
-}
-
-.container-hidden h3:hover {
-    background: var(--white);
 }

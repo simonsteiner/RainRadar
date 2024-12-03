@@ -1,8 +1,14 @@
 @import "_variables.css";
-@import "_base.css";
 @import "_map.css";
 @import "_info-displays.css";
 @import "_location-controls.css";
 @import "_precipitation.css";
 @import "_legend-layer.css";
 @import "_sidebar.css";
+
+/* Base styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}

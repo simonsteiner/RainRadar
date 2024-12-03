@@ -1,4 +1,4 @@
-/* Sidebar */
+/* Sidebar main container */
 .sidebar {
     position: fixed;
     left: calc(-1 * var(--sidebar-width));
@@ -19,13 +19,21 @@
     left: 0;
 }
 
-/* Sidebar toggle - Desktop */
+/* Sidebar content */
+.sidebar-content {
+    padding: var(--spacing-lg);
+    height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+/* Toggle button */
 .sidebar-toggle {
     position: absolute;
-    right: calc(-1 * var(--sidebar-collapsed-width));
     top: 50%;
     transform: translateY(-50%);
     width: var(--sidebar-collapsed-width);
+    right: calc(-1 * var(--sidebar-collapsed-width));
     height: 30px;
     background: var(--white-transparent-high);
     border: none;
@@ -46,14 +54,7 @@
     transform: rotate(180deg);
 }
 
-.sidebar-content {
-    padding: var(--spacing-lg);
-    height: 100%;
-    overflow-y: auto;
-    box-sizing: border-box;
-}
-
-/* Sidebar close button */
+/* Close button - hidden by default */
 .sidebar-close {
     display: none;
     position: absolute;
@@ -67,46 +68,41 @@
     padding: var(--spacing-xs);
 }
 
-
+/* Mobile styles */
 @media (max-width: 768px) {
     .sidebar {
         width: 100%;
         left: -100%;
+    }
 
-        &.open {
-            left: 0;
-            z-index: 1001;
-        }
+    .sidebar.open {
+        z-index: 1001;
     }
 
     .sidebar-toggle {
         width: 30px;
         right: -30px;
         height: 35px;
-
-        &::after {
-            transform:translateX(1);
-        }
     }
 
-    .sidebar-close {
-        display: block;
-        z-index: 1002;
+    .sidebar.open .sidebar-toggle {
+        right: 0;
+        width: 17px;
+        height: 50px;
+        border-radius: var(--border-radius) 0 0 var(--border-radius);
     }
 
     .sidebar.open .sidebar-toggle::after {
-        transform: none;
         content: "";
+        transform: none;
         width: 4px;
         height: 40px;
         background: #000;
         border-radius: 2px;
     }
 
-    .sidebar.open .sidebar-toggle {
-        right: 0;
-        width: 17px;
-        height: 45px;
-        border-radius: var(--border-radius) 0 0 var(--border-radius);
+    .sidebar-close {
+        display: block;
+        z-index: 1002;
     }
 }

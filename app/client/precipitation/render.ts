@@ -1,5 +1,4 @@
-
-import { PictureInfo } from './types';
+import { PictureInfo } from "./types";
 
 export class PrecipitationRenderer {
   private precipitationImage: HTMLElement | null;
@@ -14,7 +13,7 @@ export class PrecipitationRenderer {
 
   renderImage(picture: PictureInfo): void {
     if (this.precipitationImage && this.timeDisplay) {
-      this.precipitationImage.innerHTML = this.generateImageHtml(picture);
+      this.precipitationImage.innerHTML = this.outputImageMetadata(picture);
       this.timeDisplay.textContent = `${picture.timepoint} (${picture.data_type})`;
     }
   }
@@ -25,20 +24,38 @@ export class PrecipitationRenderer {
     }
   }
 
-  private generateImageHtml(picture: PictureInfo): string {
+  private getFilenameFromPath(path: string): string {
+    return path.split('/').pop() || path;
+  }
+
+  private outputImageMetadata(picture: PictureInfo): string {
     return `
-      data_type_string: ${picture.data_type_string}<br>
-      radar_url: ${picture.radar_url}<br>
-      timepoint: ${picture.timepoint}<br>
-      day: ${picture.day}<br>
-      data_type: ${picture.data_type}<br>
-      timestamp: ${picture.timestamp}<br>
-      ${picture.data_type === 'forecast' ? `
-        snowrain_url: ${picture.snowrain_url}<br>
-        freezingrain_url: ${picture.freezingrain_url}<br>
-        snow_url: ${picture.snow_url}<br>
-      ` : ''}
-      <!--<img src="/api${picture.radar_url}" alt="${picture.timepoint} (${picture.data_type})">-->
+      <table class="metadata-table">
+        <tr><td>Data Type:</td><td>${picture.data_type_string}</td></tr>
+        <tr>
+          <td>Radar URL:</td>
+          <td>
+            <a href="api${
+              picture.radar_url
+            }" target="_blank">${
+              this.getFilenameFromPath(picture.radar_url)
+            }</a>
+          </td>
+        </tr>
+        <tr><td>Timepoint:</td><td>${picture.timepoint}</td></tr>
+        <tr><td>Day:</td><td>${picture.day}</td></tr>
+        <tr><td>Data Type:</td><td>${picture.data_type}</td></tr>
+        <tr><td>Timestamp:</td><td>${picture.timestamp}</td></tr>
+        ${
+          picture.data_type === "forecast"
+            ? `
+          <tr><td>Snow/Rain URL:</td><td>${picture.snowrain_url}</td></tr>
+          <tr><td>Freezing Rain URL:</td><td>${picture.freezingrain_url}</td></tr>
+          <tr><td>Snow URL:</td><td>${picture.snow_url}</td></tr>
+        `
+            : ""
+        }
+      </table>
     `;
   }
 }

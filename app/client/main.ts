@@ -3,6 +3,7 @@ import { extractPictureInfo, generateImageHtml } from './utils';
 import { PictureInfo, AnimationData } from './types';
 import { radar2geojson } from './geojson/radar2geojson';
 import { RadarData } from './geojson/types';
+import { displayPrecipitationData } from './map/layers/weather-data';
 
 let currentPictures: PictureInfo[] = [];
 
@@ -36,13 +37,14 @@ function updateLastUpdatedText(animationData: AnimationData) {
   }
 }
 
-export async function initializePrecipitationDisplay(): Promise<void> {
+export async function initializePrecipitationDisplay(map): Promise<void> {
   try {
     const animationData = await fetchPrecipitationAnimation();
     updateLastUpdatedText(animationData);
     currentPictures = extractPictureInfo(animationData);
     const radarData: RadarData = await fetchJson('/api' + currentPictures[0].radar_url);
     const geojson = radar2geojson(radarData);
+    displayPrecipitationData(map, geojson);
     setupSlider(currentPictures);
     updateImage(0);
   } catch (error) {

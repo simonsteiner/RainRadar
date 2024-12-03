@@ -17,7 +17,7 @@ body {
 #coordinates {
   position: absolute;
   bottom: 40px;
-  right: 20px;
+  right: 311px;
   background: rgba(255, 255, 255, 0.8);
   padding: 5px 10px;
   border-radius: 4px;
@@ -50,6 +50,8 @@ body {
   padding: 20px;
   box-sizing: border-box;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .slider-container {
@@ -64,4 +66,23 @@ body {
 #timeDisplay {
   text-align: center;
   margin: 10px 0;
+}
+
+.layer-control {
+  margin-top: auto;
+  padding-top: 20px;
+}
+.layer-control h3 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+}
+
+.layer-control label {
+  display: block;
+  margin: 5px 0;
+  font-size: 12px;
+}
+
+.layer-control input[type="checkbox"] {
+  margin-right: 5px;
 }

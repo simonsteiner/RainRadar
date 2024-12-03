@@ -1,35 +1,42 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meteo Swiss Precipitation Clone</title>
-    <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+    <link
+      href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
     <link href="styles/styles.css" rel="stylesheet" />
-</head>
+  </head>
 
-<body>
-
+  <body>
     <div id="map"></div>
     <div id="coordinates"></div>
     <div id="zoomlevel"></div>
+    
     <script type="module" src="/js/map/main.js"></script>
-
-    <div class="precipitation-container">
-        <h1>Meteo Swiss Precipitation Clone</h1>
-        <div id="precipitationImage"></div>
-        <div class="slider-container">
-            <input type="range" id="timeSlider" min="0" value="0">
-        </div>
-        <div id="timeDisplay"></div>
-        <div id="updatedOn"></div>
-    </div>
     <script type="module" src="/js/main.js"></script>
-    <script type="module">
-        import { initializePrecipitationDisplay } from './js/main.js';
-        initializePrecipitationDisplay();
-    </script>
-</body>
-
+    <div class="precipitation-container">
+      <h1>Meteo Swiss Precipitation Clone</h1>
+      <div id="precipitationImage"></div>
+      <div class="slider-container">
+        <input type="range" id="timeSlider" min="0" value="0" />
+      </div>
+      <div id="timeDisplay"></div>
+      <div id="updatedOn"></div>
+      <div id="layer-control" class="layer-control">
+        <h3>Layers</h3>
+        <label><input type="checkbox" id="precipitation" checked> Precipitation</label>
+        <label><input type="checkbox" id="hillshade" checked> Hillshade</label>
+        <label><input type="checkbox" id="boundary" checked> Swiss Boundary</label>
+        <label><input type="checkbox" id="cantons" checked> Cantons</label>
+        <label><input type="checkbox" id="cities" checked> Cities</label>
+        <label><input type="checkbox" id="nuts" checked> NUTS Regions</label>
+        <label><input type="checkbox" id="center" checked> Center</label>
+        <label><input type="checkbox" id="bounds" checked> Bounds</label>
+      </div>
+    </div>
+  </body>
 </html>

@@ -5,9 +5,42 @@ import { swissBoundaryLayer } from './layers/swiss-boundary.js';
 import { swissCantonBoundariesLayer } from './layers/swiss-canton-boundaries.js';
 import { swissCitiesLayer } from './layers/swiss-cities.js';
 import { swissNutsRegionsLayer } from './layers/swiss-nuts-regions.js';
+import { centerAndBounds } from './layers/center-and-bounds.js';
 import { initializePrecipitationDisplay } from '../main.js';
 
 const map: Map = new maplibregl.Map(mapConfig);
+
+// Layer toggle functionality
+const toggleLayer = (layerId: string, visible: boolean): void => {
+  const visibility = visible ? 'visible' : 'none';
+  const layers = {
+    'precipitation': ['precipitation-rate-layer', 'precipitation-rate-outline'],
+    'hillshade': ['hillshade-layer'],
+    'boundary': ['swiss-boundary-line', 'swiss-boundary-fill'],
+    'cantons': ['swiss-canton-boundaries-layer'],
+    'cities': ['swiss-cities-layer', 'swiss-cities-labels'],
+    'nuts': ['swiss-nuts-regions-fill', 'swiss-nuts-regions-layer', 'swiss-nuts-regions-labels', 'region-center-labels'],
+    'center' : ['center-circle', 'center-labels'],
+    'bounds' : ['bounds-line']
+  };
+
+  const layersToToggle = layers[layerId as keyof typeof layers];
+  layersToToggle?.forEach(layer => {
+    if (map.getLayer(layer)) {
+      map.setLayoutProperty(layer, 'visibility', visibility);
+    }
+  });
+};
+
+// Add event listeners for layer toggles
+const setupLayerToggles = (): void => {
+  ['precipitation', 'hillshade', 'boundary', 'cantons', 'cities', 'nuts', 'center', 'bounds'].forEach(layerId => {
+    const checkbox = document.getElementById(layerId) as HTMLInputElement;
+    checkbox.addEventListener('change', (e) => {
+      toggleLayer(layerId, (e.target as HTMLInputElement).checked);
+    });
+  });
+};
 
 // Coordinate display
 map.on('mousemove', (e: MapMouseEvent) => {
@@ -42,5 +75,7 @@ map.on("load", (): void => {
   swissCantonBoundariesLayer(map);
   swissCitiesLayer(map);
   swissNutsRegionsLayer(map);
+  centerAndBounds(map);
   initializePrecipitationDisplay(map);
+  setupLayerToggles();
 });

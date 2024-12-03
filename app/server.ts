@@ -1,46 +1,38 @@
 import express from "express";
 import path from "path";
-import proxy from "express-http-proxy";
+import { SERVER, METEOSWISS } from './server/config';
+import { staticFiles, requestLogger, corsHeaders } from './server/middleware';
+import { createProxy } from './server/proxy-utils';
 
 const app = express();
-const port = process.env.PORT || 3300;
 
-app.use(
-  express.static(path.join(__dirname, "public"), {
-    setHeaders: (res, path) => {
-      if (path.endsWith(".js")) {
-        res.setHeader("Content-Type", "text/javascript; charset=utf-8");
-      }
-      if (path.endsWith(".json")) {
-        res.setHeader("Content-Type", "application/json");
-      }
-      if (path.endsWith(".html")) {
-        res.setHeader("Content-Type", "text/html");
-      }
-    },
-  })
-);
+// Middleware
+app.use(staticFiles);
 
-app.use('/api/versions', proxy('https://www.meteoswiss.admin.ch', {
-  proxyReqPathResolver: () => '/product/output/versions.json'
-}));
+// Root route handler
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
-app.use('/api/precipitation/:version', proxy('https://www.meteoswiss.admin.ch', {
-  proxyReqPathResolver: (req: express.Request): string => `/product/output/precipitation/animation/version__${req.params.version}/en/animation.json`
-}));
+app.use('/api', requestLogger);
+app.use('/api', corsHeaders);
 
-app.use('/api/product/output/*', proxy('https://www.meteoswiss.admin.ch/', {
-  proxyReqPathResolver: (req: express.Request): string => {
-    const path = `/product/output/${req.params[0]}`;
-    console.debug(`Proxying request to: ${path}`);
-    return path;
-  },
-  userResDecorator: (proxyRes, proxyResData) => {
-    console.debug(`Received response with status: ${proxyRes.statusCode}`);
-    return proxyResData;
-  }
-}));
+// Proxy routes
+app.use('/api/versions', createProxy(
+  METEOSWISS.BASE_URL,
+  () => METEOSWISS.VERSIONS_PATH
+));
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+app.use('/api/precipitation/:version', createProxy(
+  METEOSWISS.BASE_URL,
+  (req: express.Request) => `${METEOSWISS.PRECIPITATION_PATH}/version__${req.params.version}/en/animation.json`
+));
+
+app.use('/api/product/output/*', createProxy(
+  METEOSWISS.BASE_URL,
+  (req: express.Request) => `${METEOSWISS.PRODUCT_OUTPUT_PATH}/${req.params[0]}`
+));
+
+app.listen(SERVER.PORT, () => {
+  console.log(`Server running at http://localhost:${SERVER.PORT}`);
 });

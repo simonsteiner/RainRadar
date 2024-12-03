@@ -30,11 +30,21 @@ async function updateImage(index: number, map: Map) {
   }
 }
 
+function findLatestMeasurementIndex(pictures: PictureInfo[]): number {
+  for (let i = pictures.length - 1; i >= 0; i--) {
+    if (pictures[i].data_type === 'measurement') {
+      return i;
+    }
+  }
+  return 0;
+}
+
 function setupSlider(pictures: PictureInfo[], map: Map) {
   const slider = document.getElementById("timeSlider") as HTMLInputElement;
   if (slider) {
     slider.max = (pictures.length - 1).toString();
-    slider.value = "0";
+    const latestMeasurementIndex = findLatestMeasurementIndex(pictures);
+    slider.value = latestMeasurementIndex.toString();
     slider.addEventListener("input", (e) => {
       const index = parseInt((e.target as HTMLInputElement).value);
       updateImage(index, map);
@@ -54,8 +64,9 @@ export async function initializePrecipitationDisplay(map: Map): Promise<void> {
     const animationData = await fetchPrecipitationAnimation();
     updateLastUpdatedText(animationData);
     currentPictures = extractPictureInfo(animationData);
+    const latestMeasurementIndex = findLatestMeasurementIndex(currentPictures);
     setupSlider(currentPictures, map);
-    updateImage(0, map);
+    updateImage(latestMeasurementIndex, map);
   } catch (error) {
     console.error(
       "Error initializing precipitation display:",

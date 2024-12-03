@@ -1,8 +1,9 @@
-import maplibregl, { Map, MapMouseEvent } from "maplibre-gl";
+import maplibregl, { Map, MapMouseEvent, GeoJSONSource } from "maplibre-gl";
 import { mapConfig } from "./configs/map-config";
 import { LAYER_CONFIGS } from "./layers-config";
 import { LayerManager } from "./layer-manager";
 import { initializePrecipitationDisplay } from "../precipitation/init-display";
+import { setupLocationButton } from "./location-button";
 
 class MapInitializer {
   private map: Map;
@@ -13,6 +14,7 @@ class MapInitializer {
     this.layerManager = new LayerManager(this.map);
     this.setupEventListeners();
     this.initializeMapLayers();
+    setupLocationButton(this.map);
   }
 
   private setupEventListeners(): void {
@@ -20,19 +22,25 @@ class MapInitializer {
     this.setupZoomDisplay();
   }
 
+  private extractCoordinates(e: MapMouseEvent): { lon: string; lat: string } {
+    return {
+      lon: e.lngLat.lng.toFixed(6),
+      lat: e.lngLat.lat.toFixed(6)
+    };
+  }
+
   private setupCoordinateDisplay(): void {
     this.map.on("mousemove", (e: MapMouseEvent) => {
-      const coordsElement = document.getElementById(
-        "coordinates"
-      ) as HTMLDivElement;
-
-      const coordText = `Lon: ${e.lngLat.lng.toFixed(6)} Lat: ${e.lngLat.lat.toFixed(6)}`;
-      coordsElement.innerHTML = coordText;
+      const coordsElement = document.getElementById("coordinates") as HTMLDivElement;
+      const { lon, lat } = this.extractCoordinates(e);
+      coordsElement.innerHTML = `Lon: ${lon} Lat: ${lat}`;
     });
 
     this.map.on("click", (e: MapMouseEvent) => {
-      const coordinates = `${e.lngLat.lng.toFixed(6)}, ${e.lngLat.lat.toFixed(6)}`;
-      navigator.clipboard.writeText(coordinates)
+      const { lon, lat } = this.extractCoordinates(e);
+      const coordinates = `${lon}, ${lat}`;
+      navigator.clipboard
+        .writeText(coordinates)
         .then(() => {
           const coordsElement = document.getElementById("coordinates") as HTMLDivElement;
           coordsElement.style.background = "rgba(150, 255, 150, 0.8)";

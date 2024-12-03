@@ -13,6 +13,12 @@
 
   <body>
     <div id="map"></div>
+    <div id="locate-button" class="maplibregl-ctrl maplibregl-ctrl-group">
+      <button type="button" class="location-button" title="Show my location">
+        <span class="maplibregl-ctrl-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div id="myCoords" class="info-display"></div>
     <div id="coordinates" class="info-display"></div>
     <div id="zoomlevel" class="info-display"></div>
     <div id="updatedOn" class="info-display"></div>
@@ -47,23 +53,33 @@
       </div>
       <h3>Meta Data</h3>
       <div id="precipitationImage"></div>
-      
     </div>
 
     <script type="module" src="/js/map/init-map.js"></script>
     <script>
-      document.querySelector('.mobile-handle').addEventListener('click', () => {
-        document.querySelector('.precipitation-container').classList.toggle('expanded');
+      document.querySelector(".mobile-handle").addEventListener("click", () => {
+        document
+          .querySelector(".precipitation-container")
+          .classList.toggle("expanded");
       });
 
-      document.querySelectorAll('.toggle-btn, #layer-control h3, #legend-container h3').forEach(element => {
-        element.addEventListener('click', (e) => {
-          if (e.target.tagName === 'H3' || e.target.classList.contains('toggle-btn')) {
-            const container = e.target.closest('#layer-control, #legend-container');
-            container.classList.toggle('container-hidden');
-          }
+      document
+        .querySelectorAll(
+          ".toggle-btn, #layer-control h3, #legend-container h3"
+        )
+        .forEach((element) => {
+          element.addEventListener("click", (e) => {
+            if (
+              e.target.tagName === "H3" ||
+              e.target.classList.contains("toggle-btn")
+            ) {
+              const container = e.target.closest(
+                "#layer-control, #legend-container"
+              );
+              container.classList.toggle("container-hidden");
+            }
+          });
         });
-      });
     </script>
   </body>
 </html>

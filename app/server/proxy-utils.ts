@@ -1,5 +1,6 @@
 import express, { RequestHandler } from "express";
 import proxy from "express-http-proxy";
+import umami from '@umami/node';
 import { CacheManager } from "./cache-manager";
 import { CACHE, RETRY } from "./config";
 
@@ -16,6 +17,13 @@ const getBackoffDelay = (attempt: number): number => {
   return exponentialDelay + jitter;
 };
 
+const isLocalEnvironment = () => {
+  return process.env.NODE_ENV !== 'production' || 
+         process.env.HOSTNAME?.includes('localhost');
+};
+
+const environment = isLocalEnvironment() ? 'local' : 'production';
+
 const retryRequest = async (
   proxyFn: () => Promise<any>,
   maxAttempts: number = RETRY.MAX_ATTEMPTS
@@ -30,6 +38,11 @@ const retryRequest = async (
       if (attempt < maxAttempts - 1) {
         const delay = getBackoffDelay(attempt);
         console.log(`Retry attempt ${attempt + 1}/${maxAttempts} after ${delay}ms`);
+        umami.track({ 
+          url: '/server-side/proxy-retry',
+          event: 'proxy_retry',
+          data: { attempt: attempt + 1, delay, environment }
+        });
         await sleep(delay);
       }
     }
@@ -58,6 +71,11 @@ export const createProxyOptions = (
 
     if (proxyRes.statusCode === 200) {
       cacheManager.set(path, proxyResData);
+      umami.track({ 
+        url: '/server-side/proxy-success',
+        event: 'proxy_success',
+        data: { path, statusCode: proxyRes.statusCode, environment }
+      });
     }
     return proxyResData;
   },
@@ -66,6 +84,11 @@ export const createProxyOptions = (
       await retryRequest(() => Promise.reject(err));
     } catch (finalError) {
       console.error("Proxy Error after all retries:", finalError);
+      umami.track({ 
+        url: '/server-side/proxy-error',
+        event: 'proxy_error',
+        data: { error: (finalError as Error).message, environment }
+      });
       res.status(500).send("Proxy Error");
     }
   },
@@ -90,6 +113,11 @@ export const createProxy = (
       console.log(
         `[${req.method}] Serving cached response for: ${req.originalUrl}`
       );
+      umami.track({ 
+        url: '/server-side/proxy-cache-hit',
+        event: 'proxy_cache_hit',
+        data: { path: req.originalUrl, environment }
+      });
       res.send(cachedData);
       return next();
     }

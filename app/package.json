@@ -9,6 +9,7 @@
     "dev": "concurrently \"npm run server\" \"npm run watch\""
   },
   "dependencies": {
+    "@umami/node": "^0.4.0",
     "express": "^4.21.1",
     "express-http-proxy": "^2.1.1",
     "maplibre-gl": "^4.7.1"

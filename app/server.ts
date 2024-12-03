@@ -1,13 +1,35 @@
 import express from "express";
 import path from "path";
+import umami from '@umami/node';
 import { SERVER, METEOSWISS } from "./server/config";
 import { staticFiles, requestLogger, corsHeaders } from "./server/middleware";
 import { createProxy } from "./server/proxy-utils";
 
 const app = express();
 
+const isLocalEnvironment = () => {
+  return process.env.NODE_ENV !== 'production' || 
+         SERVER.PORT === 3000 ||
+         process.env.HOSTNAME?.includes('localhost');
+};
+
+const environment = isLocalEnvironment() ? 'local' : 'production';
+
+// Initialize Umami
+umami.init({
+  websiteId: '572f796d-9334-408a-b3af-9f9a3520b0d7',
+  hostUrl: 'https://cloud.umami.is',
+});
+
 // Middleware
 app.use(staticFiles);
+app.use((req, res, next) => {
+  umami.track({ 
+    url: req.path,
+    data: { environment }
+  });
+  next();
+});
 
 // Root route handler
 app.get("/", (req, res) => {
@@ -42,5 +64,6 @@ app.use(
 );
 
 app.listen(SERVER.PORT, () => {
+  console.log(`Environment: ${environment}`);
   console.log(`Server running at http://localhost:${SERVER.PORT}`);
 });

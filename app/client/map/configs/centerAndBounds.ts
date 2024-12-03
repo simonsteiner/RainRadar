@@ -2,7 +2,21 @@ import { LayerConfig } from "../types";
 
 export const center: LayerConfig = {
   id: "center",
+  label: "Center Point of Swizerland",
   source: "center",
+  sourceConfig: {
+    type: "geojson",
+    data: {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          geometry: { type: "Point", coordinates: [8.2, 46.8] },
+          properties: { id: "center", name: "Center" },
+        },
+      ],
+    },
+  },
   layers: [
     {
       id: "center-circle",
@@ -34,36 +48,11 @@ export const center: LayerConfig = {
       },
     },
   ],
-  sourceConfig: {
-    type: "geojson",
-    data: {
-      type: "FeatureCollection",
-      features: [
-        {
-          type: "Feature",
-          geometry: { type: "Point", coordinates: [8.2, 46.8] },
-          properties: { id: "center", name: "Center" },
-        },
-      ],
-    },
-  },
 };
 
 export const bounds: LayerConfig = {
   id: "bounds",
   source: "bounds",
-  layers: [
-    {
-      id: "bounds-line",
-      type: "line",
-      source: "bounds",
-      paint: {
-        "line-color": "#ff0000",
-        "line-width": 2,
-        "line-dasharray": [2, 2],
-      },
-    },
-  ],
   sourceConfig: {
     type: "geojson",
     data: {
@@ -87,4 +76,16 @@ export const bounds: LayerConfig = {
       ],
     },
   },
+  layers: [
+    {
+      id: "bounds-line",
+      type: "line",
+      source: "bounds",
+      paint: {
+        "line-color": "#ff0000",
+        "line-width": 2,
+        "line-dasharray": [2, 2],
+      },
+    },
+  ],
 };

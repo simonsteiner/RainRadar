@@ -1,9 +1,13 @@
 import { LayerConfig } from "../types";
 
 export const swissBoundary: LayerConfig = {
-  id: "swiss-boundary",
+  id: "swissBoundary",
   label: "Swiss Boundary",
   source: "swiss-boundary",
+  sourceConfig: {
+    type: "geojson",
+    data: "geojson/swiss-boundary.geojson",
+  },
   layers: [
     {
       id: "swiss-boundary-fill",
@@ -25,16 +29,16 @@ export const swissBoundary: LayerConfig = {
       },
     },
   ],
-  sourceConfig: {
-    type: "geojson",
-    data: "geojson/swiss-boundary.geojson",
-  },
 };
 
 export const swissCantonBoundaries: LayerConfig = {
-  id: "swiss-canton-boundaries",
+  id: "swissCantonBoundaries",
   label: "Swiss Canton Boundaries",
   source: "swiss-canton-boundaries",
+  sourceConfig: {
+    type: "geojson",
+    data: "geojson/swiss-canton-boundaries.geojson",
+  },
   layers: [
     {
       id: "swiss-canton-boundaries-layer",
@@ -47,8 +51,4 @@ export const swissCantonBoundaries: LayerConfig = {
       },
     },
   ],
-  sourceConfig: {
-    type: "geojson",
-    data: "geojson/swiss-canton-boundaries.geojson",
-  },
 };

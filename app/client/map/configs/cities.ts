@@ -2,9 +2,13 @@
 import { LayerConfig } from '../types';
 
 export const swissCities: LayerConfig = {
-  id: "swiss-cities",
+  id: "swissCities",
   label: "Swiss Cities",
   source: "swiss-cities",
+  sourceConfig: {
+    type: "geojson",
+    data: "geojson/swiss-cities.geojson",
+  },
   layers: [
     {
       id: "swiss-cities-layer",
@@ -38,8 +42,4 @@ export const swissCities: LayerConfig = {
       filter: [">=", ["+", 1.25, ["zoom"]], ["get", "minzoom"]],
     },
   ],
-  sourceConfig: {
-    type: "geojson",
-    data: "geojson/swiss-cities.geojson",
-  },
 };

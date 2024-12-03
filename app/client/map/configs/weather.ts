@@ -4,6 +4,10 @@ export const precipitation: LayerConfig = {
   id: "precipitation",
   label: "Precipitation",
   source: "precipitation-rate",
+  sourceConfig: {
+    type: "geojson",
+    data: { type: "FeatureCollection", features: [] },
+  },
   layers: [
     {
       id: "precipitation-rate-layer",
@@ -25,8 +29,4 @@ export const precipitation: LayerConfig = {
       },
     },
   ],
-  sourceConfig: {
-    type: "geojson",
-    data: { type: "FeatureCollection", features: [] },
-  },
 };

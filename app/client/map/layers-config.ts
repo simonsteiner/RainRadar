@@ -11,11 +11,11 @@ export const LAYER_CONFIGS: Record<string, LayerConfig> = {
   center,
   bounds,
   hillshade,
-  "swiss-boundary": swissBoundary,
-  "swiss-canton-boundaries": swissCantonBoundaries,
-  "swiss-cities": swissCities,
-  "swiss-nuts-regions": swissNutsRegions,
-  "region-center": regionCenter,
+  swissBoundary,
+  swissCantonBoundaries,
+  swissCities,
+  swissNutsRegions,
+  regionCenter,
 };
 
 export default LAYER_CONFIGS;

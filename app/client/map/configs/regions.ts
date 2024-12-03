@@ -1,9 +1,13 @@
 import { LayerConfig } from "../types";
 
 export const swissNutsRegions: LayerConfig = {
-  id: "swiss-nuts-regions",
+  id: "swissNutsRegions",
   label: "Swiss NUTS Regions",
   source: "swiss-nuts-regions",
+  sourceConfig: {
+    type: "geojson",
+    data: "geojson/swiss-nuts-regions.geojson",
+  },
   layers: [
     {
       id: "swiss-nuts-regions-fill",
@@ -84,36 +88,12 @@ export const swissNutsRegions: LayerConfig = {
       },
     },
   ],
-  sourceConfig: {
-    type: "geojson",
-    data: "geojson/swiss-nuts-regions.geojson",
-  },
 };
 
 export const regionCenter: LayerConfig = {
-  id: "region-center",
+  id: "regionCenter",
   label: "Swiss NUTS Regions Labels",
   source: "region-center",
-  layers: [
-    {
-      id: "region-center-labels",
-      type: "symbol",
-      source: "region-center",
-      minzoom: 6,
-      maxzoom: 9,
-      layout: {
-        "text-field": ["get", "name"],
-        "text-font": ["Open Sans Regular", "Arial Unicode MS Regular"],
-        "text-size": 16,
-      },
-      paint: {
-        "text-color": ["get", "color"],
-        "text-opacity": 0.15,
-        "text-halo-color": "#bbbbbb",
-        "text-halo-width": 1,
-      },
-    },
-  ],
   sourceConfig: {
     type: "geojson",
     data: {
@@ -165,4 +145,24 @@ export const regionCenter: LayerConfig = {
       ],
     },
   },
+  layers: [
+    {
+      id: "region-center-labels",
+      type: "symbol",
+      source: "region-center",
+      minzoom: 6,
+      maxzoom: 9,
+      layout: {
+        "text-field": ["get", "name"],
+        "text-font": ["Open Sans Regular", "Arial Unicode MS Regular"],
+        "text-size": 16,
+      },
+      paint: {
+        "text-color": ["get", "color"],
+        "text-opacity": 0.15,
+        "text-halo-color": "#bbbbbb",
+        "text-halo-width": 1,
+      },
+    },
+  ],
 };

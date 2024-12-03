@@ -11,3 +11,14 @@ source venv/bin/activate.fish
 ```
 
 <https://github.com/Alex313031/Resources-Saver>
+
+## Debug on android
+
+- <https://developer.chrome.com/docs/devtools/remote-debugging>
+- <chrome://inspect/#devices>
+
+```
+brew install android-platform-tools
+adb devices
+adb -s RZCW313YW0L reverse tcp:3300 tcp:3300
+```

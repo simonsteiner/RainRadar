@@ -32,21 +32,41 @@ const setupContainerToggles = (): void => {
 };
 
 const setupSidebarToggle = (): void => {
-    const sidebar = document.querySelector('.sidebar');
-    if (!sidebar) return;
-    const sidebarToggle = document.querySelector('.sidebar-toggle');
-    const sidebarClose = document.querySelector('.sidebar-close');
-    if (!sidebarToggle || !sidebarClose) return;
+    const sidebar = document.querySelector<HTMLElement>('.sidebar');
+    const toggleBtn = document.querySelector<HTMLElement>('.sidebar-toggle');
+    const closeBtn = document.querySelector<HTMLElement>('.sidebar-close');
     const map = document.getElementById('map');
-    if (!map) return;
 
-    const toggleSidebar = () => {
+    if (!sidebar || !toggleBtn || !closeBtn || !map) return;
+
+    const toggleSidebar = (e: Event) => {
+        e.stopPropagation(); // Prevent event from bubbling up
         sidebar.classList.toggle('open');
         map.classList.toggle('sidebar-open');
     };
 
-    sidebarToggle.addEventListener('click', toggleSidebar);
-    sidebarClose.addEventListener('click', toggleSidebar);
+    const closeSidebar = () => {
+        sidebar.classList.remove('open');
+        map.classList.remove('sidebar-open');
+    };
+
+    toggleBtn.addEventListener('click', toggleSidebar);
+    closeBtn.addEventListener('click', toggleSidebar);
+
+    // Close sidebar when clicking outside
+    document.addEventListener('click', (e: Event) => {
+        const target = e.target as HTMLElement;
+        if (sidebar.classList.contains('open') &&
+            !sidebar.contains(target) &&
+            !toggleBtn.contains(target)) {
+            closeSidebar();
+        }
+    });
+
+    // Prevent clicks within sidebar from closing it
+    sidebar.addEventListener('click', (e: Event) => {
+        e.stopPropagation();
+    });
 };
 
 // Initialize the controls

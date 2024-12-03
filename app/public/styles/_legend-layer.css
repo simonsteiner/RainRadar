@@ -1,0 +1,123 @@
+#legend-container,
+#layer-control {
+    position: absolute;
+    background: var(--white-transparent-high);
+    padding: var(--spacing-xs);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-default);
+    z-index: 1;
+
+    h3 {
+        margin: 0 0 var(--spacing-xs) 0;
+        font-size: var(--font-size-xs);
+    }
+}
+
+
+#legend-container {
+    bottom: 60px;
+    right: 10px;
+}
+
+#layer-control {
+    bottom: 40px;
+    right: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.color-box {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.legend-text {
+    font-size: 12px;
+}
+
+#layer-control {
+    label {
+        display: block;
+        margin: 5px 0;
+        font-size: 12px;
+    }
+
+    input[type="checkbox"] {
+        margin-right: 5px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    #legend-container,
+    #layer-control {
+        transition: bottom 0.3s ease-in-out;
+    }
+
+    #legend-container {
+        bottom: 110px;
+        right: var(--spacing-md);
+    }
+
+    #layer-control {
+        bottom: 90px;
+        right: var(--spacing-md);
+    }
+
+    body:has(.precipitation-container.expanded) {
+
+        #legend-container {
+            bottom: calc(30vh + 5px);
+        }
+
+        #layer-control {
+            bottom: calc(30vh - 15px);
+        }
+
+    }
+}
+
+.toggle-btn {
+    position: absolute;
+    top: 0;
+    right: var(--spacing-xs);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-xs);
+    font-size: var(--font-size-md);
+    color: var(--text-color);
+}
+
+.toggle-btn:hover {
+    color: var(--text-color-dark);
+}
+
+.container-hidden {
+    padding: var(--spacing-sm);
+    background: transparent;
+    box-shadow: none;
+}
+
+.container-hidden .container-content,
+.container-hidden .toggle-btn {
+    display: none;
+}
+
+.container-hidden h3 {
+    cursor: pointer;
+    margin: 0 !important;
+}
+
+.container-hidden h3::after {
+    content: "  ▲";
+}
+
+.container-hidden h3:hover {
+    background: var(--white);
+}

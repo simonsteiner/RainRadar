@@ -1,0 +1,67 @@
+.info-display {
+    position: absolute;
+    background: var(--white-transparent);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius);
+    font-family: monospace;
+}
+
+#coordinates,
+#zoomlevel,
+#myCoords {
+    right: var(--spacing-md);
+}
+
+#timeDisplay,
+#updatedOn {
+    left: 10px;
+}
+
+#coordinates {
+    top: var(--spacing-md);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#zoomlevel {
+    top: 40px;
+}
+
+#myCoords {
+    top: 115px;
+    right: 10px;
+    text-align: right;
+}
+
+#updatedOn {
+    top: 10px;
+}
+
+#timeDisplay {
+    bottom: 55px;
+    text-align: center;
+    margin: 10px 0;
+    font-size: var(--font-size-md);
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+    #coordinates {
+        display: none;
+    }
+
+    #timeDisplay {
+        bottom: 75px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    body:has(.precipitation-container.expanded) {
+        #timeDisplay {
+            bottom: calc(30vh - 20px);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+}

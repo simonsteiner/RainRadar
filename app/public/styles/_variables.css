@@ -1,0 +1,32 @@
+:root {
+    /* Colors */
+    --white: #fff;
+    --white-transparent: rgba(255, 255, 255, 0.8);
+    --white-transparent-high: rgba(255, 255, 255, 0.95);
+    --accent-color: #1db954;
+    --border-color: #ccc;
+    --text-color: #666;
+    --text-color-dark: #333;
+
+    /* Layout */
+    --border-radius: 4px;
+    --spacing-xs: 2px;
+    --spacing-sm: 5px;
+    --spacing-md: 10px;
+    --spacing-lg: 20px;
+
+    /* Typography */
+    --font-size-xs: 11px;
+    --font-size-sm: 12px;
+    --font-size-md: 14px;
+
+    /* Dimensions */
+    --sidebar-width: 400px;
+    --sidebar-collapsed-width: 30px;
+    --mobile-precipitation-height: 25vh;
+    --mobile-handle-height: 10px;
+
+    /* Effects */
+    --shadow-default: 0 1px 4px rgba(0, 0, 0, 0.2);
+    --shadow-bottom: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}

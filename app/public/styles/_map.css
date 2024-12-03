@@ -1,0 +1,31 @@
+#map {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#map.sidebar-open {
+    margin-left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+}
+
+@media (max-width: 768px) {
+    #map {
+        width: 100%;
+        height: calc(100vh - 45px);
+
+        &.sidebar-open {
+            margin-left: 0;
+            width: 100%;
+        }
+    }
+
+    body:has(.precipitation-container.expanded) {
+        #map {
+            height: calc(100vh - var(--mobile-precipitation-height));
+        }
+    }
+}

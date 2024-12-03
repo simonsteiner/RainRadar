@@ -1,0 +1,112 @@
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    left: calc(-1 * var(--sidebar-width));
+    top: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background: var(--white-transparent-high);
+    transition: left 0.3s ease-in-out;
+    z-index: 10;
+    box-shadow: var(--shadow-default);
+}
+
+.sidebar h1 {
+    margin-top: 0;
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+/* Sidebar toggle - Desktop */
+.sidebar-toggle {
+    position: absolute;
+    right: calc(-1 * var(--sidebar-collapsed-width));
+    top: 50%;
+    transform: translateY(-50%);
+    width: var(--sidebar-collapsed-width);
+    height: 30px;
+    background: var(--white-transparent-high);
+    border: none;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    cursor: pointer;
+    box-shadow: var(--shadow-default);
+    font-size: 12px;
+    z-index: 1000;
+}
+
+.sidebar-toggle::after {
+    content: "►";
+    display: block;
+    transition: transform 0.3s;
+}
+
+.sidebar.open .sidebar-toggle::after {
+    transform: rotate(180deg);
+}
+
+.sidebar-content {
+    padding: var(--spacing-lg);
+    height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+/* Sidebar close button */
+.sidebar-close {
+    display: none;
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: var(--spacing-xs);
+}
+
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        left: -100%;
+
+        &.open {
+            left: 0;
+            z-index: 1001;
+        }
+    }
+
+    .sidebar-toggle {
+        width: 30px;
+        right: -30px;
+        height: 35px;
+
+        &::after {
+            transform: rotate(180deg);
+        }
+    }
+
+    .sidebar-close {
+        display: block;
+        z-index: 1002;
+    }
+
+    .sidebar.open .sidebar-toggle::after {
+        transform: none;
+        content: "";
+        width: 4px;
+        height: 40px;
+        background: #000;
+        border-radius: 2px;
+    }
+
+    .sidebar.open .sidebar-toggle {
+        right: 0;
+        width: 17px;
+        height: 45px;
+        border-radius: var(--border-radius) 0 0 var(--border-radius);
+    }
+}

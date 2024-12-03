@@ -1,0 +1,18 @@
+.precipitation-container {
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.slider-container {
+  width: 100%;
+  margin: 20px 0;
+}
+
+#timeSlider {
+  width: 100%;
+}
+
+#timeDisplay {
+  text-align: center;
+  margin: 10px 0;
+}

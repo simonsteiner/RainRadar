@@ -1,5 +1,5 @@
 import { Map, GeoJSONSource } from "maplibre-gl";
-import { GeoJSONFeatureCollection } from "../../geojson/types";
+import { GeoJSONFeatureCollection } from "../geojson/types";
 
 const PRECIPITATION_LAYERS = {
   source: "precipitation-rate",

@@ -3,9 +3,9 @@ import { Map } from "maplibre-gl";
 import { AnimationData, PictureInfo } from "./types";
 import { fetchJson } from "./api";
 import { generateImageHtml } from "./utils";
-import { radar2geojson } from "./geojson/radar2geojson";
-import { RadarData } from "./geojson/types";
-import { displayPrecipitationData } from "./map/layers/weather-data";
+import { radar2geojson } from "../geojson/radar2geojson";
+import { RadarData } from "../geojson/types";
+import { displayPrecipitationData } from "../map/weather-data";
 
 export async function updateImage(index: number, pictures: PictureInfo[], map: Map) {
   const picture = pictures[index];

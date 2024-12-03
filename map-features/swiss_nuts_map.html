@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwissTopo Map</title>
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+    }
+
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .maplibregl-popup {
+      padding: 5px;
+      transition: background-color 0.3s;
+    }
+
+    #coordinates {
+      position: absolute;
+      bottom: 40px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-family: monospace;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #coordinates:active {
+      background: rgba(200, 200, 200, 0.8);
+    }
+
+    #zoomlevel {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+  <div id="coordinates"></div>
+  <div id="zoomlevel"></div>
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script>
+    const map = new maplibregl.Map({
+      container: "map",
+      style: "map_style.json",
+      center: [8.2, 46.8],
+      zoom: 7,
+      maxZoom: 12,
+      minZoom: 0,
+      bounds: [5.9559, 45.818, 10.4921, 47.8084],
+    });
+
+    // Add back mousemove handler
+    map.on('mousemove', (e) => {
+      document.getElementById('coordinates').innerHTML =
+        `Lon: ${e.lngLat.lng.toFixed(6)} Lat: ${e.lngLat.lat.toFixed(6)}`;
+    });
+
+    // Add click handler for coordinates div
+    document.getElementById('coordinates').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(document.getElementById('coordinates').textContent);
+        document.getElementById('coordinates').style.background = 'rgba(150, 255, 150, 0.8)';
+        setTimeout(() => {
+          document.getElementById('coordinates').style.background = 'rgba(255, 255, 255, 0.8)';
+        }, 200);
+      } catch (err) {
+        console.error('Failed to copy coordinates:', err);
+      }
+    });
+
+    // Create a popup but don't add it to the map yet
+    const popup = new maplibregl.Popup({
+      closeButton: false,
+      closeOnClick: false
+    });
+
+    map.on('click', async (e) => {
+      const coordinates = `${e.lngLat.lng.toFixed(6)}, ${e.lngLat.lat.toFixed(6)}`;
+
+      try {
+        await navigator.clipboard.writeText(coordinates);
+
+        // Show popup at click location
+        popup
+          .setLngLat(e.lngLat)
+          .setHTML(`<h4>Coordinates copied!</h4>Lon: ${e.lngLat.lng}<br>Lat: ${e.lngLat.lat}`)
+          .addTo(map);
+
+        // Remove popup after 1 second
+        setTimeout(() => {
+          popup.remove();
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy coordinates:', err);
+      }
+    });
+
+    // Add zoom level display update
+    map.on('move', () => {
+      document.getElementById('zoomlevel').innerHTML =
+        `Zoom: ${map.getZoom().toFixed(2)}`;
+    });
+
+    map.on("load", () => {
+      map.addSource("hillshade", {
+        type: "raster",
+        tiles: [
+          "https://api.maptiler.com/tiles/hillshade/{z}/{x}/{y}.webp?key=k0SiRr6RGDFRdeBbNb3v",
+        ],
+        tileSize: 512,
+        attribution:
+          '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a>',
+      });
+
+      map.addLayer({
+        id: "hillshade-layer",
+        type: "raster",
+        source: "hillshade",
+        paint: {
+          "raster-opacity": 0.3,
+        },
+      });
+
+      map.addSource("swiss_nuts_regions", {
+        type: "geojson",
+        data: "swiss_nuts_regions.geojson",
+      });
+
+      map.addLayer({
+        id: "swiss_nuts_regions-fill",
+        type: "fill",
+        source: "swiss_nuts_regions",
+        paint: {
+          "fill-color": [
+            "match",
+            ["get", "id"],
+            "CH01", "#B5DCC6",
+            "CH02", "#D8E876",
+            "CH03", "#D8D3E8",
+            "CH04", "#F7C5DA",
+            "CH05", "#FFFCC6",
+            "CH06", "#F5C48F",
+            "CH07", "#F6C7BB",
+            "#cccccc"  // default color
+          ],
+          "fill-opacity": 0.3
+        }
+      });
+
+      map.addLayer({
+        id: "swiss_nuts_regions-layer",
+        type: "line",
+        source: "swiss_nuts_regions",
+        paint: {
+          "line-color": "#666666",
+          "line-width": 1,
+          "line-opacity": 0.8,
+        },
+      });
+
+      // Add labels
+      map.addLayer({
+        id: "swiss_nuts_regions-labels",
+        type: "symbol",
+        source: "swiss_nuts_regions",
+        minzoom: 9,
+        maxzoom: 11,
+        layout: {
+          "text-field": ["get", "name"],
+          "text-size": 16,
+          "text-anchor": "center",
+          "text-justify": "center",
+          "text-variable-anchor": ["center"],
+          "text-radial-offset": 0,
+          "text-allow-overlap": false,
+          "symbol-placement": "point"
+        },
+        paint: {
+          "text-color": [
+            "match",
+            ["get", "id"],
+            "CH01", "#85AC96", // darker version of #B5DCC6
+            "CH02", "#A8B856", // darker version of #D8E876
+            "CH03", "#A8A3B8", // darker version of #D8D3E8
+            "CH04", "#C795AA", // darker version of #F7C5DA
+            "CH05", "#CFCC96", // darker version of #FFFCC6
+            "CH06", "#C5946F", // darker version of #F5C48F
+            "CH07", "#C6978B", // darker version of #F6C7BB
+            "#666666"  // default color
+          ],
+          "text-opacity": 0.8,
+          "text-halo-color": "#bbbbbb",
+          "text-halo-width": 1
+        }
+      });
+
+      // Add canton capitals source
+      map.addSource("region-center", {
+        type: "geojson",
+        data: {
+          type: "FeatureCollection",
+          features: [
+            { type: "Feature", geometry: { type: "Point", coordinates: [7.384803, 46.201399] }, properties: { id: "CH01", color: "#85AC96", name: "Genferseeregion" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [7.433405, 46.816867] }, properties: { id: "CH02", color: "#A8B856", name: "Espace Mittelland" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [8.107355, 47.429755] }, properties: { id: "CH03", color: "#A8A3B8", name: "Grossregion Nordwestschweiz" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [8.654879, 47.412950] }, properties: { id: "CH04", color: "#C795AA", name: "Zürich" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [9.374251, 46.810215] }, properties: { id: "CH05", color: "#CFCC96", name: "Ostschweiz" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [8.420687, 46.968408] }, properties: { id: "CH06", color: "#C5946F", name: "Zentralschweiz" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [8.808256, 46.296012] }, properties: { id: "CH07", color: "#C6978B", name: "Tessin" } },
+          ]
+        }
+      });
+
+      // Add labels for canton capitals
+      map.addLayer({
+        id: "region-center-labels",
+        type: "symbol",
+        source: "region-center",
+        minzoom: 6,
+        maxzoom: 9,
+        layout: {
+          "text-field": ["get", "name"],
+          "text-font": ["Open Sans Regular", "Arial Unicode MS Regular"],
+          "text-size": 16,
+        },
+        paint: {
+          "text-color": ["get", "color"],
+          "text-opacity": 0.8,
+          "text-halo-color": "#bbbbbb",
+          "text-halo-width": 1
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

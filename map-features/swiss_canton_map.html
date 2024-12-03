@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwissTopo Map</title>
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+    }
+
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script>
+    const map = new maplibregl.Map({
+      container: "map",
+      style: "map_style.json",
+      center: [8.2, 46.8],
+      zoom: 7,
+      maxZoom: 12,
+      minZoom: 0,
+      bounds: [5.9559, 45.818, 10.4921, 47.8084],
+    });
+
+    map.on("load", () => {
+      map.addSource("hillshade", {
+        type: "raster",
+        tiles: [
+          "https://api.maptiler.com/tiles/hillshade/{z}/{x}/{y}.webp?key=k0SiRr6RGDFRdeBbNb3v",
+        ],
+        tileSize: 512,
+        attribution:
+          '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a>',
+      });
+
+      map.addLayer({
+        id: "hillshade-layer",
+        type: "raster",
+        source: "hillshade",
+        paint: {
+          "raster-opacity": 0.3,
+        },
+      });
+
+      map.addSource("canton-boundaries", {
+        type: "geojson",
+        data: "swiss_cantons.geojson",
+      });
+
+      // Add canton boundaries layer
+      map.addLayer({
+        id: "canton-boundaries-layer",
+        type: "line",
+        source: "canton-boundaries",
+        paint: {
+          "line-color": "#FF0000",
+          "line-width": 1,
+          "line-opacity": 0.7,
+        },
+      });
+
+      // Add canton capitals source
+      map.addSource("canton-capitals", {
+        type: "geojson",
+        data: {
+          type: "FeatureCollection",
+          features: [
+            { type: "Feature", geometry: { type: "Point", coordinates: [8.542264, 47.371761] }, properties: { name: "Zürich" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [7.452172, 46.948483] }, properties: { name: "Bern" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [8.305474, 47.050549] }, properties: { name: "Luzern" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [8.641393, 46.882080] }, properties: { name: "Altdorf" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [8.653568, 47.021184] }, properties: { name: "Schwyz" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [8.246162, 46.895676] }, properties: { name: "Sarnen" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [8.366113, 46.957057] }, properties: { name: "Stans" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [9.067428, 47.042211] }, properties: { name: "Glarus" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [8.517387, 47.167997] }, properties: { name: "Zug" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [7.161283, 46.805557] }, properties: { name: "Fribourg" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [7.538407, 47.208120] }, properties: { name: "Solothurn" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [7.587838, 47.558113] }, properties: { name: "Basel" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [7.734775, 47.483964] }, properties: { name: "Liestal" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [8.634508, 47.696056] }, properties: { name: "Schaffhausen" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [9.278761, 47.385544] }, properties: { name: "Herisau" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [9.409924, 47.329947] }, properties: { name: "Appenzell" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [9.376252, 47.425634] }, properties: { name: "St. Gallen" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [9.526498, 46.854748] }, properties: { name: "Chur" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [8.044446, 47.392733] }, properties: { name: "Aarau" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [8.896351, 47.556191] }, properties: { name: "Frauenfeld" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [9.020612, 46.192055] }, properties: { name: "Bellinzona" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [6.632717, 46.521825] }, properties: { name: "Lausanne" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [7.358885, 46.231174] }, properties: { name: "Sion" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [6.929262, 46.989585] }, properties: { name: "Neuchâtel" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [6.146617, 46.201752] }, properties: { name: "Genève" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [7.354462, 47.361589] }, properties: { name: "Delémont" } },
+          ]
+        }
+      });
+
+      // Add canton capitals layer
+      map.addLayer({
+        id: "canton-capitals-layer",
+        type: "circle",
+        source: "canton-capitals",
+        paint: {
+          "circle-radius": 1.5,
+          "circle-color": "#ffffff",
+          "circle-stroke-width": 2,
+          "circle-stroke-color": "#000000"
+        }
+      });
+
+      // Add labels for canton capitals
+      map.addLayer({
+        id: "canton-capitals-labels",
+        type: "symbol",
+        source: "canton-capitals",
+        layout: {
+          "text-field": ["get", "name"],
+          "text-font": ["Open Sans Regular", "Arial Unicode MS Regular"],
+          "text-justify": "left",
+          "text-offset": [0.5, 0.2],
+          "text-anchor": "bottom-left",
+          "text-size": 12,
+        },
+        paint: {
+          "text-color": "#000000",
+          "text-halo-color": "#ffffff",
+          "text-halo-width": 2
+        }
+      });
+
+    });
+  </script>
+</body>
+
+</html>

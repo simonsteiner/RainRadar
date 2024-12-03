@@ -5,10 +5,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meteo Swiss Precipitation Clone</title>
+    <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
     <link href="styles/styles.css" rel="stylesheet" />
 </head>
 
 <body>
+
+    <div id="map"></div>
+    <div id="coordinates"></div>
+    <div id="zoomlevel"></div>
+    <script type="module" src="/js/map/main.js"></script>
+
     <div class="precipitation-container">
         <h1>Meteo Swiss Precipitation Clone</h1>
         <div id="precipitationImage"></div>

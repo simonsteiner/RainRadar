@@ -30,6 +30,6 @@ export function generateImageHtml(picture: PictureInfo): string {
       freezingrain_url: ${picture.freezingrain_url}<br>
       snow_url: ${picture.snow_url}<br>
     ` : ''}
-    <img src="/api${picture.radar_url}" alt="${picture.timepoint} (${picture.data_type})">
+    <!--<img src="/api${picture.radar_url}" alt="${picture.timepoint} (${picture.data_type})">-->
   `;
 }

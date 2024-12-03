@@ -1,21 +1,17 @@
-
 import { Map } from "maplibre-gl";
 import { AnimationData, PictureInfo } from "./types";
 import { fetchJson } from "./api";
-import { generateImageHtml } from "./utils";
 import { radar2geojson } from "../geojson/radar2geojson";
 import { RadarData } from "../geojson/types";
 import { displayPrecipitationData } from "../map/weather-data";
+import { PrecipitationRenderer } from "./render";
+
+const renderer = new PrecipitationRenderer();
 
 export async function updateImage(index: number, pictures: PictureInfo[], map: Map) {
   const picture = pictures[index];
-  const precipitationImage = document.getElementById("precipitationImage");
-  const timeDisplay = document.getElementById("timeDisplay");
-
-  if (picture && precipitationImage && timeDisplay) {
-    precipitationImage.innerHTML = generateImageHtml(picture);
-    timeDisplay.textContent = `${picture.timepoint} (${picture.data_type})`;
-
+  if (picture) {
+    renderer.renderImage(picture);
     try {
       const radarData: RadarData = await fetchJson("/api" + picture.radar_url);
       const geojson = radar2geojson(radarData);
@@ -30,8 +26,6 @@ export async function updateImage(index: number, pictures: PictureInfo[], map: M
 }
 
 export function updateLastUpdatedText(animationData: AnimationData) {
-  const updatedOn = document.getElementById("updatedOn");
-  if (updatedOn) {
-    updatedOn.textContent = `Updated on ${animationData.map_images[0].day}, ${animationData.map_images[0].timepoint}`;
-  }
+  const { day, timepoint } = animationData.map_images[0];
+  renderer.renderLastUpdated(day, timepoint);
 }

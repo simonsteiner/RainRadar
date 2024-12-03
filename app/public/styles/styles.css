@@ -1,9 +1,9 @@
 @import "_variables.css";
 @import "_map.css";
+@import "_app-buttons.css";
 @import "_info-displays.css";
-@import "_location-controls.css";
-@import "_precipitation.css";
 @import "_legend-layer.css";
+@import "_precipitation.css";
 @import "_sidebar.css";
 
 /* Base styles */

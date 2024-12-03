@@ -29,7 +29,7 @@
   --mobile-handle-height: 10px;
 
   /* Sidebar */
-  --sidebar-width: 300px;
+  --sidebar-width: 400px;
   --sidebar-collapsed-width: 30px;
 }
 
@@ -76,16 +76,17 @@ body {
   display: block;
   width: 17px;
   height: 17px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0 0 13 3.06V1h-2v2.06A8.994 8.994 0 0 0 3.06 11H1v2h2.06A8.994 8.994 0 0 0 11 20.94V23h2v-2.06A8.994 8.994 0 0 0 20.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z'/%3E%3C/svg%3E")
-    center/contain no-repeat;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0 0 13 3.06V1h-2v2.06A8.994 8.994 0 0 0 3.06 11H1v2h2.06A8.994 8.994 0 0 0 11 20.94V23h2v-2.06A8.994 8.994 0 0 0 20.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z'/%3E%3C/svg%3E") center/contain no-repeat;
 }
 
 .location-button.active {
-  background-color: #4285f4 !important; /* Google Maps-like blue */
+  background-color: #4285f4 !important;
+  /* Google Maps-like blue */
 }
 
 .location-button.active .maplibregl-ctrl-icon {
-  filter: invert(1); /* Make the icon white */
+  filter: invert(1);
+  /* Make the icon white */
 }
 
 .loading {
@@ -94,7 +95,7 @@ body {
   pointer-events: none;
 }
 
-.loading > * {
+.loading>* {
   visibility: hidden;
 }
 
@@ -117,6 +118,7 @@ body {
   from {
     transform: rotate(0turn);
   }
+
   to {
     transform: rotate(1turn);
   }
@@ -157,6 +159,7 @@ body {
 #updatedOn {
   left: 10px;
 }
+
 #updatedOn {
   top: 10px;
 }
@@ -178,7 +181,7 @@ body {
   width: 450px;
   height: 60px;
   background: var(--white-transparent-high);
-  padding: var(--spacing-md);
+  padding: 0 var(--spacing-md) var(--spacing-md) var(--spacing-md);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -335,7 +338,13 @@ body:has(.precipitation-container.expanded) #timeDisplay {
   cursor: pointer;
   position: relative;
   text-align: center;
-  margin-bottom: 5px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+body:has(.precipitation-container.expanded) .mobile-handle {
+  padding: 0;
+  height: 15px;
 }
 
 .mobile-handle::before {
@@ -350,7 +359,6 @@ body:has(.precipitation-container.expanded) #timeDisplay {
   transform: translate(-50%, -50%);
 }
 
-/* Add these styles before the mobile media query */
 .toggle-btn {
   position: absolute;
   top: 0;
@@ -367,7 +375,6 @@ body:has(.precipitation-container.expanded) #timeDisplay {
   color: var(--text-color-dark);
 }
 
-/* Replace the previous .container-hidden styles with these */
 .container-hidden {
   padding: var(--spacing-sm);
   background: transparent;
@@ -385,7 +392,6 @@ body:has(.precipitation-container.expanded) #timeDisplay {
 }
 
 .container-hidden h3::after {
-  /** Add a up arrow to the h3 */
   content: "  ▲";
 }
 
@@ -393,7 +399,6 @@ body:has(.precipitation-container.expanded) #timeDisplay {
   background: var(--white);
 }
 
-/* Add these styles before the mobile media query */
 .metadata-table {
   width: 100%;
   border-collapse: collapse;
@@ -427,19 +432,21 @@ body:has(.precipitation-container.expanded) #timeDisplay {
   left: 0;
 }
 
+/* Sidebar toggle - Desktop */
 .sidebar-toggle {
   position: absolute;
   right: calc(-1 * var(--sidebar-collapsed-width));
   top: 50%;
   transform: translateY(-50%);
   width: var(--sidebar-collapsed-width);
-  height: 40px; /* Reduced from 60px */
+  height: 30px;
   background: var(--white-transparent-high);
   border: none;
   border-radius: 0 var(--border-radius) var(--border-radius) 0;
   cursor: pointer;
   box-shadow: var(--shadow-default);
-  font-size: 12px; /* Added font size */
+  font-size: 12px;
+  z-index: 1000;
 }
 
 .sidebar-toggle::after {
@@ -502,13 +509,13 @@ body:has(.precipitation-container.expanded) #timeDisplay {
 
   .mobile-handle {
     height: var(--mobile-handle-height);
-    margin-top: 5px;
+    padding-top: 5px;
     margin-bottom: 0;
     display: block;
   }
 
   body:has(.precipitation-container.expanded) .mobile-handle {
-    margin-top: 0;
+    padding-top: 0;
   }
 
   #legend-container,
@@ -518,12 +525,12 @@ body:has(.precipitation-container.expanded) #timeDisplay {
 
   #legend-container {
     bottom: 110px;
-    right: var(--spacing-md); /* Adjusted for mobile */
+    right: var(--spacing-md);
   }
 
   #layer-control {
     bottom: 90px;
-    right: var(--spacing-md); /* Adjusted for mobile */
+    right: var(--spacing-md);
   }
 
   #timeDisplay {
@@ -571,10 +578,40 @@ body:has(.precipitation-container.expanded) #timeDisplay {
     left: -100%;
   }
 
+  .sidebar-toggle::after {
+    transform: rotate(180deg);
+  }
+
+  .sidebar.open .sidebar-toggle::after {
+    transform: none;
+    content: "";
+    width: 4px;
+    height: 40px;
+    background: #ccc;
+    border-radius: 2px;
+  }
+
+  .sidebar.open {
+    left: 0;
+    z-index: 1001;
+  }
+
+  .sidebar.open .sidebar-toggle {
+    right: 0;
+    width: 17px;
+    height: 45px;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+  }
+
+  .sidebar-close {
+    display: block;
+    z-index: 1002;
+  }
+
   .sidebar-toggle {
-    width: 30px; /* Reduced from 40px */
+    width: 30px;
     right: -30px;
-    height: 35px; /* Even smaller on mobile */
+    height: 35px;
   }
 
   .sidebar-close {

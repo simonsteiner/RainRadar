@@ -14,13 +14,22 @@ This is a development environment for experimenting with different GeoJSON map f
 
 ### Python Env Setup
 
-- python linter <https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff>
+Requirements:
+
+- Python 3.13+
+- [VS Code Ruff extension](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff)
+
+Create and activate virtual environment:
 
 ```sh
+# mac
+python3.13 -m venv venv
+source venv/bin/activate.fish
+# win
 python -m venv venv
 .\venv\Scripts\Activate.ps1
-pip install fiona
-pip install shapely
+# install dependencies
+pip install fiona shapely
 ```
 
 ## Source/inspiration for cantons

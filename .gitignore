@@ -28,3 +28,5 @@ __pycache__/
 venv/
 
 .DS_Store
+
+precipitation_data

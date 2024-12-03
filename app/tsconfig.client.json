@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "es6",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./public",
+    "removeComments": true,
+    "sourceMap": true
+  },
+  "include": [
+    "client/**/*.ts"
+  ]
+}

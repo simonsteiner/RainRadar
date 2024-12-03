@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Meteo Swiss Precipitation Clone</title>
+    <style>
+        .precipitation-container {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .slider-container {
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        #timeSlider {
+            width: 100%;
+        }
+
+        #timeDisplay {
+            text-align: center;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="precipitation-container">
+        <h1>Meteo Swiss Precipitation Clone</h1>
+        <div id="precipitationImage"></div>
+        <div class="slider-container">
+            <input type="range" id="timeSlider" min="0" value="0">
+        </div>
+        <div id="timeDisplay"></div>
+        <div id="updatedOn"></div>
+    </div>
+    <script type="module" src="/js/main.js"></script>
+    <script type="module">
+        import { initializePrecipitationDisplay } from './js/main.js';
+        initializePrecipitationDisplay();
+    </script>
+</body>
+
+</html>

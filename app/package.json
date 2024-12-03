@@ -4,7 +4,8 @@
   "description": "Meteo Swiss Precipitation Clone",
   "scripts": {
     "build": "ts-node build.ts",
-    "watch": "ts-node build.ts --dev",
+    "build:prod": "NODE_ENV=production ts-node build.ts",
+    "watch": "ts-node build.ts",
     "server": "ts-node-dev --respawn server.ts",
     "dev": "concurrently \"npm run server\" \"npm run watch\""
   },

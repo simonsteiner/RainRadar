@@ -40,10 +40,10 @@ export class PrecipitationDisplayManager {
   }
 
   private getSubsetPicturesForParaglidingMode(latestIndex: number): PictureInfo[] {
-    // Show 12 pictures before and 12 pictures after the latest measurement
+    // Show 12 pictures before and 13 pictures after the latest measurement
     // 2hrs of data in total
     const start = Math.max(0, latestIndex - 12);
-    const end = Math.min(this.pictures.length, latestIndex + 13);
+    const end = Math.min(this.pictures.length, latestIndex + 14);
     return this.pictures.slice(start, end);
   }
 

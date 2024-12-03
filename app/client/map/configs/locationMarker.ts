@@ -18,7 +18,7 @@ export const locationMarker: LayerConfig = {
       type: "circle",
       source: "location-marker",
       paint: {
-        "circle-radius": 6,
+        "circle-radius": 4,
         "circle-color": "#ff0000",
         "circle-opacity": 0.8,
       },

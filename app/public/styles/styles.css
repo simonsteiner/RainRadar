@@ -13,3 +13,10 @@ body {
   font-family: Arial, sans-serif;
   overflow: hidden;
 }
+
+code {
+  background-color: gray;
+  color: white;
+  border-radius: .25rem;
+  padding: .15rem .3rem;
+}

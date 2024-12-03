@@ -1,7 +1,8 @@
 import { Map, GeoJSONSource } from "maplibre-gl";
 import { locationMarker } from "./configs/locationMarker";
+import { hasZoomParameter, getZoomFromUrl } from "./map-utils";
 
-const ZOOM_LEVEL = 12;
+const ZOOM_LEVEL = 10;
 
 function formatCoordinates(longitude: number, latitude: number): string {
   return `my location<br>${latitude.toFixed(4)}°N, ${longitude.toFixed(4)}°E`;
@@ -35,10 +36,17 @@ function updateLocation(map: Map, longitude: number, latitude: number): void {
     source.setData(createLocationGeoJSON(longitude, latitude));
   }
 
-  map.flyTo({
+  const flyToOptions: { center: [number, number]; zoom?: number } = {
     center: [longitude, latitude],
-    zoom: ZOOM_LEVEL,
-  });
+  };
+
+  if (hasZoomParameter()) {
+    flyToOptions.zoom = getZoomFromUrl();
+  } else {
+    flyToOptions.zoom = ZOOM_LEVEL;
+  }
+
+  map.flyTo(flyToOptions);
 }
 
 function hideCoordinates(): void {

@@ -7,6 +7,7 @@ import { setupLocationButton } from "./location-button";
 import { ViewportHandler } from "./viewport-handler";
 import { MapUI } from "./map-ui";
 import { ParaglidingMode } from "../precipitation/paragliding-mode";
+import { hasZoomParameter, getZoomFromUrl } from "./map-utils";
 
 interface IMapInitializer {
   getMap(): Map;
@@ -21,7 +22,14 @@ class MapInitializer implements IMapInitializer {
 
   constructor() {
     try {
-      this.map = new maplibregl.Map(mapConfig);
+      const urlZoom = getZoomFromUrl();
+      const config = {
+        ...mapConfig,
+        zoom: urlZoom ?? mapConfig.zoom,
+        bounds: hasZoomParameter() ? undefined : mapConfig.bounds
+      };
+
+      this.map = new maplibregl.Map(config);
       this.layerManager = new LayerManager(this.map);
       this.viewportHandler = new ViewportHandler();
       this.mapUI = new MapUI();

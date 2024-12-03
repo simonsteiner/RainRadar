@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  font-family: Arial, sans-serif;
 }
 
 #map {
@@ -8,11 +9,6 @@ body {
   bottom: 0;
   width: calc(100% - 300px); /* Changed to make room for sidebar */
   cursor: pointer;
-}
-
-.maplibregl-popup {
-  padding: 5px;
-  transition: background-color 0.3s;
 }
 
 #coordinates {
@@ -144,4 +140,28 @@ body {
 
 .layer-control input[type="checkbox"] {
   margin-right: 5px;
+}
+
+.legend-container {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+.color-box {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+.legend-text {
+  font-size: 12px;
 }

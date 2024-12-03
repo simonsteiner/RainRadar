@@ -4,6 +4,7 @@ import { extractPictureInfo } from "./utils";
 import { PictureInfo } from "./types";
 import { setupSlider, findLatestMeasurementIndex } from "./slider";
 import { updateImage, updateLastUpdatedText } from "./display";
+import { createLegend } from "./legend";
 
 class PrecipitationDisplayManager {
   constructor(private map: Map) {}
@@ -15,6 +16,7 @@ class PrecipitationDisplayManager {
       const pictures: PictureInfo[] = extractPictureInfo(animationData);
       const latestMeasurementIndex = findLatestMeasurementIndex(pictures);
       setupSlider(pictures, this.map);
+      createLegend(animationData.legend);
       updateImage(latestMeasurementIndex, pictures, this.map);
     } catch (error) {
       console.error(

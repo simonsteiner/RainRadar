@@ -86,32 +86,32 @@
       }
     });
 
-    // Create a popup but don't add it to the map yet
-    const popup = new maplibregl.Popup({
-      closeButton: false,
-      closeOnClick: false
-    });
+    // // Create a popup but don't add it to the map yet
+    // const popup = new maplibregl.Popup({
+    //   closeButton: false,
+    //   closeOnClick: false
+    // });
 
-    map.on('click', async (e) => {
-      const coordinates = `${e.lngLat.lng.toFixed(6)}, ${e.lngLat.lat.toFixed(6)}`;
+    // map.on('click', async (e) => {
+    //   const coordinates = `${e.lngLat.lng.toFixed(6)}, ${e.lngLat.lat.toFixed(6)}`;
 
-      try {
-        await navigator.clipboard.writeText(coordinates);
+    //   try {
+    //     await navigator.clipboard.writeText(coordinates);
 
-        // Show popup at click location
-        popup
-          .setLngLat(e.lngLat)
-          .setHTML(`<h4>Coordinates copied!</h4>Lon: ${e.lngLat.lng}<br>Lat: ${e.lngLat.lat}`)
-          .addTo(map);
+    //     // Show popup at click location
+    //     popup
+    //       .setLngLat(e.lngLat)
+    //       .setHTML(`<h4>Coordinates copied!</h4>Lon: ${e.lngLat.lng}<br>Lat: ${e.lngLat.lat}`)
+    //       .addTo(map);
 
-        // Remove popup after 1 second
-        setTimeout(() => {
-          popup.remove();
-        }, 2000);
-      } catch (err) {
-        console.error('Failed to copy coordinates:', err);
-      }
-    });
+    //     // Remove popup after 1 second
+    //     setTimeout(() => {
+    //       popup.remove();
+    //     }, 2000);
+    //   } catch (err) {
+    //     console.error('Failed to copy coordinates:', err);
+    //   }
+    // });
 
     // Add zoom level display update
     map.on('move', () => {
@@ -297,6 +297,35 @@
           "text-opacity": 0.15,
           "text-halo-color": "#bbbbbb",
           "text-halo-width": 1
+        }
+      });
+
+      // Add precipitation rate source
+      map.addSource("precipitation-rate", {
+        type: "geojson",
+        data: "radar_rzc.20241124_1950.geojson"
+      });
+
+      // Add precipitation rate layer
+      map.addLayer({
+        id: "precipitation-rate-layer",
+        type: "fill",
+        source: "precipitation-rate",
+        paint: {
+          "fill-color": ["get", "color"],
+          "fill-opacity": 0.5
+        }
+      });
+
+      // Add precipitation rate outline
+      map.addLayer({
+        id: "precipitation-rate-outline",
+        type: "line",
+        source: "precipitation-rate",
+        paint: {
+          "line-color": ["get", "color"],
+          "line-width": 1,
+          "line-opacity": 0.8
         }
       });
 

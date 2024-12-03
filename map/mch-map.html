@@ -1,234 +1,343 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SwissTopo Map</title>
-    <link
-      href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        margin: 0;
-      }
 
-      #map {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwissTopo Map</title>
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+    }
 
-      .maplibregl-popup {
-        padding: 5px;
-        transition: background-color 0.3s;
-      }
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
 
-      #coordinates {
-        position: absolute;
-        bottom: 40px;
-        right: 20px;
-        background: rgba(255, 255, 255, 0.8);
-        padding: 5px 10px;
-        border-radius: 4px;
-        font-family: monospace;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
+    .maplibregl-popup {
+      padding: 5px;
+      transition: background-color 0.3s;
+    }
 
-      #coordinates:active {
-        background: rgba(200, 200, 200, 0.8);
-      }
+    #coordinates {
+      position: absolute;
+      bottom: 40px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-family: monospace;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
 
-      #zoomlevel {
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        background: rgba(255, 255, 255, 0.8);
-        padding: 5px 10px;
-        border-radius: 4px;
-        font-family: monospace;
-      }
-    </style>
-  </head>
+    #coordinates:active {
+      background: rgba(200, 200, 200, 0.8);
+    }
 
-  <body>
-    <div id="map"></div>
-    <div id="coordinates"></div>
-    <div id="zoomlevel"></div>
-    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-    <script>
-      const map = new maplibregl.Map({
-        container: "map",
-        style: "mch-style.json",
-        center: [8.2, 46.8],
-        zoom: 7,
-        maxZoom: 12,
-        minZoom: 0,
-        bounds: [5.9559, 45.818, 10.4921, 47.8084],
+    #zoomlevel {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+  <div id="coordinates"></div>
+  <div id="zoomlevel"></div>
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script>
+    const map = new maplibregl.Map({
+      container: "map",
+      style: "mch-style.json",
+      center: [8.2, 46.8],
+      zoom: 7,
+      maxZoom: 12,
+      minZoom: 0,
+      bounds: [5.9559, 45.818, 10.4921, 47.8084],
+    });
+
+    // Add back mousemove handler
+    map.on('mousemove', (e) => {
+      document.getElementById('coordinates').innerHTML =
+        `Lon: ${e.lngLat.lng.toFixed(6)} Lat: ${e.lngLat.lat.toFixed(6)}`;
+    });
+
+    // Add click handler for coordinates div
+    document.getElementById('coordinates').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(document.getElementById('coordinates').textContent);
+        document.getElementById('coordinates').style.background = 'rgba(150, 255, 150, 0.8)';
+        setTimeout(() => {
+          document.getElementById('coordinates').style.background = 'rgba(255, 255, 255, 0.8)';
+        }, 200);
+      } catch (err) {
+        console.error('Failed to copy coordinates:', err);
+      }
+    });
+
+    // Create a popup but don't add it to the map yet
+    const popup = new maplibregl.Popup({
+      closeButton: false,
+      closeOnClick: false
+    });
+
+    map.on('click', async (e) => {
+      const coordinates = `${e.lngLat.lng.toFixed(6)}, ${e.lngLat.lat.toFixed(6)}`;
+
+      try {
+        await navigator.clipboard.writeText(coordinates);
+
+        // Show popup at click location
+        popup
+          .setLngLat(e.lngLat)
+          .setHTML(`<h4>Coordinates copied!</h4>Lon: ${e.lngLat.lng}<br>Lat: ${e.lngLat.lat}`)
+          .addTo(map);
+
+        // Remove popup after 1 second
+        setTimeout(() => {
+          popup.remove();
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy coordinates:', err);
+      }
+    });
+
+    // Add zoom level display update
+    map.on('move', () => {
+      document.getElementById('zoomlevel').innerHTML =
+        `Zoom: ${map.getZoom().toFixed(2)}`;
+    });
+
+    map.on("load", () => {
+      map.addSource("hillshade", {
+        type: "raster",
+        tiles: [
+          "https://api.maptiler.com/tiles/hillshade/{z}/{x}/{y}.webp?key=k0SiRr6RGDFRdeBbNb3v",
+        ],
+        tileSize: 512,
+        attribution:
+          '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a>',
       });
 
-      // Add back mousemove handler
-      map.on('mousemove', (e) => {
-        document.getElementById('coordinates').innerHTML =
-          `Lon: ${e.lngLat.lng.toFixed(6)} Lat: ${e.lngLat.lat.toFixed(6)}`;
+      map.addLayer({
+        id: "hillshade-layer",
+        type: "raster",
+        source: "hillshade",
+        paint: {
+          "raster-opacity": 0.3,
+        },
       });
 
-      // Add click handler for coordinates div
-      document.getElementById('coordinates').addEventListener('click', async () => {
-        try {
-          await navigator.clipboard.writeText(document.getElementById('coordinates').textContent);
-          document.getElementById('coordinates').style.background = 'rgba(150, 255, 150, 0.8)';
-          setTimeout(() => {
-            document.getElementById('coordinates').style.background = 'rgba(255, 255, 255, 0.8)';
-          }, 200);
-        } catch (err) {
-          console.error('Failed to copy coordinates:', err);
-        }
+      // add swissboundaries source
+      // from mch website export
+      map.addSource("swiss-boundary", {
+        type: "geojson",
+        data: "swiss_boundary.json",
       });
 
-      // Create a popup but don't add it to the map yet
-      const popup = new maplibregl.Popup({
-        closeButton: false,
-        closeOnClick: false
+      // Add swiss-boundary fill layer
+      map.addLayer({
+        id: "swiss-boundary-fill",
+        type: "fill",
+        source: "swiss-boundary",
+        paint: {
+          "fill-color": "transparent",
+          "fill-opacity": 0.1,
+        },
       });
 
-      map.on('click', async (e) => {
-        const coordinates = `${e.lngLat.lng.toFixed(6)}, ${e.lngLat.lat.toFixed(6)}`;
-
-        try {
-          await navigator.clipboard.writeText(coordinates);
-
-          // Show popup at click location
-          popup
-            .setLngLat(e.lngLat)
-            .setHTML(`<h4>Coordinates copied!</h4>Lon: ${e.lngLat.lng}<br>Lat: ${e.lngLat.lat}`)
-            .addTo(map);
-
-          // Remove popup after 1 second
-          setTimeout(() => {
-            popup.remove();
-          }, 2000);
-        } catch (err) {
-          console.error('Failed to copy coordinates:', err);
-        }
+      // Add swiss-boundary outline layer
+      map.addLayer({
+        id: "swiss-boundary-line",
+        type: "line",
+        source: "swiss-boundary",
+        paint: {
+          "line-color": "#000",
+          "line-width": 2,
+          "line-opacity": 0.5,
+        },
       });
 
-      // Add zoom level display update
-      map.on('move', () => {
-        document.getElementById('zoomlevel').innerHTML =
-          `Zoom: ${map.getZoom().toFixed(2)}`;
+      // Add canton boundaries source
+      // https://data.opendatasoft.com/explore/dataset/georef-switzerland-kanton%40public/export/?disjunctive.kan_code&disjunctive.kan_name&sort=year&location=10,46.89962,7.36702&basemap=jawg.streets&dataChart=eyJxdWVyaWVzIjpbeyJjb25maWciOnsiZGF0YXNldCI6Imdlb3JlZi1zd2l0emVybGFuZC1rYW50b25AcHVibGljIiwib3B0aW9ucyI6eyJkaXNqdW5jdGl2ZS5rYW5fY29kZSI6dHJ1ZSwiZGlzanVuY3RpdmUua2FuX25hbWUiOnRydWUsInNvcnQiOiJ5ZWFyIn19LCJjaGFydHMiOlt7ImFsaWduTW9udGgiOnRydWUsInR5cGUiOiJsaW5lIiwiZnVuYyI6IkNPVU5UIiwic2NpZW50aWZpY0Rpc3BsYXkiOnRydWUsImNvbG9yIjoiIzE0MkU3QiJ9XSwieEF4aXMiOiJ5ZWFyIiwibWF4cG9pbnRzIjoiIiwidGltZXNjYWxlIjoieWVhciIsInNvcnQiOiIifV0sImRpc3BsYXlMZWdlbmQiOnRydWUsImFsaWduTW9udGgiOnRydWV9
+      map.addSource("canton-boundaries", {
+        type: "geojson",
+        data: "swiss_cantons.geojson",
       });
 
-      map.on("load", () => {
-        map.addSource("hillshade", {
-          type: "raster",
-          tiles: [
-            "https://api.maptiler.com/tiles/hillshade/{z}/{x}/{y}.webp?key=k0SiRr6RGDFRdeBbNb3v",
+      // Add canton boundaries layer
+      map.addLayer({
+        id: "canton-boundaries-layer",
+        type: "line",
+        source: "canton-boundaries",
+        paint: {
+          "line-color": "#808080",
+          "line-width": 1,
+          "line-opacity": 0.35,
+        },
+      });
+
+      // Add cities source
+      map.addSource("cities", {
+        type: "geojson",
+        data: "cities.json",
+      });
+
+      map.addLayer({
+        id: "cities-layer",
+        type: "circle",
+        source: "cities",
+        paint: {
+          "circle-radius": 1.5,
+          "circle-color": "#ffffff",
+          "circle-stroke-width": 2,
+          "circle-stroke-color": "#000000"
+        },
+        filter: [">=", ["+", 1.25, ["zoom"]], ["get", "minzoom"]],
+      });
+
+      map.addLayer({
+        id: "cities-labels",
+        type: "symbol",
+        source: "cities",
+        layout: {
+          "text-field": ["get", "place"],
+          "text-font": ["Open Sans Regular", "Arial Unicode MS Regular"],
+          "text-justify": "left",
+          "text-offset": [0.5, 0.2],
+          "text-anchor": "bottom-left",
+          "text-size": 12,
+        },
+        paint: {
+          "text-color": "#000000",
+          "text-halo-color": "#ffffff",
+          "text-halo-width": 2
+        },
+        filter: [">=", ["+", 1.25, ["zoom"]], ["get", "minzoom"]],
+      });
+
+      map.addSource("swiss_nuts_regions", {
+        type: "geojson",
+        data: "swiss_nuts_regions.geojson",
+      });
+
+      map.addLayer({
+        id: "swiss_nuts_regions-fill",
+        type: "fill",
+        source: "swiss_nuts_regions",
+        paint: {
+          "fill-color": [
+            "match",
+            ["get", "id"],
+            "CH01", "#B5DCC6",
+            "CH02", "#D8E876",
+            "CH03", "#D8D3E8",
+            "CH04", "#F7C5DA",
+            "CH05", "#FFFCC6",
+            "CH06", "#F5C48F",
+            "CH07", "#F6C7BB",
+            "#cccccc"  // default color
           ],
-          tileSize: 512,
-          attribution:
-            '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a>',
-        });
-
-        map.addLayer({
-          id: "hillshade-layer",
-          type: "raster",
-          source: "hillshade",
-          paint: {
-            "raster-opacity": 0.3,
-          },
-        });
-
-        // add swissboundaries source
-        // from mch website export
-        map.addSource("swiss-boundary", {
-          type: "geojson",
-          data: "swiss_boundary.json",
-        });
-
-        // Add swiss-boundary fill layer
-        map.addLayer({
-          id: "swiss-boundary-fill",
-          type: "fill",
-          source: "swiss-boundary",
-          paint: {
-            "fill-color": "transparent",
-            "fill-opacity": 0.1,
-          },
-        });
-
-        // Add swiss-boundary outline layer
-        map.addLayer({
-          id: "swiss-boundary-line",
-          type: "line",
-          source: "swiss-boundary",
-          paint: {
-            "line-color": "#000",
-            "line-width": 2,
-            "line-opacity": 0.5,
-          },
-        });
-
-        // Add canton boundaries source
-        // https://data.opendatasoft.com/explore/dataset/georef-switzerland-kanton%40public/export/?disjunctive.kan_code&disjunctive.kan_name&sort=year&location=10,46.89962,7.36702&basemap=jawg.streets&dataChart=eyJxdWVyaWVzIjpbeyJjb25maWciOnsiZGF0YXNldCI6Imdlb3JlZi1zd2l0emVybGFuZC1rYW50b25AcHVibGljIiwib3B0aW9ucyI6eyJkaXNqdW5jdGl2ZS5rYW5fY29kZSI6dHJ1ZSwiZGlzanVuY3RpdmUua2FuX25hbWUiOnRydWUsInNvcnQiOiJ5ZWFyIn19LCJjaGFydHMiOlt7ImFsaWduTW9udGgiOnRydWUsInR5cGUiOiJsaW5lIiwiZnVuYyI6IkNPVU5UIiwic2NpZW50aWZpY0Rpc3BsYXkiOnRydWUsImNvbG9yIjoiIzE0MkU3QiJ9XSwieEF4aXMiOiJ5ZWFyIiwibWF4cG9pbnRzIjoiIiwidGltZXNjYWxlIjoieWVhciIsInNvcnQiOiIifV0sImRpc3BsYXlMZWdlbmQiOnRydWUsImFsaWduTW9udGgiOnRydWV9
-        map.addSource("canton-boundaries", {
-          type: "geojson",
-          data: "swiss_cantons.geojson",
-        });
-
-        // Add canton boundaries layer
-        map.addLayer({
-          id: "canton-boundaries-layer",
-          type: "line",
-          source: "canton-boundaries",
-          paint: {
-            "line-color": "#808080",
-            "line-width": 1,
-            "line-opacity": 0.7,
-          },
-        });
-
-        // Add cities source
-        map.addSource("cities", {
-          type: "geojson",
-          data: "cities.json",
-        });
-
-        map.addLayer({
-          id: "cities-layer",
-          type: "circle",
-          source: "cities",
-          paint: {
-            "circle-radius": 1.5,
-            "circle-color": "#ffffff",
-            "circle-stroke-width": 2,
-            "circle-stroke-color": "#000000"
-          },
-          filter: [">=", ["+", 1.25, ["zoom"]], ["get", "minzoom"]],
-        });
-
-        map.addLayer({
-          id: "cities-labels",
-          type: "symbol",
-          source: "cities",
-          layout: {
-            "text-field": ["get", "place"],
-            "text-font": ["Open Sans Regular", "Arial Unicode MS Regular"],
-            "text-justify": "left",
-            "text-offset": [0.5, 0.2],
-            "text-anchor": "bottom-left",
-            "text-size": 12,
-          },
-          paint: {
-            "text-color": "#000000",
-            "text-halo-color": "#ffffff",
-            "text-halo-width": 2
-          },
-          filter: [">=", ["+", 1.25, ["zoom"]], ["get", "minzoom"]],
-        });
+          "fill-opacity": 0.15
+        }
       });
-    </script>
-  </body>
+
+      map.addLayer({
+        id: "swiss_nuts_regions-layer",
+        type: "line",
+        source: "swiss_nuts_regions",
+        paint: {
+          "line-color": "#666666",
+          "line-width": 1,
+          "line-opacity": 0.15,
+        },
+      });
+
+      // Add labels
+      map.addLayer({
+        id: "swiss_nuts_regions-labels",
+        type: "symbol",
+        source: "swiss_nuts_regions",
+        minzoom: 9,
+        maxzoom: 11,
+        layout: {
+          "text-field": ["get", "name"],
+          "text-size": 16,
+          "text-anchor": "center",
+          "text-justify": "center",
+          "text-variable-anchor": ["center"],
+          "text-radial-offset": 0,
+          "text-allow-overlap": false,
+          "symbol-placement": "point"
+        },
+        paint: {
+          "text-color": [
+            "match",
+            ["get", "id"],
+            "CH01", "#85AC96", // darker version of #B5DCC6
+            "CH02", "#A8B856", // darker version of #D8E876
+            "CH03", "#A8A3B8", // darker version of #D8D3E8
+            "CH04", "#C795AA", // darker version of #F7C5DA
+            "CH05", "#CFCC96", // darker version of #FFFCC6
+            "CH06", "#C5946F", // darker version of #F5C48F
+            "CH07", "#C6978B", // darker version of #F6C7BB
+            "#666666"  // default color
+          ],
+          "text-opacity": 0.15,
+          "text-halo-color": "#bbbbbb",
+          "text-halo-width": 1
+        }
+      });
+
+      // Add canton capitals source
+      map.addSource("region-center", {
+        type: "geojson",
+        data: {
+          type: "FeatureCollection",
+          features: [
+            { type: "Feature", geometry: { type: "Point", coordinates: [7.384803, 46.201399] }, properties: { id: "CH01", color: "#85AC96", name: "Genferseeregion" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [7.433405, 46.816867] }, properties: { id: "CH02", color: "#A8B856", name: "Espace Mittelland" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [8.107355, 47.429755] }, properties: { id: "CH03", color: "#A8A3B8", name: "Grossregion Nordwestschweiz" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [8.654879, 47.412950] }, properties: { id: "CH04", color: "#C795AA", name: "Zürich" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [9.374251, 46.810215] }, properties: { id: "CH05", color: "#CFCC96", name: "Ostschweiz" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [8.420687, 46.968408] }, properties: { id: "CH06", color: "#C5946F", name: "Zentralschweiz" } },
+            { type: "Feature", geometry: { type: "Point", coordinates: [8.808256, 46.296012] }, properties: { id: "CH07", color: "#C6978B", name: "Tessin" } },
+          ]
+        }
+      });
+
+      // Add labels for canton capitals
+      map.addLayer({
+        id: "region-center-labels",
+        type: "symbol",
+        source: "region-center",
+        minzoom: 6,
+        maxzoom: 9,
+        layout: {
+          "text-field": ["get", "name"],
+          "text-font": ["Open Sans Regular", "Arial Unicode MS Regular"],
+          "text-size": 16,
+        },
+        paint: {
+          "text-color": ["get", "color"],
+          "text-opacity": 0.15,
+          "text-halo-color": "#bbbbbb",
+          "text-halo-width": 1
+        }
+      });
+    });
+  </script>
+</body>
+
 </html>

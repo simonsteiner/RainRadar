@@ -31,10 +31,29 @@ const setupContainerToggles = (): void => {
     });
 };
 
+const setupSidebarToggle = (): void => {
+    const sidebar = document.querySelector('.sidebar');
+    if (!sidebar) return;
+    const sidebarToggle = document.querySelector('.sidebar-toggle');
+    const sidebarClose = document.querySelector('.sidebar-close');
+    if (!sidebarToggle || !sidebarClose) return;
+    const map = document.getElementById('map');
+    if (!map) return;
+
+    const toggleSidebar = () => {
+        sidebar.classList.toggle('open');
+        map.classList.toggle('sidebar-open');
+    };
+
+    sidebarToggle.addEventListener('click', toggleSidebar);
+    sidebarClose.addEventListener('click', toggleSidebar);
+};
+
 // Initialize the controls
 const initializeControls = (): void => {
     setupMobileHandle();
     setupContainerToggles();
+    setupSidebarToggle();
 };
 
 initializeControls();

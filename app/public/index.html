@@ -1,62 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meteo Swiss Precipitation Clone</title>
-    <link
-      href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
-      rel="stylesheet"
-    />
-    <link href="styles/styles.css" rel="stylesheet" />
-  </head>
 
-  <body>
-    <div id="map"></div>
-    <div id="locate-button" class="maplibregl-ctrl maplibregl-ctrl-group">
-      <button type="button" class="location-button" title="Show my location">
-        <span class="maplibregl-ctrl-icon" aria-hidden="true"></span>
-      </button>
-    </div>
-    <div id="myCoords" class="info-display"></div>
-    <div id="coordinates" class="info-display"></div>
-    <div id="zoomlevel" class="info-display"></div>
-    <div id="updatedOn" class="info-display"></div>
-    <div id="timeDisplay" class="info-display"></div>
-    <div id="legend-container" class="container-hidden">
-      <button class="toggle-btn" data-target="legend-container">×</button>
-      <h3>Legend</h3>
-      <div id="legend-content" class="container-content"></div>
-    </div>
-    <div id="layer-control" class="container-hidden">
-      <button class="toggle-btn" data-target="layer-control">×</button>
-      <h3>Layers</h3>
-      <div id="layer-content" class="container-content"></div>
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌧️ Rain Radar: Meteo Swiss Precipitation Clone</title>
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <link href="styles/styles.css" rel="stylesheet" />
+</head>
 
-    <div class="precipitation-container">
-      <div class="mobile-handle"></div>
-      <div class="slider-container">
-        <button id="prevStep">←</button>
-        <button id="playButton">▶</button>
-        <input type="range" id="timeSlider" min="0" value="0" />
-        <button id="nextStep">→</button>
+<body>
+  <div class="sidebar">
+    <button class="sidebar-toggle" aria-label="Toggle sidebar"></button>
+    <button class="sidebar-close" aria-label="Close sidebar">×</button>
+    <div class="sidebar-content">
+      <h1>🌧️<br>Welcome to Rain Radar!</h1>
+      <p>
+        This site is a direct clone of the Swiss Meteo Precipitation tool, built to be lightweight and
+        functional—perfect for integration into paragliding cockpits 🪂. It provides real-time precipitation
+        data 🌦️ in
+        a simple, accessible format, with precipitation data sourced from Swiss Meteo.
+      </p>
+      <p>
+        🚀 Tech Stack: Built using <a href="https://github.com/features/copilot" target="_blank">GitHub
+          Copilot</a>,
+        <a href="https://nodejs.org/" target="_blank">Node.js</a>,
+        <a href="https://expressjs.com/" target="_blank">Express</a>,
+        <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>, and
+        <a href="https://maplibre.org/" target="_blank">MapLibre GL</a>, and hosted on a free
+        <a href="https://render.com/" target="_blank">Render.com</a> instance. While hosting is cost-effective,
+        ⚠️ some
+        delays might occur due to server limitations.
+      </p>
+      <p>
+        📱 Notes: The mobile layout might need some tuning, and integration with XCTrack has yet to be fully
+        tested.
+      </p>
+      <p>
+        💡 I'm open to feedback and suggestions to make this tool even better—don’t hesitate to share your
+        thoughts! 🙏
+      </p>
+      <p>
+        ⚠️ Disclaimer: This tool uses precipitation data provided by <a
+          href="https://www.meteoswiss.admin.ch/services-and-publications/applications/precipitation.html"
+          target="_blank">Swiss Meteo</a>. I believe this use qualifies as fair
+        use, but I cannot guarantee it. If there are any concerns or issues regarding data usage, please feel
+        free to
+        contact me.
+      </p>
+      <h3>Links</h3>
+      <ul>
+        <li><a href="https://github.com/simonsteiner/rainradar" target="_blank">📂 GitHub Repository</a></li>
+        <li><a href="https://www.meteoswiss.admin.ch/services-and-publications/applications/precipitation.html"
+            target="_blank">🌦️ Original MeteoSwiss Radar</a></li>
+        <li><a href="https://github.com/simonsteiner/rainradar/issues" target="_blank">📝 Report Issues</a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="map"></div>
+  <div id="locate-button" class="maplibregl-ctrl maplibregl-ctrl-group">
+    <button type="button" class="location-button" title="Show my location">
+      <span class="maplibregl-ctrl-icon" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div id="myCoords" class="info-display"></div>
+  <div id="coordinates" class="info-display"></div>
+  <div id="zoomlevel" class="info-display"></div>
+  <div id="updatedOn" class="info-display"></div>
+  <div id="timeDisplay" class="info-display"></div>
+  <div id="legend-container" class="container-hidden">
+    <button class="toggle-btn" data-target="legend-container">×</button>
+    <h3>Legend</h3>
+    <div id="legend-content" class="container-content"></div>
+  </div>
+  <div id="layer-control" class="container-hidden">
+    <button class="toggle-btn" data-target="layer-control">×</button>
+    <h3>Layers</h3>
+    <div id="layer-content" class="container-content"></div>
+  </div>
+
+  <div class="precipitation-container">
+    <div class="mobile-handle"></div>
+    <div class="slider-container">
+      <button id="prevStep">←</button>
+      <button id="playButton">▶</button>
+      <input type="range" id="timeSlider" min="0" value="0" />
+      <button id="nextStep">→</button>
+    </div>
+    <div class="speed-container">
+      <span>Speed:</span>
+      <div class="speed-buttons">
+        <button class="speed-btn" data-speed="1000">0.5x</button>
+        <button class="speed-btn active" data-speed="500">1x</button>
+        <button class="speed-btn" data-speed="375">1.5x</button>
+        <button class="speed-btn" data-speed="250">2x</button>
       </div>
-      <div class="speed-container">
-        <span>Speed:</span>
-        <div class="speed-buttons">
-          <button class="speed-btn" data-speed="1000">0.5x</button>
-          <button class="speed-btn active" data-speed="500">1x</button>
-          <button class="speed-btn" data-speed="375">1.5x</button>
-          <button class="speed-btn" data-speed="250">2x</button>
-        </div>
-      </div>
-      <h3>Meta Data</h3>
-      <div id="precipitationImage"></div>
     </div>
+    <h3>Meta Data</h3>
+    <div id="precipitationImage"></div>
+  </div>
 
-    <script type="module" src="/js/map/init-map.js"></script>
-    <script type="module" src="/js/container-controls.js"></script>
-    <script defer src="https://cloud.umami.is/script.js" data-website-id="572f796d-9334-408a-b3af-9f9a3520b0d7"></script>
-  </body>
+  <script type="module" src="/js/map/init-map.js"></script>
+  <script type="module" src="/js/container-controls.js"></script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="572f796d-9334-408a-b3af-9f9a3520b0d7"></script>
+</body>
+
 </html>

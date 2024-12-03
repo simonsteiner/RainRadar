@@ -27,6 +27,10 @@
   /* Mobile */
   --mobile-precipitation-height: 25vh;
   --mobile-handle-height: 10px;
+
+  /* Sidebar */
+  --sidebar-width: 300px;
+  --sidebar-collapsed-width: 30px;
 }
 
 /* Base styles */
@@ -45,6 +49,11 @@ body {
   height: 100vh;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+}
+
+#map.sidebar-open {
+  margin-left: var(--sidebar-width);
+  width: calc(100% - var(--sidebar-width));
 }
 
 #locate-button {
@@ -401,6 +410,69 @@ body:has(.precipitation-container.expanded) #timeDisplay {
   vertical-align: top;
 }
 
+/* Sidebar styles */
+.sidebar {
+  position: fixed;
+  left: calc(-1 * var(--sidebar-width));
+  top: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: var(--white-transparent-high);
+  transition: left 0.3s ease-in-out;
+  z-index: 10;
+  box-shadow: var(--shadow-default);
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar-toggle {
+  position: absolute;
+  right: calc(-1 * var(--sidebar-collapsed-width));
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--sidebar-collapsed-width);
+  height: 40px; /* Reduced from 60px */
+  background: var(--white-transparent-high);
+  border: none;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  cursor: pointer;
+  box-shadow: var(--shadow-default);
+  font-size: 12px; /* Added font size */
+}
+
+.sidebar-toggle::after {
+  content: "►";
+  display: block;
+  transition: transform 0.3s;
+}
+
+.sidebar.open .sidebar-toggle::after {
+  transform: rotate(180deg);
+}
+
+.sidebar-content {
+  padding: var(--spacing-lg);
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+/* Sidebar close button */
+.sidebar-close {
+  display: none;
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: var(--spacing-xs);
+}
+
 /* Mobile specific styles */
 @media (max-width: 768px) {
   #map {
@@ -492,5 +564,25 @@ body:has(.precipitation-container.expanded) #timeDisplay {
 
   #coordinates {
     display: none;
+  }
+
+  .sidebar {
+    width: 100%;
+    left: -100%;
+  }
+
+  .sidebar-toggle {
+    width: 30px; /* Reduced from 40px */
+    right: -30px;
+    height: 35px; /* Even smaller on mobile */
+  }
+
+  .sidebar-close {
+    display: block;
+  }
+
+  #map.sidebar-open {
+    margin-left: 0;
+    width: 100%;
   }
 }

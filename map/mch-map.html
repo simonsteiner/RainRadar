@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SwissTopo Map</title>
     <link
-      href="https://unpkg.com/maplibre-gl@3.x/dist/maplibre-gl.css"
+      href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
       rel="stylesheet"
     />
     <style>
@@ -24,7 +24,7 @@
 
   <body>
     <div id="map"></div>
-    <script src="https://unpkg.com/maplibre-gl@3.x/dist/maplibre-gl.js"></script>
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
     <script>
       const map = new maplibregl.Map({
         container: "map",
@@ -58,27 +58,27 @@
 
         // add swissboundaries source
         // from mch website export
-        map.addSource("boundary", {
+        map.addSource("swiss-boundary", {
           type: "geojson",
-          data: "boundary.json",
+          data: "swiss_boundary.json",
         });
 
-        // Add boundary fill layer
+        // Add swiss-boundary fill layer
         map.addLayer({
-          id: "boundary-fill",
+          id: "swiss-boundary-fill",
           type: "fill",
-          source: "boundary",
+          source: "swiss-boundary",
           paint: {
             "fill-color": "transparent",
             "fill-opacity": 0.1,
           },
         });
 
-        // Add boundary outline layer
+        // Add swiss-boundary outline layer
         map.addLayer({
-          id: "boundary-line",
+          id: "swiss-boundary-line",
           type: "line",
-          source: "boundary",
+          source: "swiss-boundary",
           paint: {
             "line-color": "#000",
             "line-width": 2,
@@ -90,7 +90,7 @@
         // https://data.opendatasoft.com/explore/dataset/georef-switzerland-kanton%40public/export/?disjunctive.kan_code&disjunctive.kan_name&sort=year&location=10,46.89962,7.36702&basemap=jawg.streets&dataChart=eyJxdWVyaWVzIjpbeyJjb25maWciOnsiZGF0YXNldCI6Imdlb3JlZi1zd2l0emVybGFuZC1rYW50b25AcHVibGljIiwib3B0aW9ucyI6eyJkaXNqdW5jdGl2ZS5rYW5fY29kZSI6dHJ1ZSwiZGlzanVuY3RpdmUua2FuX25hbWUiOnRydWUsInNvcnQiOiJ5ZWFyIn19LCJjaGFydHMiOlt7ImFsaWduTW9udGgiOnRydWUsInR5cGUiOiJsaW5lIiwiZnVuYyI6IkNPVU5UIiwic2NpZW50aWZpY0Rpc3BsYXkiOnRydWUsImNvbG9yIjoiIzE0MkU3QiJ9XSwieEF4aXMiOiJ5ZWFyIiwibWF4cG9pbnRzIjoiIiwidGltZXNjYWxlIjoieWVhciIsInNvcnQiOiIifV0sImRpc3BsYXlMZWdlbmQiOnRydWUsImFsaWduTW9udGgiOnRydWV9
         map.addSource("canton-boundaries", {
           type: "geojson",
-          data: "canton-boundaries-georef.geojson",
+          data: "swiss_cantons.geojson",
         });
 
         // Add canton boundaries layer
@@ -111,46 +111,38 @@
           data: "cities.json",
         });
 
-        const setupCitiesLayer = async () => {
-          try {
-            // Load the image and wait for it to complete
-            const image = await new Promise((resolve, reject) => {
-              map.loadImage("circle.png", (error, image) => {
-                if (error) reject(error);
-                resolve(image);
-              });
-            });
+        map.addLayer({
+          id: "cities-layer",
+          type: "circle",
+          source: "cities",
+          paint: {
+            "circle-radius": 1.5,
+            "circle-color": "#ffffff",
+            "circle-stroke-width": 2,
+            "circle-stroke-color": "#000000"
+          },
+          filter: [">=", ["+", 1.25, ["zoom"]], ["get", "minzoom"]],
+        });
 
-            // Add the image to the map
-            map.addImage("circle-icon", image);
-
-            // Add cities layer
-            map.addLayer({
-              id: "cities-layer",
-              type: "symbol",
-              source: "cities",
-              layout: {
-                "icon-image": "circle-icon",
-                "icon-size": 0.06,
-                "text-field": ["get", "place"],
-                "text-font": ["Open Sans Regular", "Arial Unicode MS Regular"],
-                "text-justify": "left",
-                "text-offset": [0.4, 0.2],
-                "text-anchor": "bottom-left",
-                "text-size": 16,
-              },
-              paint: {
-                "text-color": "black",
-                "text-halo-color": "rgba(255,255,255,.5)",
-                "text-halo-width": 1,
-              },
-              filter: [">=", ["+", 1.25, ["zoom"]], ["get", "minzoom"]],
-            });
-          } catch (error) {
-            console.error("Error setting up cities layer:", error);
-          }
-        };
-        setupCitiesLayer();
+        map.addLayer({
+          id: "cities-labels",
+          type: "symbol",
+          source: "cities",
+          layout: {
+            "text-field": ["get", "place"],
+            "text-font": ["Open Sans Regular", "Arial Unicode MS Regular"],
+            "text-justify": "left",
+            "text-offset": [0.5, 0.2],
+            "text-anchor": "bottom-left",
+            "text-size": 12,
+          },
+          paint: {
+            "text-color": "#000000",
+            "text-halo-color": "#ffffff",
+            "text-halo-width": 2
+          },
+          filter: [">=", ["+", 1.25, ["zoom"]], ["get", "minzoom"]],
+        });
       });
     </script>
   </body>

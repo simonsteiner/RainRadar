@@ -18,9 +18,16 @@ export class LayerManager {
       );
     }
 
+    const visibility = config.visible === false ? "none" : "visible";
     config.layers.forEach((layer) => {
       if (!this.map.getLayer(layer.id)) {
-        this.map.addLayer(layer);
+        this.map.addLayer({
+          ...layer,
+          layout: {
+            ...layer.layout,
+            visibility
+          }
+        });
       }
     });
   }
@@ -51,7 +58,7 @@ export class LayerManager {
 
       checkbox.type = "checkbox";
       checkbox.id = layerId;
-      checkbox.checked = true;
+      checkbox.checked = config.visible !== false;
 
       label_elem.appendChild(checkbox);
       label_elem.appendChild(

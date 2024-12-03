@@ -3,6 +3,7 @@ import { LayerConfig } from "../types";
 export const center: LayerConfig = {
   id: "center",
   label: "Center Point of Swizerland",
+  visible: false,
   source: "center",
   sourceConfig: {
     type: "geojson",
@@ -53,6 +54,7 @@ export const center: LayerConfig = {
 export const bounds: LayerConfig = {
   id: "bounds",
   label: "Bounds of Switzerland",
+  visible: false,
   source: "bounds",
   sourceConfig: {
     type: "geojson",

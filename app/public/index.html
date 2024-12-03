@@ -56,30 +56,6 @@
     </div>
 
     <script type="module" src="/js/map/init-map.js"></script>
-    <script>
-      document.querySelector(".mobile-handle").addEventListener("click", () => {
-        document
-          .querySelector(".precipitation-container")
-          .classList.toggle("expanded");
-      });
-
-      document
-        .querySelectorAll(
-          ".toggle-btn, #layer-control h3, #legend-container h3"
-        )
-        .forEach((element) => {
-          element.addEventListener("click", (e) => {
-            if (
-              e.target.tagName === "H3" ||
-              e.target.classList.contains("toggle-btn")
-            ) {
-              const container = e.target.closest(
-                "#layer-control, #legend-container"
-              );
-              container.classList.toggle("container-hidden");
-            }
-          });
-        });
-    </script>
+    <script type="module" src="/js/container-controls.js"></script>
   </body>
 </html>

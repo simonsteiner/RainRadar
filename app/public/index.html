@@ -22,10 +22,20 @@
       <h1>Meteo Swiss Precipitation Clone</h1>
       <div class="slider-container">
         <button id="prevStep">←</button>
+        <button id="playButton">▶</button>
         <input type="range" id="timeSlider" min="0" value="0" />
         <button id="nextStep">→</button>
       </div>
       <div id="timeDisplay"></div>
+      <div class="speed-container">
+        <span>Speed:</span>
+        <div class="speed-buttons">
+          <button class="speed-btn" data-speed="1000">0.5x</button>
+          <button class="speed-btn active" data-speed="500">1x</button>
+          <button class="speed-btn" data-speed="375">1.5x</button>
+          <button class="speed-btn" data-speed="250">2x</button>
+        </div>
+      </div>
       <div id="updatedOn"></div>
       <div id="precipitationImage"></div>
       <div id="layer-control" class="layer-control">

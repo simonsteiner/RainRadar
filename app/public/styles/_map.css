@@ -1,7 +1,8 @@
 :root {
     --map-mobile-height: calc(100vh - 45px);
     --map-mobile-height-expanded: calc(100vh - var(--mobile-precipitation-height));
-    --mobile-address-bar-height: 56px;  /* typical height of mobile address bar */
+    --mobile-address-bar-height: 56px;
+    /* typical height of mobile address bar */
 }
 
 #map {
@@ -11,6 +12,14 @@
     height: 100vh;
     cursor: pointer;
     transition: width 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+}
+
+body.fullscreen #map {
+    height: 100vh;
+}
+
+body.fullscreen #map.address-bar-visible {
+    height: 95vh;
 }
 
 #map.sidebar-open {
@@ -38,5 +47,10 @@
 
     body:has(.precipitation-container.expanded) #map.address-bar-visible {
         height: calc(var(--map-mobile-height-expanded) - var(--mobile-address-bar-height) + 5px);
+    }
+
+    body.fullscreen:has(.precipitation-container.expanded) #map,
+    body.fullscreen:has(.precipitation-container.expanded) #map.address-bar-visible {
+        height: calc(var(--map-mobile-height-expanded) + 5px);
     }
 }

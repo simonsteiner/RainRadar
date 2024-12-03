@@ -159,6 +159,10 @@ body:has(.precipitation-container.expanded) .mobile-handle {
         }
     }
 
+    body.fullscreen .precipitation-container {
+        margin-bottom: 5px;
+    }
+
     #precipitationImage {
         max-height: calc(var(--mobile-precipitation-height) - 120px);
     }

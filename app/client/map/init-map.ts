@@ -8,6 +8,7 @@ import { ViewportHandler } from "./viewport-handler";
 import { MapUI } from "./map-ui";
 import { ParaglidingMode } from "../precipitation/paragliding-mode";
 import { hasZoomParameter, getZoomFromUrl } from "./map-utils";
+import { initializeControls } from "../container-controls";
 
 interface IMapInitializer {
   getMap(): Map;
@@ -35,6 +36,7 @@ class MapInitializer implements IMapInitializer {
       this.mapUI = new MapUI();
 
       this.initializeComponents();
+      initializeControls();
     } catch (error) {
       console.error('Failed to initialize map:', error);
       throw error;

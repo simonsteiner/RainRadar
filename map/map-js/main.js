@@ -66,4 +66,52 @@ map.on("load", () => {
   swissCantonBoundariesLayer(map);
   swissCitiesLayer(map);
   swissNutsRegionsLayer(map);
+
+  map.addSource('location-marker', {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: []
+    }
+  });
+
+  map.addLayer({
+    id: 'location-marker',
+    type: 'circle',
+    source: 'location-marker',
+    paint: {
+      'circle-radius': 8,
+      'circle-color': '#ff0000',
+      'circle-opacity': 0.8
+    }
+  });
+});
+
+document.getElementById('locate-button').addEventListener('click', () => {
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition(position => {
+      const { longitude, latitude } = position.coords;
+      
+      map.getSource('location-marker').setData({
+        type: 'FeatureCollection',
+        features: [{
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [longitude, latitude]
+          }
+        }]
+      });
+
+      map.flyTo({
+        center: [longitude, latitude],
+        zoom: 14
+      });
+    }, error => {
+      console.error('Error getting location:', error);
+      alert('Unable to retrieve your location');
+    });
+  } else {
+    alert('Geolocation is not supported by your browser');
+  }
 });

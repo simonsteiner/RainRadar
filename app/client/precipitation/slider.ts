@@ -1,6 +1,5 @@
-import { Map } from "maplibre-gl";
 import { PictureInfo } from "./types";
-import { updateImage } from "./display";
+import { PrecipitationRenderer } from "./render";
 
 interface AnimationControls {
   slider: HTMLInputElement;
@@ -16,12 +15,16 @@ class AnimationController {
   private animationSpeed = 500;
   private readonly controls: AnimationControls;
   private readonly pictures: PictureInfo[];
-  private readonly map: Map;
+  private readonly renderer: PrecipitationRenderer;
 
-  constructor(controls: AnimationControls, pictures: PictureInfo[], map: Map) {
+  constructor(
+    controls: AnimationControls,
+    pictures: PictureInfo[],
+    renderer: PrecipitationRenderer
+  ) {
     this.controls = controls;
     this.pictures = pictures;
-    this.map = map;
+    this.renderer = renderer;
     this.initializeControls();
   }
 
@@ -72,7 +75,7 @@ class AnimationController {
         currentIndex =
           currentIndex >= this.pictures.length - 1 ? 0 : currentIndex + 1;
         this.controls.slider.value = currentIndex.toString();
-        updateImage(currentIndex, this.pictures, this.map);
+        this.renderer.updateImage(currentIndex, this.pictures);
       }, this.animationSpeed);
     }
   }
@@ -87,7 +90,7 @@ class AnimationController {
     this.controls.slider.addEventListener("input", (e) => {
       this.pause();
       const index = parseInt((e.target as HTMLInputElement).value);
-      updateImage(index, this.pictures, this.map);
+      this.renderer.updateImage(index, this.pictures);
     });
   }
 
@@ -98,7 +101,7 @@ class AnimationController {
       if (currentIndex > 0) {
         const newIndex = currentIndex - 1;
         this.controls.slider.value = newIndex.toString();
-        updateImage(newIndex, this.pictures, this.map);
+        this.renderer.updateImage(newIndex, this.pictures);
       }
     });
 
@@ -108,7 +111,7 @@ class AnimationController {
       if (currentIndex < this.pictures.length - 1) {
         const newIndex = currentIndex + 1;
         this.controls.slider.value = newIndex.toString();
-        updateImage(newIndex, this.pictures, this.map);
+        this.renderer.updateImage(newIndex, this.pictures);
       }
     });
   }
@@ -123,7 +126,7 @@ export function findLatestMeasurementIndex(pictures: PictureInfo[]): number {
   return 0;
 }
 
-export function setupSlider(pictures: PictureInfo[], map: Map) {
+export function setupSlider(pictures: PictureInfo[], renderer: PrecipitationRenderer) {
   const controls: AnimationControls = {
     slider: document.getElementById("timeSlider") as HTMLInputElement,
     prevButton: document.getElementById("prevStep") as HTMLElement,
@@ -133,6 +136,6 @@ export function setupSlider(pictures: PictureInfo[], map: Map) {
   };
 
   if (controls.slider) {
-    new AnimationController(controls, pictures, map);
+    new AnimationController(controls, pictures, renderer);
   }
 }

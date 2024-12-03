@@ -17,6 +17,7 @@ export const precipitation: LayerConfig = {
         "fill-color": ["get", "color"],
         "fill-opacity": 0.5,
       },
+      layout: {},
     },
     {
       id: "precipitation-rate-outline",
@@ -27,6 +28,7 @@ export const precipitation: LayerConfig = {
         "line-width": 1,
         "line-opacity": 0.8,
       },
+      layout: {},
     },
   ],
 };

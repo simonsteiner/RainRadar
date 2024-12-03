@@ -3,21 +3,25 @@ import { fetchPrecipitationAnimation } from "./api";
 import { extractPictureInfo } from "./utils";
 import { PictureInfo } from "./types";
 import { setupSlider, findLatestMeasurementIndex } from "./slider";
-import { updateImage, updateLastUpdatedText } from "./display";
+import { PrecipitationRenderer } from "./render";
 import { createLegend } from "./legend";
 
 class PrecipitationDisplayManager {
-  constructor(private map: Map) {}
+  private renderer: PrecipitationRenderer;
+
+  constructor(map: Map) {
+    this.renderer = new PrecipitationRenderer(map);
+  }
 
   public async initialize(): Promise<void> {
     try {
       const animationData = await fetchPrecipitationAnimation();
-      updateLastUpdatedText(animationData);
+      this.renderer.updateLastUpdated(animationData);
       const pictures: PictureInfo[] = extractPictureInfo(animationData);
       const latestMeasurementIndex = findLatestMeasurementIndex(pictures);
-      setupSlider(pictures, this.map);
+      setupSlider(pictures, this.renderer);
       createLegend(animationData.legend);
-      updateImage(latestMeasurementIndex, pictures, this.map);
+      await this.renderer.updateImage(latestMeasurementIndex, pictures);
     } catch (error) {
       console.error(
         "Error initializing precipitation display:",

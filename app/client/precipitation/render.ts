@@ -1,26 +1,53 @@
-import { PictureInfo } from "./types";
+import { Map } from "maplibre-gl";
+import { AnimationData, PictureInfo } from "./types";
+import { fetchJson } from "./api";
+import { radar2geojson } from "../geojson/radar2geojson";
+import { LayerManager } from "../map/layer-manager";
+import { RadarData } from "../geojson/types";
 
 export class PrecipitationRenderer {
   private precipitationImage: HTMLElement | null;
   private timeDisplay: HTMLElement | null;
   private updatedOn: HTMLElement | null;
+  private layerManager: LayerManager;
 
-  constructor() {
+  constructor(map: Map) {
     this.precipitationImage = document.getElementById("precipitationImage");
     this.timeDisplay = document.getElementById("timeDisplay");
     this.updatedOn = document.getElementById("updatedOn");
+    this.layerManager = new LayerManager(map);
   }
 
-  renderImage(picture: PictureInfo): void {
-    if (this.precipitationImage && this.timeDisplay) {
-      this.precipitationImage.innerHTML = this.outputImageMetadata(picture);
-      this.timeDisplay.textContent = `${picture.timepoint} (${picture.data_type})`;
+  async updateImage(index: number, pictures: PictureInfo[]): Promise<void> {
+    const picture = pictures[index];
+    if (!picture) return;
+
+    this.renderImage(picture);
+    await this.updateRadarData(picture);
+  }
+
+  updateLastUpdated(animationData: AnimationData): void {
+    const { day, timepoint } = animationData.map_images[0];
+    if (this.updatedOn) {
+      this.updatedOn.textContent = `Updated on ${day}, ${timepoint}`;
     }
   }
 
-  renderLastUpdated(day: string, timepoint: string): void {
-    if (this.updatedOn) {
-      this.updatedOn.textContent = `Updated on ${day}, ${timepoint}`;
+  private async updateRadarData(picture: PictureInfo): Promise<void> {
+    try {
+      const radarData: RadarData = await fetchJson("/api" + picture.radar_url);
+      const geojson = radar2geojson(radarData);
+      this.layerManager.updateSourceData('precipitation', geojson);
+    } catch (error) {
+      console.error("Error updating radar data:", error);
+      throw error;
+    }
+  }
+
+  private renderImage(picture: PictureInfo): void {
+    if (this.precipitationImage && this.timeDisplay) {
+      this.precipitationImage.innerHTML = this.outputImageMetadata(picture);
+      this.timeDisplay.textContent = `${picture.timepoint} (${picture.data_type})`;
     }
   }
 

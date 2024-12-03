@@ -45,9 +45,24 @@ export class PrecipitationRenderer {
         ${
           picture.data_type === "forecast"
             ? `
-          <tr><td>Snow/Rain URL:</td><td>${picture.snowrain_url}</td></tr>
-          <tr><td>Freezing Rain URL:</td><td>${picture.freezingrain_url}</td></tr>
-          <tr><td>Snow URL:</td><td>${picture.snow_url}</td></tr>
+          <tr>
+            <td>Snow/Rain URL:</td>
+            <td>
+              <a href="api${picture.snowrain_url}" target="_blank">${picture.snowrain_url ? this.getFilenameFromPath(picture.snowrain_url) : ''}</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Freezing Rain URL:</td>
+            <td>
+              <a href="api${picture.freezingrain_url}" target="_blank">${picture.freezingrain_url ? this.getFilenameFromPath(picture.freezingrain_url) : ''}</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Snow URL:</td>
+            <td>
+              <a href="api${picture.snow_url}" target="_blank">${picture.snow_url ? this.getFilenameFromPath(picture.snow_url) : ''}</a>
+            </td>
+          </tr>
         `
             : ""
         }

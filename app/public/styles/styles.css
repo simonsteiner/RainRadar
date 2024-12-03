@@ -33,6 +33,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
+  overflow: hidden;
 }
 
 /* Map elements */
@@ -41,6 +42,7 @@ body {
   top: 0;
   bottom: 0;
   width: 100%;
+  height: 100vh;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
@@ -70,7 +72,7 @@ body {
 }
 
 .location-button.active {
-  background-color: #4285f4; /* Google Maps-like blue */
+  background-color: #4285f4 !important; /* Google Maps-like blue */
 }
 
 .location-button.active .maplibregl-ctrl-icon {
@@ -129,6 +131,7 @@ body {
 #myCoords {
   top: 115px;
   right: 10px;
+  text-align: right;
 }
 
 #coordinates {
@@ -160,7 +163,7 @@ body {
 
 /* Precipitation container and controls */
 .precipitation-container {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   width: 450px;
@@ -402,10 +405,11 @@ body:has(.precipitation-container.expanded) #timeDisplay {
 @media (max-width: 768px) {
   #map {
     width: 100%;
-    height: calc(100% - 45px);
+    height: calc(100vh - 45px);
   }
 
   .precipitation-container {
+    position: fixed;
     width: 100%;
     height: 45px;
     left: 0;
@@ -451,20 +455,27 @@ body:has(.precipitation-container.expanded) #timeDisplay {
   }
 
   #timeDisplay {
-    bottom: 45px;
+    bottom: 75px;
+    left: 50%;
+    transform: translateX(-50%);
   }
+
   body:has(.precipitation-container.expanded) #timeDisplay {
-    bottom: calc(30vh - 63px);
-  }
-
-  .precipitation-container.expanded + #legend-container,
-  body:has(.precipitation-container.expanded) #legend-container {
-    bottom: calc(30vh);
-  }
-
-  .precipitation-container.expanded + #layer-control,
-  body:has(.precipitation-container.expanded) #layer-control {
     bottom: calc(30vh - 20px);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  body:has(.precipitation-container.expanded) #timeDisplay {
+    bottom: calc(30vh - 20px);
+  }
+
+  body:has(.precipitation-container.expanded) #legend-container {
+    bottom: calc(30vh + 5px);
+  }
+
+  body:has(.precipitation-container.expanded) #layer-control {
+    bottom: calc(30vh - 15px);
   }
 
   body:has(.precipitation-container.expanded) #map {
@@ -477,5 +488,9 @@ body:has(.precipitation-container.expanded) #timeDisplay {
 
   .speed-container {
     flex-wrap: wrap;
+  }
+
+  #coordinates {
+    display: none;
   }
 }

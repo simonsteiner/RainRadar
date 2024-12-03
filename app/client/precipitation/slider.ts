@@ -1,5 +1,6 @@
 import { PictureInfo } from "./types";
 import { PrecipitationRenderer } from "./render";
+import { ParaglidingMode } from "./paragliding-mode";
 
 interface AnimationControls {
   slider: HTMLInputElement;
@@ -9,23 +10,31 @@ interface AnimationControls {
   speedButtons: NodeListOf<Element>;
 }
 
-class AnimationController {
+export class AnimationController {
   private isPlaying = false;
   private animationInterval?: number;
   private animationSpeed = 500;
   private readonly controls: AnimationControls;
   private readonly pictures: PictureInfo[];
   private readonly renderer: PrecipitationRenderer;
+  private readonly isParaglidingMode: boolean;
 
   constructor(
     controls: AnimationControls,
     pictures: PictureInfo[],
-    renderer: PrecipitationRenderer
+    renderer: PrecipitationRenderer,
+    isParaglidingMode: boolean
   ) {
     this.controls = controls;
     this.pictures = pictures;
     this.renderer = renderer;
+    this.isParaglidingMode = isParaglidingMode;
     this.initializeControls();
+    
+    if (ParaglidingMode.getInstance().isEnabled()) {
+      this.animationSpeed = 500; // Fixed speed for paragliding
+      this.play();
+    }
   }
 
   private initializeControls() {
@@ -54,7 +63,7 @@ class AnimationController {
     });
   }
 
-  private pause() {
+  public pause() {
     if (this.isPlaying) {
       this.isPlaying = false;
       this.controls.playButton.textContent = "▶";
@@ -126,7 +135,10 @@ export function findLatestMeasurementIndex(pictures: PictureInfo[]): number {
   return 0;
 }
 
-export function setupSlider(pictures: PictureInfo[], renderer: PrecipitationRenderer) {
+export function setupSlider(
+  pictures: PictureInfo[],
+  renderer: PrecipitationRenderer,
+): AnimationController | undefined {
   const controls: AnimationControls = {
     slider: document.getElementById("timeSlider") as HTMLInputElement,
     prevButton: document.getElementById("prevStep") as HTMLElement,
@@ -136,6 +148,12 @@ export function setupSlider(pictures: PictureInfo[], renderer: PrecipitationRend
   };
 
   if (controls.slider) {
-    new AnimationController(controls, pictures, renderer);
+    return new AnimationController(
+      controls, 
+      pictures, 
+      renderer, 
+      ParaglidingMode.getInstance().isEnabled()
+    );
   }
+  return undefined;
 }

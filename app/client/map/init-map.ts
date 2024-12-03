@@ -6,12 +6,14 @@ import { initializePrecipitationDisplay } from "../precipitation/init-display";
 import { setupLocationButton } from "./location-button";
 import { ViewportHandler } from "./viewport-handler";
 import { MapUI } from "./map-ui";
+import { ParaglidingMode } from "../precipitation/paragliding-mode";
 
 class MapInitializer {
   private map: Map;
   private layerManager: LayerManager;
   private viewportHandler: ViewportHandler;
   private mapUI: MapUI;
+  precipitationManager: import("../precipitation/init-display").PrecipitationDisplayManager;
 
   constructor() {
     this.map = new maplibregl.Map(mapConfig);
@@ -20,6 +22,7 @@ class MapInitializer {
     this.mapUI = new MapUI();
     
     this.initializeMap();
+    this.initializeParaglidingMode();
   }
 
   private initializeMap(): void {
@@ -50,25 +53,27 @@ class MapInitializer {
           document.body.classList.remove('fullscreen');
         }
       } catch (err) {
-        console.warn('Fullscreen operation failed:', err);
+        console.error('Fullscreen operation failed:', err);
       }
     });
   }
 
-  private onMapLoad(): void {
-    console.log("Map loaded");
+  private async onMapLoad(): Promise<void> {
     this.initializeLayers();
-    initializePrecipitationDisplay(this.map);
+    this.precipitationManager = initializePrecipitationDisplay(this.map);
   }
 
   private initializeLayers(): void {
     Object.values(LAYER_CONFIGS).forEach(config => {
-      console.log(`Adding layer: ${config.id}`);
       this.layerManager.addLayer(config);
     });
 
     this.layerManager.createLayerCheckboxes();
     this.layerManager.setupLayerToggles();
+  }
+
+  private initializeParaglidingMode(): void {
+    ParaglidingMode.getInstance();
   }
 
   public getMap(): Map {

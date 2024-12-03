@@ -1,13 +1,11 @@
 export class ViewportHandler {
     initialize(): void {
         const updateMapHeight = () => {
-            console.log('updateMapHeight');
             const visualViewport = window.visualViewport;
             const map = document.getElementById('map');
             if (!map || document.fullscreenElement) return;
 
             const heightDifference = window.innerHeight - (visualViewport?.height || 0);
-            console.log('heightDifference', heightDifference);
             if (!map) return;
 
             if (heightDifference !== 0) {
@@ -18,7 +16,6 @@ export class ViewportHandler {
         };
 
         if (window.visualViewport) {
-            console.log('visualViewport');
             window.visualViewport.addEventListener('resize', updateMapHeight);
         }
 

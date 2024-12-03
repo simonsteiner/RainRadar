@@ -22,3 +22,10 @@ export const MIME_TYPES: Record<string, string> = {
 export const CACHE = {
   MAX_AGE: 300, // 5 minutes in seconds
 };
+
+export const RETRY = {
+  MAX_ATTEMPTS: 3,
+  INITIAL_DELAY: 1000, // 1 second
+  MAX_DELAY: 10000, // 10 seconds
+  JITTER_MAX: 300, // maximum random delay in ms
+};

@@ -13,12 +13,75 @@ class MapInitializer {
     this.map = new maplibregl.Map(mapConfig);
     this.layerManager = new LayerManager(this.map);
     this.initializeMap();
+    this.setupViewportHandling();
+    this.setupFullscreen();
   }
 
   private initializeMap(): void {
     this.setupEventListeners();
     setupLocationButton(this.map);
     this.map.on("load", this.onMapLoad.bind(this));
+  }
+
+  private setupViewportHandling(): void {
+
+    const updateMapHeight = () => {
+      const visualViewport = window.visualViewport;
+      const map = document.getElementById('map');
+      const heightDifference = window.innerHeight - (visualViewport?.height || 0);
+
+      console.debug('Viewport measurements:', {
+        visualViewportHeight: visualViewport?.height,
+        windowInnerHeight: window.innerHeight,
+        heightDifference,
+        mapElement: map ? 'found' : 'not found'
+      });
+
+      if (heightDifference != 0) {
+        if (map) {
+          console.debug(`Address bar detected (${heightDifference}px difference)`);
+          map.classList.add('address-bar-visible');
+        }
+      } else {
+        if (map) {
+          console.debug('No address bar detected');
+          map.classList.remove('address-bar-visible');
+        }
+      }
+    };
+
+    if (window.visualViewport) {
+      console.debug('Visual Viewport API available');
+      window.visualViewport.addEventListener('resize', updateMapHeight);
+    } else {
+      console.warn('Visual Viewport API not available');
+    }
+    window.addEventListener('load', updateMapHeight);
+    // Initial call to set correct state
+    updateMapHeight();
+  }
+
+  private setupFullscreen(): void {
+    const fullscreenButton = document.querySelector('.fullscreen-button');
+    if (!fullscreenButton) return;
+
+    fullscreenButton.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen()
+          .then(() => {
+            document.body.classList.add('fullscreen');
+            console.debug('Entered fullscreen mode');
+          })
+          .catch(err => console.warn('Failed to enter fullscreen:', err));
+      } else {
+        document.exitFullscreen()
+          .then(() => {
+            document.body.classList.remove('fullscreen');
+            console.debug('Exited fullscreen mode');
+          })
+          .catch(err => console.warn('Failed to exit fullscreen:', err));
+      }
+    });
   }
 
   private setupEventListeners(): void {

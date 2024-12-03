@@ -22,19 +22,12 @@
 }
 
 #coordinates {
-    top: var(--spacing-md);
-    cursor: pointer;
+    top: 115px;
     transition: background-color 0.3s;
 }
 
 #zoomlevel {
-    top: 40px;
-}
-
-#myCoords {
-    top: 115px;
-    right: var(--spacing-md);
-    text-align: right;
+    top: 145px;
 }
 
 #timeDisplay {

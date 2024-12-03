@@ -1,12 +1,11 @@
+import { Map } from "maplibre-gl";
+import { getCurrentPosition } from "../map/location-button";
+
 export class ParaglidingMode {
     private static instance: ParaglidingMode;
     private isActive: boolean;
     private changeListeners: Array<(isActive: boolean) => void> = [];
-
-    private constructor() {
-        this.isActive = this.checkUrlParam();
-        this.setupToggleButton();
-    }
+    private map: Map;
 
     public static getInstance(): ParaglidingMode {
         if (!ParaglidingMode.instance) {
@@ -19,43 +18,79 @@ export class ParaglidingMode {
         return this.isActive;
     }
 
+    public addChangeListener(listener: (isActive: boolean) => void): void {
+        this.changeListeners.push(listener);
+    }
+
+    public initialize(map: Map): void {
+        this.map = map;
+        if (this.isActive) {
+            getCurrentPosition(this.map);
+        }
+    }
+
+    private constructor() {
+        this.isActive = this.checkUrlParam();
+        this.setupToggleButton();
+    }
+
     private checkUrlParam(): boolean {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get('mode') === 'paragliding';
     }
 
-    private setupToggleButton(): void {
-        const button = document.getElementById('paraglidingMode');
-        if (!button) return;
-
-        if (this.isActive) {
-            button.classList.add('active');
-            document.body.classList.add('paragliding');
-        }
-
-        button.addEventListener('click', () => this.toggle());
+    private updateUrl(active: boolean): void {
+        const url = new URL(window.location.href);
+        active ? url.searchParams.set('mode', 'paragliding') : url.searchParams.delete('mode');
+        window.history.replaceState({}, '', url);
     }
 
-    public addChangeListener(listener: (isActive: boolean) => void): void {
-        this.changeListeners.push(listener);
+    private setupToggleButton(): void {
+        const buttons = [
+            document.getElementById('paraglidingMode'),
+            document.getElementById('paraglidingModeCentered')
+        ];
+
+        if (!buttons.some(button => button !== null)) return;
+
+        if (this.isActive) {
+            this.updateClasses(true);
+        }
+
+        buttons.forEach(button => {
+            if (button) {
+                button.addEventListener('click', () => this.toggle());
+            }
+        });
+    }
+
+    private updateClasses(active: boolean): void {
+        const buttons = [
+            document.getElementById('paraglidingMode'),
+            document.getElementById('paraglidingModeCentered')
+        ];
+
+        if (active) {
+            document.body.classList.add('paragliding');
+            buttons.forEach(button => button?.classList.add('active'));
+        } else {
+            document.body.classList.remove('paragliding');
+            buttons.forEach(button => button?.classList.remove('active'));
+        }
     }
 
     private toggle(): void {
         this.isActive = !this.isActive;
-        const url = new URL(window.location.href);
-        const button = document.getElementById('paraglidingMode');
+        this.updateClasses(this.isActive);
+        this.updateUrl(this.isActive);
 
         if (this.isActive) {
-            url.searchParams.set('mode', 'paragliding');
-            document.body.classList.add('paragliding');
-            button?.classList.add('active');
-        } else {
-            url.searchParams.delete('mode');
-            document.body.classList.remove('paragliding');
-            button?.classList.remove('active');
+            if (!this.map) {
+                console.error('Map not initialized in ParaglidingMode');
+                return;
+            }
+            getCurrentPosition(this.map);
         }
-
-        window.history.replaceState({}, '', url);
         this.changeListeners.forEach(listener => listener(this.isActive));
     }
 }

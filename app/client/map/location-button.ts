@@ -54,33 +54,39 @@ function setButtonState(button: HTMLButtonElement, loading: boolean, active: boo
   button.disabled = loading;
 }
 
+export function getCurrentPosition(map: Map, onSuccess?: () => void): void {
+  const locateButton = document.querySelector('#locate-button button') as HTMLButtonElement;
+  if (!locateButton) return;
+
+  setButtonState(locateButton, true);
+
+  if (!("geolocation" in navigator)) {
+    alert("Geolocation is not supported by your browser");
+    setButtonState(locateButton, false);
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const { longitude, latitude } = position.coords;
+      updateLocation(map, longitude, latitude);
+      setButtonState(locateButton, false, true);
+      onSuccess?.();
+    },
+    (error) => {
+      console.error("Error getting location:", error);
+      alert("Unable to retrieve your location");
+      setButtonState(locateButton, false, false);
+      hideCoordinates();
+    }
+  );
+}
+
 export function setupLocationButton(map: Map): void {
   const locateButton = document.querySelector('#locate-button button') as HTMLButtonElement;
   if (!locateButton) return;
 
-  hideCoordinates(); // Hide coordinates initially
+  hideCoordinates();
 
-  locateButton.addEventListener("click", () => {
-    setButtonState(locateButton, true);
-
-    if (!("geolocation" in navigator)) {
-      alert("Geolocation is not supported by your browser");
-      setButtonState(locateButton, false);
-      return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { longitude, latitude } = position.coords;
-        updateLocation(map, longitude, latitude);
-        setButtonState(locateButton, false, true);
-      },
-      (error) => {
-        console.error("Error getting location:", error);
-        alert("Unable to retrieve your location");
-        setButtonState(locateButton, false, false);
-        hideCoordinates(); // Hide coordinates on error
-      }
-    );
-  });
+  locateButton.addEventListener("click", () => getCurrentPosition(map));
 }

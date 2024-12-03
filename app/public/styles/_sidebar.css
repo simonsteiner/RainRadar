@@ -73,8 +73,8 @@
 }
 
 .mode-button {
-    background: #2c3e50;
-    color: white;
+    background: #abc2d8;
+    color: #000;
     border: none;
     padding: 8px 16px;
     border-radius: 4px;
@@ -84,11 +84,25 @@
 }
 
 .mode-button:hover {
-    background: #34495e;
+    background: #6f7e91;
+    color: #fff;
 }
 
 .mode-button.active {
     background: #27ae60;
+    color: #fff;
+}
+
+/* Centered paragliding mode button */
+#paraglidingModeCentered {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    padding: 8px 12px;
+    box-shadow: var(--shadow-default);
+    filter: opacity(0.6);
 }
 
 /* Mobile styles */

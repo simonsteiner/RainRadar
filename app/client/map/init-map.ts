@@ -8,59 +8,88 @@ import { ViewportHandler } from "./viewport-handler";
 import { MapUI } from "./map-ui";
 import { ParaglidingMode } from "../precipitation/paragliding-mode";
 
-class MapInitializer {
-  private map: Map;
-  private layerManager: LayerManager;
-  private viewportHandler: ViewportHandler;
-  private mapUI: MapUI;
-  precipitationManager: import("../precipitation/init-display").PrecipitationDisplayManager;
+interface IMapInitializer {
+  getMap(): Map;
+}
+
+class MapInitializer implements IMapInitializer {
+  private readonly map: Map;
+  private readonly layerManager: LayerManager;
+  private readonly viewportHandler: ViewportHandler;
+  private readonly mapUI: MapUI;
+  private precipitationManager: import("../precipitation/init-display").PrecipitationDisplayManager;
 
   constructor() {
-    this.map = new maplibregl.Map(mapConfig);
-    this.layerManager = new LayerManager(this.map);
-    this.viewportHandler = new ViewportHandler();
-    this.mapUI = new MapUI();
-    
-    this.initializeMap();
+    try {
+      this.map = new maplibregl.Map(mapConfig);
+      this.layerManager = new LayerManager(this.map);
+      this.viewportHandler = new ViewportHandler();
+      this.mapUI = new MapUI();
+
+      this.initializeComponents();
+    } catch (error) {
+      console.error('Failed to initialize map:', error);
+      throw error;
+    }
+  }
+
+  private initializeComponents(): void {
+    this.initializeMapCore();
     this.initializeParaglidingMode();
   }
 
-  private initializeMap(): void {
-    this.setupEventListeners();
-    setupLocationButton(this.map);
-    this.viewportHandler.initialize();
-    this.setupFullscreen();
-    this.map.on("load", this.onMapLoad.bind(this));
+  private initializeMapCore(): void {
+    this.setupEventHandlers();
+    this.setupMapControls();
+    this.map.on("load", this.handleMapLoad.bind(this));
   }
 
-  private setupEventListeners(): void {
-    this.map.on("mousemove", (e: MapMouseEvent) => this.mapUI.updateCoordinates(e));
-    this.map.on("click", (e: MapMouseEvent) => this.mapUI.copyCoordinates(e));
-    this.map.on("move", () => this.mapUI.updateZoom(this.map.getZoom()));
-  }
+  private setupEventHandlers(): void {
+    const eventHandlers = {
+      mousemove: (e: MapMouseEvent) => this.mapUI.updateCoordinates(e),
+      click: (e: MapMouseEvent) => this.mapUI.copyCoordinates(e),
+      move: () => this.mapUI.updateZoom(this.map.getZoom())
+    };
 
-  private setupFullscreen(): void {
-    const fullscreenButton = document.querySelector('.fullscreen-button');
-    if (!fullscreenButton) return;
-
-    fullscreenButton.addEventListener('click', async () => {
-      try {
-        if (!document.fullscreenElement) {
-          await document.documentElement.requestFullscreen();
-          document.body.classList.add('fullscreen');
-        } else {
-          await document.exitFullscreen();
-          document.body.classList.remove('fullscreen');
-        }
-      } catch (err) {
-        console.error('Fullscreen operation failed:', err);
-      }
+    Object.entries(eventHandlers).forEach(([event, handler]) => {
+      this.map.on(event, handler);
     });
   }
 
-  private async onMapLoad(): Promise<void> {
-    this.initializeLayers();
-    this.precipitationManager = initializePrecipitationDisplay(this.map);
+  private setupMapControls(): void {
+    setupLocationButton(this.map);
+    this.viewportHandler.initialize();
+    this.setupFullscreenControl();
+  }
+
+  private setupFullscreenControl(): void {
+    const fullscreenButton = document.querySelector('.fullscreen-button');
+    if (!fullscreenButton) return;
+
+    fullscreenButton.addEventListener('click', this.handleFullscreenToggle);
+  }
+
+  private handleFullscreenToggle = async (): Promise<void> => {
+    try {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+        document.body.classList.add('fullscreen');
+      } else {
+        await document.exitFullscreen();
+        document.body.classList.remove('fullscreen');
+      }
+    } catch (error) {
+      console.error('Fullscreen operation failed:', error);
+    }
+  };
+
+  private async handleMapLoad(): Promise<void> {
+    try {
+      this.initializeLayers();
+      this.precipitationManager = initializePrecipitationDisplay(this.map);
+    } catch (error) {
+      console.error('Failed to initialize map layers:', error);
+    }
   }
 
   private initializeLayers(): void {
@@ -73,7 +102,8 @@ class MapInitializer {
   }
 
   private initializeParaglidingMode(): void {
-    ParaglidingMode.getInstance();
+    const paraglidingMode = ParaglidingMode.getInstance();
+    paraglidingMode.initialize(this.map);
   }
 
   public getMap(): Map {

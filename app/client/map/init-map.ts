@@ -17,7 +17,6 @@ class MapInitializer {
 
   private setupEventListeners(): void {
     this.setupCoordinateDisplay();
-    this.setupCoordinateCopy();
     this.setupZoomDisplay();
   }
 
@@ -26,26 +25,24 @@ class MapInitializer {
       const coordsElement = document.getElementById(
         "coordinates"
       ) as HTMLDivElement;
-      coordsElement.innerHTML = `Lon: ${e.lngLat.lng.toFixed(
-        6
-      )} Lat: ${e.lngLat.lat.toFixed(6)}`;
-    });
-  }
 
-  private setupCoordinateCopy(): void {
-    const coordsElement = document.getElementById(
-      "coordinates"
-    ) as HTMLDivElement;
-    coordsElement.addEventListener("click", async (): Promise<void> => {
-      try {
-        await navigator.clipboard.writeText(coordsElement.textContent || "");
-        coordsElement.style.background = "rgba(150, 255, 150, 0.8)";
-        setTimeout((): void => {
-          coordsElement.style.background = "rgba(255, 255, 255, 0.8)";
-        }, 200);
-      } catch (err) {
-        console.error("Failed to copy coordinates:", err);
-      }
+      const coordText = `Lon: ${e.lngLat.lng.toFixed(6)} Lat: ${e.lngLat.lat.toFixed(6)}`;
+      coordsElement.innerHTML = coordText;
+    });
+
+    this.map.on("click", (e: MapMouseEvent) => {
+      const coordinates = `${e.lngLat.lng.toFixed(6)}, ${e.lngLat.lat.toFixed(6)}`;
+      navigator.clipboard.writeText(coordinates)
+        .then(() => {
+          const coordsElement = document.getElementById("coordinates") as HTMLDivElement;
+          coordsElement.style.background = "rgba(150, 255, 150, 0.8)";
+          setTimeout((): void => {
+            coordsElement.style.background = "rgba(255, 255, 255, 0.8)";
+          }, 200);
+
+          console.info(`Copied coordinates to clipboard: ${coordinates}`);
+        })
+        .catch((err) => console.error("Failed to copy coordinates:", err));
     });
   }
 

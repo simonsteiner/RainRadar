@@ -7,6 +7,7 @@ body {
   top: 0;
   bottom: 0;
   width: calc(100% - 300px); /* Changed to make room for sidebar */
+  cursor: pointer;
 }
 
 .maplibregl-popup {
@@ -24,10 +25,6 @@ body {
   font-family: monospace;
   cursor: pointer;
   transition: background-color 0.3s;
-}
-
-#coordinates:active {
-  background: rgba(200, 200, 200, 0.8);
 }
 
 #zoomlevel {

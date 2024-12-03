@@ -17,7 +17,6 @@
     "@types/express": "^5.0.0",
     "@types/express-http-proxy": "^1.6.6",
     "@types/glob": "^8.1.0",
-    "@types/maplibre-gl": "^1.14.0",
     "concurrently": "^9.1.0",
     "esbuild": "^0.24.0",
     "glob": "^11.0.0",

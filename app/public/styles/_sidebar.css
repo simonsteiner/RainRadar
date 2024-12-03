@@ -85,7 +85,7 @@
         height: 35px;
 
         &::after {
-            transform: rotate(180deg);
+            transform:translateX(1);
         }
     }
 

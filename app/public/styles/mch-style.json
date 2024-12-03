@@ -13,7 +13,7 @@
       ],
       "minzoom": 0,
       "maxzoom": 14,
-      "attribution": "© swisstopo"
+      "attribution": "© <a href='https://www.geo.admin.ch/de/vector-tiles-service-verfuegbare-dienste-und-daten/' target='_blank'>swisstopo</a> | <a href='https://www.meteoswiss.admin.ch/services-and-publications/applications/precipitation.html' target='_blank'>MeteoSwiss</a>"
     }
   },
   "glyphs": "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",

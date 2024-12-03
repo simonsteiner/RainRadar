@@ -57,6 +57,7 @@
         });
 
         // add swissboundaries source
+        // from mch website export
         map.addSource("boundary", {
           type: "geojson",
           data: "boundary.json",
@@ -82,6 +83,25 @@
             "line-color": "#000",
             "line-width": 2,
             "line-opacity": 0.5,
+          },
+        });
+
+        // Add canton boundaries source
+        // https://data.opendatasoft.com/explore/dataset/georef-switzerland-kanton%40public/export/?disjunctive.kan_code&disjunctive.kan_name&sort=year&location=10,46.89962,7.36702&basemap=jawg.streets&dataChart=eyJxdWVyaWVzIjpbeyJjb25maWciOnsiZGF0YXNldCI6Imdlb3JlZi1zd2l0emVybGFuZC1rYW50b25AcHVibGljIiwib3B0aW9ucyI6eyJkaXNqdW5jdGl2ZS5rYW5fY29kZSI6dHJ1ZSwiZGlzanVuY3RpdmUua2FuX25hbWUiOnRydWUsInNvcnQiOiJ5ZWFyIn19LCJjaGFydHMiOlt7ImFsaWduTW9udGgiOnRydWUsInR5cGUiOiJsaW5lIiwiZnVuYyI6IkNPVU5UIiwic2NpZW50aWZpY0Rpc3BsYXkiOnRydWUsImNvbG9yIjoiIzE0MkU3QiJ9XSwieEF4aXMiOiJ5ZWFyIiwibWF4cG9pbnRzIjoiIiwidGltZXNjYWxlIjoieWVhciIsInNvcnQiOiIifV0sImRpc3BsYXlMZWdlbmQiOnRydWUsImFsaWduTW9udGgiOnRydWV9
+        map.addSource("canton-boundaries", {
+          type: "geojson",
+          data: "canton-boundaries-georef.geojson",
+        });
+
+        // Add canton boundaries layer
+        map.addLayer({
+          id: "canton-boundaries-layer",
+          type: "line",
+          source: "canton-boundaries",
+          paint: {
+            "line-color": "#808080",
+            "line-width": 1,
+            "line-opacity": 0.7,
           },
         });
 

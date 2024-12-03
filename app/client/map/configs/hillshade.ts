@@ -3,7 +3,7 @@ import { LayerConfig } from '../types';
 
 export const hillshade: LayerConfig = {
   id: "hillshade",
-  label: "Hillshade",
+  label: "Terrain: Hillshade",
   source: "hillshade",
   sourceConfig: {
     type: "raster",

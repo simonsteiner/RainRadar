@@ -52,6 +52,7 @@ export const center: LayerConfig = {
 
 export const bounds: LayerConfig = {
   id: "bounds",
+  label: "Bounds of Switzerland",
   source: "bounds",
   sourceConfig: {
     type: "geojson",
@@ -82,9 +83,9 @@ export const bounds: LayerConfig = {
       type: "line",
       source: "bounds",
       paint: {
-        "line-color": "#ff0000",
-        "line-width": 2,
-        "line-dasharray": [2, 2],
+        "line-color": "#808080",
+        "line-width": 1,
+        "line-dasharray": [1, 1],
       },
     },
   ],

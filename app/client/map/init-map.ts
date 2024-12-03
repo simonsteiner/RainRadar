@@ -1,5 +1,5 @@
 import maplibregl, { Map, MapMouseEvent } from "maplibre-gl";
-import { mapConfig } from "./map-config";
+import { mapConfig } from "./configs/map-config";
 import { LAYER_CONFIGS } from "./layers-config";
 import { LayerManager } from "./layer-manager";
 import { initializePrecipitationDisplay } from "../precipitation/init-display";

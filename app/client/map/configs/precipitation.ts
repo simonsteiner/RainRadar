@@ -2,7 +2,7 @@ import { LayerConfig } from "../types";
 
 export const precipitation: LayerConfig = {
   id: "precipitation",
-  label: "Precipitation",
+  label: "Weather: Precipitation",
   source: "precipitation-rate",
   sourceConfig: {
     type: "geojson",

@@ -1,8 +1,18 @@
-# Map Features
+# Map GeoJSON Features
 
-This folder contains utilities and scripts for geographic data used in the rain radar application.
+This folder contains utilities and scripts for geographic data used in the Rain Radar application.
 
-## Python env setup
+## Python Environment for GeoJSON Testing
+
+This is a development environment for experimenting with different GeoJSON map features. The scripts process and generate various geographic data representations of Switzerland that can be used in the Rain Radar application.
+
+### Available Scripts
+
+- `create_swiss_cantons.py` - Creates a standardized GeoJSON file of all Swiss cantons with official identifiers
+- `create_swiss_model_regions.py` - Combines cantons into larger model regions
+- `create_swiss_nuts_regions.py` - Creates NUTS-2 statistical regions according to Eurostat classification (Reference: <https://de.wikipedia.org/wiki/NUTS:CH>)
+
+### Python Env Setup
 
 - python linter <https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff>
 

@@ -21,4 +21,7 @@ source venv/bin/activate.fish
 brew install android-platform-tools
 adb devices
 adb -s RZCW313YW0L reverse tcp:3300 tcp:3300
+
+
+qlmanage -t -s 48 -o . rain-radar-favicon.svg
 ```

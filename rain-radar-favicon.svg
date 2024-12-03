@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Background circle (radar) -->
+  <circle cx="16" cy="16" r="15" fill="#f0f0f0" stroke="#333" stroke-width="1" opacity="0.9"/>
+  
+  <!-- Add a transparent background by removing default white -->
+  <style>
+    svg { background: transparent; }
+  </style>
+
+  <!-- Radar sweep lines -->
+  <path d="M16 16 L16 1 M16 16 L31 16 M16 16 L16 31 M16 16 L1 16" 
+        stroke="#333" 
+        stroke-width="0.5" 
+        opacity="0.2"/>
+
+  <!-- Static radar circles -->
+  <circle cx="16" cy="16" r="5" fill="none" stroke="#333" stroke-width="0.3" opacity="0.2"/>
+  <circle cx="16" cy="16" r="9" fill="none" stroke="#333" stroke-width="0.3" opacity="0.2"/>
+  <circle cx="16" cy="16" r="12" fill="none" stroke="#333" stroke-width="0.3" opacity="0.2"/>
+
+  <!-- Emoji-style Cloud -->
+  <path d="M9 13.5
+           C9 10 12.5 8 16 8
+           C19.5 8 22 9.5 22.5 12
+           C26 12 28.5 14 28.5 17
+           C28.5 20 26 22 22.5 22
+           L11 22
+           C7.5 22 5 20 5 17.5
+           C5 15 7 13.5 9 13.5z" 
+        fill="#FFFFFF" 
+        stroke="#666666" 
+        stroke-width="0.7">
+    <animate attributeName="opacity"
+             values="0.85;1;0.85"
+             dur="3s"
+             repeatCount="indefinite"/>
+  </path>
+  <!-- Cloud shadow -->
+  <path d="M9 14
+           C9 10.5 12.5 8.5 16 8.5
+           C19.5 8.5 22 10 22.5 12.5
+           C26 12.5 28.5 14.5 28.5 17.5
+           C28.5 20.5 26 22.5 22.5 22.5
+           L11 22.5
+           C7.5 22.5 5 20.5 5 18
+           C5 15.5 7 14 9 14z" 
+        fill="#CCCCCC" 
+        opacity="0.3"/>
+
+  <!-- Swiss Flag in the middle -->
+  <rect x="12" y="12" width="8" height="8" rx="1" ry="1" fill="#FF0000"/>
+  <path d="M13.5 16 L18.5 16 M16 13.5 L16 18.5" 
+        stroke="white" 
+        stroke-width="1.2"/>
+        
+  <!-- Rain drops -->
+  <path d="M12 21 L11 24 M16 21 L15 24 M20 21 L19 24 M14 21 L13 24 M18 21 L17 24" 
+        stroke="#0066FF" 
+        stroke-width="1" 
+        stroke-linecap="round"/>
+  
+  <!-- Radar ping animation -->
+  <circle cx="16" cy="16" r="5" 
+          fill="none" 
+          stroke="#0066FF" 
+          stroke-width="1">
+    <animate attributeName="r" 
+             values="0;15" 
+             dur="2s" 
+             repeatCount="indefinite"/>
+    <animate attributeName="opacity" 
+             values="1;0" 
+             dur="2s" 
+             repeatCount="indefinite"/>
+  </circle>
+</svg>

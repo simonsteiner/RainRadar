@@ -13,7 +13,7 @@
   "files.eol": "\n",
   "editor.tabSize": 2,
   "typescript.tsdk": "node_modules/typescript/lib",
-  "[jsonc]": {
+  "[json][jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
   "css.validate": false,

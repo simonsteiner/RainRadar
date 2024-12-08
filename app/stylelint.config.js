@@ -20,7 +20,7 @@ module.exports = {
     "color-named": "never",
     "selector-no-qualifying-type": true,
     "declaration-block-single-line-max-declarations": 1,
-    "selector-class-pattern": "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
+    "selector-class-pattern": "^([a-z][a-z0-9]*)(-[a-z0-9]+)*(-{2}[a-z0-9]+)*$",
     "selector-id-pattern": "^[a-z][a-zA-Z0-9]+$"
   }
 };

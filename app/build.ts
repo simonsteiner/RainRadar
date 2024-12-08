@@ -44,7 +44,7 @@ async function build(dev = false) {
     minify: true,
     treeShaking: true,
     sourcemap: false,
-    drop: ['console', 'debugger'],
+    drop: ["console", "debugger"],
   };
 
   try {

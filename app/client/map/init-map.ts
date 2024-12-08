@@ -38,7 +38,7 @@ class MapInitializer implements IMapInitializer {
       this.initializeComponents();
       initializeControls();
     } catch (error) {
-      console.error('Failed to initialize map:', error);
+      console.error("Failed to initialize map:", error);
       throw error;
     }
   }
@@ -73,23 +73,23 @@ class MapInitializer implements IMapInitializer {
   }
 
   private setupFullscreenControl(): void {
-    const fullscreenButton = document.querySelector('.fullscreen-button');
+    const fullscreenButton = document.querySelector(".fullscreen-button");
     if (!fullscreenButton) return;
 
-    fullscreenButton.addEventListener('click', this.handleFullscreenToggle);
+    fullscreenButton.addEventListener("click", this.handleFullscreenToggle);
   }
 
   private handleFullscreenToggle = async (): Promise<void> => {
     try {
       if (!document.fullscreenElement) {
         await document.documentElement.requestFullscreen();
-        document.body.classList.add('fullscreen');
+        document.body.classList.add("fullscreen");
       } else {
         await document.exitFullscreen();
-        document.body.classList.remove('fullscreen');
+        document.body.classList.remove("fullscreen");
       }
     } catch (error) {
-      console.error('Fullscreen operation failed:', error);
+      console.error("Fullscreen operation failed:", error);
     }
   };
 
@@ -98,7 +98,7 @@ class MapInitializer implements IMapInitializer {
       this.initializeLayers();
       this.precipitationManager = initializePrecipitationDisplay(this.map);
     } catch (error) {
-      console.error('Failed to initialize map layers:', error);
+      console.error("Failed to initialize map layers:", error);
     }
   }
 

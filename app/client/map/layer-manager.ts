@@ -1,5 +1,5 @@
 import { Map, SourceSpecification, GeoJSONSource } from "maplibre-gl";
-import type { GeoJSON } from 'geojson';
+import type { GeoJSON } from "geojson";
 import { LAYER_CONFIGS } from "./layers-config";
 import { LayerConfig } from "./types";
 
@@ -35,7 +35,7 @@ export class LayerManager {
     });
 
     // Add transitions for paint properties if layer is precipitation
-    if (config.id === 'precipitation') {
+    if (config.id === "precipitation") {
       config.layers.forEach(layer => {
         if (layer.paint) {
           Object.keys(layer.paint).forEach(prop => {

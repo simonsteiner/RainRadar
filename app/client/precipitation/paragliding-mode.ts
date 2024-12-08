@@ -36,19 +36,19 @@ export class ParaglidingMode {
 
     private checkUrlParam(): boolean {
         const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get('mode') === 'paragliding';
+        return urlParams.get("mode") === "paragliding";
     }
 
     private updateUrl(active: boolean): void {
         const url = new URL(window.location.href);
-        active ? url.searchParams.set('mode', 'paragliding') : url.searchParams.delete('mode');
-        window.history.replaceState({}, '', url);
+        active ? url.searchParams.set("mode", "paragliding") : url.searchParams.delete("mode");
+        window.history.replaceState({}, "", url);
     }
 
     private setupToggleButton(): void {
         const buttons = [
-            document.getElementById('paraglidingMode'),
-            document.getElementById('paraglidingModeCentered')
+            document.getElementById("paraglidingMode"),
+            document.getElementById("paragliding-mode-centered")
         ];
 
         if (!buttons.some(button => button !== null)) return;
@@ -59,23 +59,23 @@ export class ParaglidingMode {
 
         buttons.forEach(button => {
             if (button) {
-                button.addEventListener('click', () => this.toggle());
+                button.addEventListener("click", () => this.toggle());
             }
         });
     }
 
     private updateClasses(active: boolean): void {
         const buttons = [
-            document.getElementById('paraglidingMode'),
-            document.getElementById('paraglidingModeCentered')
+            document.getElementById("paraglidingMode"),
+            document.getElementById("paragliding-mode-centered")
         ];
 
         if (active) {
-            document.body.classList.add('paragliding');
-            buttons.forEach(button => button?.classList.add('active'));
+            document.body.classList.add("paragliding");
+            buttons.forEach(button => button?.classList.add("active"));
         } else {
-            document.body.classList.remove('paragliding');
-            buttons.forEach(button => button?.classList.remove('active'));
+            document.body.classList.remove("paragliding");
+            buttons.forEach(button => button?.classList.remove("active"));
         }
     }
 
@@ -86,7 +86,7 @@ export class ParaglidingMode {
 
         if (this.isActive) {
             if (!this.map) {
-                console.error('Map not initialized in ParaglidingMode');
+                console.error("Map not initialized in ParaglidingMode");
                 return;
             }
             getCurrentPosition(this.map);

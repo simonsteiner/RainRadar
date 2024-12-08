@@ -71,7 +71,7 @@ export class PrecipitationRenderer {
   }
 
   private createHtmlLink(url: string | undefined): string {
-    if (!url) return '';
+    if (!url) return "";
     const filename = this.getFilenameFromPath(url);
     return `<a href="api${url}" target="_blank">${filename}</a>`;
   }

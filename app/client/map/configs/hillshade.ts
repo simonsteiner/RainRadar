@@ -1,5 +1,5 @@
 
-import { LayerConfig } from '../types';
+import { LayerConfig } from "../types";
 
 export const hillshade: LayerConfig = {
   id: "hillshade",

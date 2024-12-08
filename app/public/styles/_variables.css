@@ -1,8 +1,8 @@
 :root {
     /* Colors */
     --white: #fff;
-    --white-transparent: rgba(255, 255, 255, 0.8);
-    --white-transparent-high: rgba(255, 255, 255, 0.95);
+    --white-transparent: rgb(255 255 255 / 80%);
+    --white-transparent-high: rgb(255 255 255 / 95%);
     --accent-color: #1db954;
     --border-color: #ccc;
     --text-color: #666;
@@ -27,6 +27,6 @@
     --mobile-handle-height: 10px;
 
     /* Effects */
-    --shadow-default: 0 1px 4px rgba(0, 0, 0, 0.2);
-    --shadow-bottom: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    --shadow-default: 0 1px 4px rgb(0 0 0 / 20%);
+    --shadow-bottom: 0 -2px 10px rgb(0 0 0 / 10%);
 }

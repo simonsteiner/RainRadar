@@ -1,5 +1,4 @@
 body.paragliding {
-
     #legend-container,
     #layer-control,
     #coordinates,
@@ -21,7 +20,7 @@ body.paragliding {
         height: 100vh;
     }
 
-    @media (max-width: 768px) {
+    @media (width <= 768px) {
         #map {
             height: 100vh;
         }

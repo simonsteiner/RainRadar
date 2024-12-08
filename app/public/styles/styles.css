@@ -1,22 +1,22 @@
-@import "_variables.css";
-@import "_map.css";
-@import "_app-buttons.css";
-@import "_info-displays.css";
-@import "_legend-layer.css";
-@import "_precipitation.css";
-@import "_sidebar.css";
-@import "_paragliding-mode.css";
+@import url("_variables.css");
+@import url("_map.css");
+@import url("_app-buttons.css");
+@import url("_info-displays.css");
+@import url("_legend-layer.css");
+@import url("_precipitation.css");
+@import url("_sidebar.css");
+@import url("_paragliding-mode.css");
 
 /* Base styles */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
   overflow: hidden;
+  font-family: Arial, sans-serif;
 }
 
 code {
-  background-color: gray;
-  color: white;
-  border-radius: .25rem;
   padding: .15rem .3rem;
+  color: #fff;
+  background-color: #808080;
+  border-radius: .25rem;
 }

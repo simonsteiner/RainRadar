@@ -2,7 +2,7 @@
     --control-btn-size: 29px;
     --control-icon-size: 17px;
     --location-active-color: #4285f4;
-    --loading-border-color: rgba(0, 0, 0, 0.1);
+    --loading-border-color: rgb(0 0 0 / 10%);
 }
 
 /* Common button styles */
@@ -10,10 +10,10 @@
 .fullscreen-button {
     width: var(--control-btn-size);
     height: var(--control-btn-size);
-    background: none;
-    border: none;
     padding: 6px;
     cursor: pointer;
+    background: none;
+    border: none;
 }
 
 /* Button positioning */
@@ -74,8 +74,8 @@
 /* Loading state */
 .loading {
     position: relative;
-    opacity: 0.8;
     pointer-events: none;
+    opacity: 0.8;
 }
 
 .loading > * {
@@ -83,11 +83,11 @@
 }
 
 .loading::after {
-    content: '';
     position: absolute;
     inset: 4px;
     width: 16px;
     height: 16px;
+    content: '';
     border: 2px solid var(--loading-border-color);
     border-top-color: var(--accent-color);
     border-radius: 50%;

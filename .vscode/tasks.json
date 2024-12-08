@@ -1,0 +1,67 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Lint ESLint",
+      "type": "shell",
+      "command": "npx eslint . --config eslint.config.mjs",
+      "problemMatcher": [
+        {
+          "owner": "eslint",
+          "fileLocation": [
+            "relative",
+            "${workspaceFolder}"
+          ],
+          "pattern": [
+            {
+              "regexp": "^([^:]+):(\\d+):(\\d+):\\s+(.*)\\s+([\\w-/]+)$",
+              "file": 1,
+              "line": 2,
+              "column": 3,
+              "message": 4,
+              "code": 5
+            }
+          ]
+        }
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "options": {
+        "cwd": "app"
+      }
+    },
+    {
+      "label": "Lint Stylelint",
+      "type": "shell",
+      "command": "npx stylelint \"**/*.css\"",
+      "problemMatcher": [
+        {
+          "owner": "stylelint",
+          "fileLocation": [
+            "relative",
+            "${workspaceFolder}/app"
+          ],
+          "pattern": [
+            {
+              "regexp": "^([^:]+):\\s+(\\d+):(\\d+):\\s+(.+)\\s+(.+)$",
+              "file": 1,
+              "line": 2,
+              "column": 3,
+              "message": 4,
+              "code": 5
+            }
+          ]
+        }
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "options": {
+        "cwd": "app"
+      }
+    }
+  ]
+}

@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "Meteo Swiss Precipitation Clone",
   "scripts": {
-    "build": "ts-node build.ts",
     "build:prod": "NODE_ENV=production ts-node build.ts",
-    "watch": "ts-node build.ts",
+    "dev": "concurrently \"npm run server\" \"npm run watch\"",
+    "lint:config": "npx @eslint/config-inspector",
+    "lint:css": "stylelint \"**/*.css\"",
+    "lint:fix": "eslint . --fix",
+    "lint": "eslint .",
     "server": "ts-node-dev --respawn server.ts",
-    "dev": "concurrently \"npm run server\" \"npm run watch\""
+    "watch": "ts-node build.ts"
   },
   "dependencies": {
     "@umami/node": "^0.4.0",
@@ -16,14 +19,25 @@
     "maplibre-gl": "^4.7.1"
   },
   "devDependencies": {
-    "@types/express": "^5.0.0",
+    "@eslint/config-inspector": "^0.5.6",
+    "@eslint/js": "^9.16.0",
+    "@html-eslint/eslint-plugin": "^0.30.0",
+    "@html-eslint/parser": "^0.30.0",
     "@types/express-http-proxy": "^1.6.6",
+    "@types/express": "^5.0.0",
     "@types/glob": "^8.1.0",
     "concurrently": "^9.1.0",
     "esbuild": "^0.24.0",
+    "eslint": "^9.16.0",
     "glob": "^11.0.0",
-    "ts-node": "^10.9.2",
+    "globals": "^15.13.0",
+    "stylelint-config-standard": "^36.0.1",
+    "stylelint": "^16.11.0",
+    "stylelint-config-recess-order": "^4.6.0",
+    "stylelint-order": "^6.0.4",
     "ts-node-dev": "^2.0.0",
+    "ts-node": "^10.9.2",
+    "typescript-eslint": "^8.17.0",
     "typescript": "^5.7.2"
   }
 }

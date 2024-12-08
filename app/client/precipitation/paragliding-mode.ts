@@ -46,36 +46,27 @@ export class ParaglidingMode {
     }
 
     private setupToggleButton(): void {
-        const buttons = [
-            document.getElementById("paraglidingMode"),
-            document.getElementById("paragliding-mode-centered")
-        ];
-
-        if (!buttons.some(button => button !== null)) return;
+        const buttons = document.querySelectorAll("#paraglidingMode");
+        if (!buttons.length) return;
 
         if (this.isActive) {
             this.updateClasses(true);
         }
 
         buttons.forEach(button => {
-            if (button) {
-                button.addEventListener("click", () => this.toggle());
-            }
+            button.addEventListener("click", () => this.toggle());
         });
     }
 
     private updateClasses(active: boolean): void {
-        const buttons = [
-            document.getElementById("paraglidingMode"),
-            document.getElementById("paragliding-mode-centered")
-        ];
+        const buttons = document.querySelectorAll("#paraglidingMode");
 
         if (active) {
             document.body.classList.add("paragliding");
-            buttons.forEach(button => button?.classList.add("active"));
+            buttons.forEach(button => button.classList.add("active"));
         } else {
             document.body.classList.remove("paragliding");
-            buttons.forEach(button => button?.classList.remove("active"));
+            buttons.forEach(button => button.classList.remove("active"));
         }
     }
 

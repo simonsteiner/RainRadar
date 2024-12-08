@@ -94,7 +94,7 @@
 }
 
 /* Centered paragliding mode button */
-#paragliding-mode-centered {
+.paragliding-mode-centered {
     position: fixed;
     top: 20px;
     left: 50%;

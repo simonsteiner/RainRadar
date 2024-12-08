@@ -70,7 +70,7 @@
     margin: var(--spacing-md) 0;
     font-size: var(--font-size-sm);
 
-    input[type="range"] {
+    .speed-range {
         flex: 1;
     }
 }
@@ -159,7 +159,7 @@ body:has(.precipitation-container.expanded) .mobile-handle {
         }
     }
 
-    body.fullscreen .precipitation-container {
+    .fullscreen .precipitation-container {
         margin-bottom: 5px;
     }
 

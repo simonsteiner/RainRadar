@@ -70,6 +70,7 @@ export class LayerManager {
       const label_elem = document.createElement("label");
       const checkbox = document.createElement("input");
 
+      checkbox.className = "layer-checkbox";
       checkbox.type = "checkbox";
       checkbox.id = layerId;
       checkbox.checked = config.visible !== false;

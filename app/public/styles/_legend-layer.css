@@ -1,32 +1,28 @@
-/* Common styles for control containers */
-#legend-container,
-#layer-control {
+/* Base styles for h3 elements */
+h3 {
+    margin: var(--spacing-xs);
+    font-size: var(--font-size-xs);
+    cursor: pointer;
+}
+
+/* Control container styles */
+#legendContainer,
+#layerControl {
     position: absolute;
-    right: var(--spacing-xs);
+    right: var(--spacing-md);
     z-index: 1;
     padding: var(--spacing-xs);
     background: var(--white-transparent-high);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-default);
-
-    h3 {
-        margin: var(--spacing-xs);
-        font-size: var(--font-size-xs);
-        cursor: pointer;
-    }
 }
 
-/* Container positions */
-#legend-container,
-#layer-control {
-    right: var(--spacing-md);
-}
-
-#legend-container {
+/* Individual positions */
+#legendContainer {
     bottom: 65px;
 }
 
-#layer-control {
+#layerControl {
     bottom: 40px;
 }
 
@@ -44,20 +40,19 @@
 }
 
 .legend-text,
-#layer-control label {
+#layerControl label {
     font-size: 12px;
 }
 
 /* Layer control styles */
-#layer-control {
-    label {
-        display: block;
-        margin: 5px 0;
-    }
+#layerControl label {
+    display: block;
+    margin: 5px 0;
+    font-size: 12px;
+}
 
-    input[type="checkbox"] {
-        margin-right: 5px;
-    }
+.layer-checkbox {
+    margin-right: 5px;
 }
 
 /* Toggle button styles */
@@ -83,47 +78,46 @@
     background: transparent;
     box-shadow: none;
 
-    .container-content,
-    .toggle-btn {
-        display: none;
-    }
-
     h3 {
         margin: 0;
-        cursor: pointer;
-
-        &::after {
-            content: "  ▲";
-        }
 
         &:hover {
             background: var(--white);
         }
+
+        &::after {
+            content: "  ▲";
+        }
+    }
+
+    .container-content,
+    .toggle-btn {
+        display: none;
     }
 }
 
 /* Mobile styles */
 @media (width <= 768px) {
-    #legend-container,
-    #layer-control {
+    #legendContainer,
+    #layerControl {
         right: var(--spacing-md);
         transition: bottom 0.3s ease-in-out;
     }
 
-    #legend-container {
+    #legendContainer {
         bottom: 110px;
     }
 
-    #layer-control {
+    #layerControl {
         bottom: 85px;
     }
 
     body:has(.precipitation-container.expanded) {
-        #legend-container {
+        #legendContainer {
             bottom: calc(30vh + 20px);
         }
 
-        #layer-control {
+        #layerControl {
             bottom: calc(30vh - 5px);
         }
     }

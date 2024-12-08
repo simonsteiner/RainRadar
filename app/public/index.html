@@ -83,13 +83,13 @@
     <div id="coordinates" class="info-display info-display--right"></div>
     <div id="zoomlevel" class="info-display info-display--right"></div>
     <div id="timeDisplay" class="info-display"></div>
-    <div id="legend-container" class="container-hidden">
-      <button class="toggle-btn" data-target="legend-container">×</button>
+    <div id="legendContainer" class="container-hidden">
+      <button class="toggle-btn" data-target="legendContainer">×</button>
       <h3>Legend</h3>
       <div id="legend-content" class="container-content"></div>
     </div>
-    <div id="layer-control" class="container-hidden">
-      <button class="toggle-btn" data-target="layer-control">×</button>
+    <div id="layerControl" class="container-hidden">
+      <button class="toggle-btn" data-target="layerControl">×</button>
       <h3>Layers</h3>
       <div id="layer-content" class="container-content"></div>
     </div>
@@ -99,7 +99,7 @@
       <div class="slider-container">
         <button id="prevStep">←</button>
         <button id="playButton">▶</button>
-        <input type="range" id="timeSlider" min="0" value="0" />
+        <input type="range" id="timeSlider" class="speed-range" min="0" value="0" />
         <button id="nextStep">→</button>
       </div>
       <div class="speed-container">

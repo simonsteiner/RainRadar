@@ -15,11 +15,11 @@
     transition: width 0.3s ease-in-out, margin-left 0.3s ease-in-out;
 }
 
-body.fullscreen #map {
+.fullscreen #map {
     height: 100vh;
 }
 
-body.fullscreen #map.address-bar-visible {
+.fullscreen #map.address-bar-visible {
     height: 95vh;
 }
 
@@ -50,8 +50,8 @@ body.fullscreen #map.address-bar-visible {
         height: calc(var(--map-mobile-height-expanded) - var(--mobile-address-bar-height) + 5px);
     }
 
-    body.fullscreen:has(.precipitation-container.expanded) #map,
-    body.fullscreen:has(.precipitation-container.expanded) #map.address-bar-visible {
+    .fullscreen:has(.precipitation-container.expanded) #map,
+    .fullscreen:has(.precipitation-container.expanded) #map.address-bar-visible {
         height: calc(var(--map-mobile-height-expanded) + 5px);
     }
 }

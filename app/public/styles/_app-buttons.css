@@ -37,6 +37,10 @@
     text-align: right;
 }
 
+.hidden {
+    display: none;
+}
+
 /* Icon styles */
 .maplibregl-ctrl-icon {
     display: block;

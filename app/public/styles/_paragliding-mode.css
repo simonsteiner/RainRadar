@@ -1,4 +1,4 @@
-body.paragliding {
+.paragliding {
     #legendContainer,
     #layerControl,
     #coordinates,
@@ -9,7 +9,7 @@ body.paragliding {
     #fullscreenControl,
     .precipitation-container,
     .maplibregl-ctrl-attrib {
-        display: none !important;
+        display: none;
     }
 
     #timeDisplay {

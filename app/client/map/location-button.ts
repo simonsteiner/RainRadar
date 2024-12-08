@@ -27,7 +27,7 @@ function createLocationGeoJSON(longitude: number, latitude: number) {
 function updateLocation(map: Map, longitude: number, latitude: number): void {
   const coordsDisplay = document.getElementById("myCoords");
   if (coordsDisplay) {
-    coordsDisplay.style.display = "block";
+    coordsDisplay.classList.remove("hidden");
     coordsDisplay.innerHTML = formatCoordinates(longitude, latitude);
   }
 
@@ -52,7 +52,7 @@ function updateLocation(map: Map, longitude: number, latitude: number): void {
 function hideCoordinates(): void {
   const coordsDisplay = document.getElementById("myCoords");
   if (coordsDisplay) {
-    coordsDisplay.style.display = "none";
+    coordsDisplay.classList.add("hidden");
   }
 }
 

@@ -15,14 +15,14 @@ const setupMobileHandle = (): void => {
 };
 
 const setupContainerToggles = (): void => {
-    const toggleSelector = ".toggle-btn, #layer-control h3, #legend-container h3";
+    const toggleSelector = ".toggle-btn, #layerControl h3, #legendContainer h3";
     const toggleElements = document.querySelectorAll<HTMLElement>(toggleSelector);
 
     toggleElements.forEach((element) => {
         element.addEventListener("click", (e: MouseEvent) => {
             const target = e.target as HTMLElement;
             if (target.tagName === "H3" || target.classList.contains("toggle-btn")) {
-                const container = target.closest("#layer-control, #legend-container");
+                const container = target.closest("#layerControl, #legendContainer");
                 if (!container) return;
 
                 toggleElementClass(container, "container-hidden");

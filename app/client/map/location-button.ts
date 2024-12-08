@@ -63,7 +63,7 @@ function setButtonState(button: HTMLButtonElement, loading: boolean, active: boo
 }
 
 export function getCurrentPosition(map: Map, onSuccess?: () => void): void {
-  const locateButton = document.querySelector("#locate-button button") as HTMLButtonElement;
+  const locateButton = document.querySelector("#locateButton button") as HTMLButtonElement;
   if (!locateButton) return;
 
   setButtonState(locateButton, true);
@@ -91,7 +91,7 @@ export function getCurrentPosition(map: Map, onSuccess?: () => void): void {
 }
 
 export function setupLocationButton(map: Map): void {
-  const locateButton = document.querySelector("#locate-button button") as HTMLButtonElement;
+  const locateButton = document.querySelector("#locateButton button") as HTMLButtonElement;
   if (!locateButton) return;
 
   hideCoordinates();

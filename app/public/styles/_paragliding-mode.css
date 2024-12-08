@@ -6,7 +6,7 @@ body.paragliding {
     #zoomlevel,
     #sidebar,
     .sidebar-toggle,
-    #fullscreen-button,
+    #fullscreenControl,
     .precipitation-container,
     .maplibregl-ctrl-attrib {
         display: none !important;

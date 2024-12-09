@@ -1,7 +1,7 @@
 import { Map } from "maplibre-gl";
 import { fetchPrecipitationAnimation } from "./api";
 import { extractPictureInfo } from "./utils";
-import { PictureInfo } from "./types";
+import { AnimationData, PictureInfo } from "./types";
 import { setupSlider, findLatestMeasurementIndex } from "./slider";
 import { PrecipitationRenderer } from "./render";
 import { createLegend } from "./legend";
@@ -59,7 +59,7 @@ export class PrecipitationDisplayManager {
     }
   }
 
-  private updateDisplayData(animationData: any): void {
+  private updateDisplayData(animationData: AnimationData): void {
     this.renderer.updateLastUpdated(animationData);
     this.pictures = extractPictureInfo(animationData);
     createLegend(animationData.legend);

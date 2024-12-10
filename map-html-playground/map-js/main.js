@@ -4,6 +4,7 @@ import { swissBoundaryLayer } from './layers/swiss-boundary.js';
 import { swissCantonBoundariesLayer } from './layers/swiss-canton-boundaries.js';
 import { swissCitiesLayer } from './layers/swiss-cities.js';
 import { swissNutsRegionsLayer } from './layers/swiss-nuts-regions.js';
+import { setupWeatherData } from './layers/weather-data.js';
 
 const map = new maplibregl.Map(mapConfig);
 
@@ -66,6 +67,7 @@ map.on("load", () => {
   swissCantonBoundariesLayer(map);
   swissCitiesLayer(map);
   swissNutsRegionsLayer(map);
+  setupWeatherData(map);
 
   map.addSource('location-marker', {
     type: 'geojson',

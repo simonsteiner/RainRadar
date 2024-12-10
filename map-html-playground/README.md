@@ -5,6 +5,7 @@ An interactive web map application using MapLibre GL JS to display Swiss topogra
 ## Purpose
 
 This playground allows for:
+
 - Testing and development of map features in isolation
 - Experimenting with different layer combinations
 - Prototyping new map interactions
@@ -27,6 +28,7 @@ This playground allows for:
 ## Future Integration
 
 Features developed here will be integrated into the main rain radar application to provide:
+
 - Weather radar overlay visualization
 - Precipitation data layers
 - Time-based weather animation

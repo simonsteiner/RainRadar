@@ -2,7 +2,7 @@
 export function setupWeatherData(map) {
   map.addSource("precipitation-rate", {
     type: "geojson",
-    data: "radar_rzc.20241124_1950.geojson"
+    data: "radar_rzc.geojson"
   });
 
   map.addLayer({

@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.0.1] - 2024-12-11
+
+### Added
+
+- Map Layers
+  - Radar domain to illustrate where MeteoSwiss radar coverage exists
+  - World layer to illustrate where no radar coverage from MeteoSwiss is available
+- Technical documentation for MeteoSwiss radar data domain [`MCH-RadarDataDomain.md`](MCH-RadarDataDomain.md)
+
+### Fixed
+
+- Precipitation layer in map-html-playground
+
+### Changed
+
+- Interface Improvements
+  - Standardized ID naming scheme for layer and legend controls
+  - Enhanced checkbox and button styling for better usability
+  - Unified paragliding mode button behavior
+  - Switched to CSS class-based styling (removed direct style manipulation)
+
+- Code Quality
+  - Enhanced type safety for animation data structures
+  - Applied consistent code formatting and style conventions
+  - Extended linting configurations:
+    - Added ESLint and Stylelint support
+
+[1.0.1]: https://github.com/simonsteiner/rainradar/compare/v1.0.0...v1.0.1
+
 ## [1.0.0] - 2024-12-03
 
 ### New Features

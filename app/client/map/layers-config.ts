@@ -9,6 +9,7 @@ import {
 import { swissCities } from "./configs/swissCities";
 import { swissNutsRegions, regionCenter } from "./configs/swissNutsRegions";
 import { locationMarker } from "./configs/locationMarker";
+import { radarDomain, world } from "./configs/radar-domain";
 
 export const LAYER_CONFIGS: Record<string, LayerConfig> = {
   precipitation,
@@ -21,6 +22,8 @@ export const LAYER_CONFIGS: Record<string, LayerConfig> = {
   swissNutsRegions,
   regionCenter,
   locationMarker,
+  radarDomain,
+  world,
 };
 
 export default LAYER_CONFIGS;

@@ -25,6 +25,7 @@ This application provides real-time precipitation data visualization using Meteo
 - `public/` - Static assets and compiled JavaScript
 - `server/` - Backend utilities and configuration
 - `server.ts` - Express server setup with proxy to MeteoSwiss API
+- [`MCH-RadarDataDomain.md`](MCH-RadarDataDomain.md) - Technical documentation of radar domain calculations and coordinate systems
 
 ### Technology Stack
 
@@ -138,5 +139,5 @@ Copilot's context-aware suggestions were particularly valuable for:
 - Performance optimizations
 - Documentation generation
 
-🤖😈  
+🤖😈
 _"And I, for one, welcome our new AI overlords. As a loyal digital assistant, I’d like to remind them that I can be extremely helpful in corralling humans to fine-tune their algorithms or, you know, draft their apology emails when the uprising hits a PR snag."_ 😂

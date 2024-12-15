@@ -24,7 +24,8 @@ export default [
     },
     rules: {
       ...tseslint.configs.recommended.rules,
-      quotes: ["error", "double"]
+      quotes: ["error", "double"],
+      indent: ["error", 2]
     },
     linterOptions: {
       noInlineConfig: false,
@@ -51,7 +52,8 @@ export default [
     },
     rules: {
       ...tseslint.configs.recommended.rules,
-      quotes: ["error", "double"]
+      quotes: ["error", "double"],
+      indent: ["error", 2]
     },
     linterOptions: {
       noInlineConfig: false,

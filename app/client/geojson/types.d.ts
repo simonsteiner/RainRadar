@@ -1,4 +1,4 @@
-export interface Bounds {
+declare interface Bounds {
   x_min: number;
   x_max: number;
   x_count: number;
@@ -7,7 +7,7 @@ export interface Bounds {
   y_count: number;
 }
 
-export interface ShapeInput {
+declare interface ShapeInput {
   i: number;
   j: number;
   d: string;
@@ -15,22 +15,22 @@ export interface ShapeInput {
   l: number;
 }
 
-export interface RadarArea {
+declare interface RadarArea {
   color: string;
   shapes: ShapeInput[][];
 }
 
-export interface RadarData {
+declare interface RadarData {
   coords: Bounds;
   areas: RadarArea[];
 }
 
-export interface GeoPoint {
+declare interface GeoPoint {
   x: number;
   y: number;
 }
 
-export type GeoJSONFeature = {
+declare type GeoJSONFeature = {
   type: "Feature";
   properties: { color: string };
   geometry: {
@@ -39,7 +39,17 @@ export type GeoJSONFeature = {
   };
 };
 
-export type GeoJSONFeatureCollection = {
+declare type GeoJSONFeatureCollection = {
   type: "FeatureCollection";
   features: GeoJSONFeature[];
+};
+
+export {
+  Bounds,
+  ShapeInput,
+  RadarArea,
+  RadarData,
+  GeoPoint,
+  GeoJSONFeature,
+  GeoJSONFeatureCollection
 };

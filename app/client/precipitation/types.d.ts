@@ -1,8 +1,8 @@
-export interface VersionsData {
+declare interface VersionsData {
   "precipitation/animation": string;
 }
 
-export interface AnimationData {
+declare interface AnimationData {
   cities: City[];
   legend: LegendItem[];
   map_images: [
@@ -15,7 +15,7 @@ export interface AnimationData {
   config: Config;
 }
 
-export interface City {
+declare interface City {
   city_name: string;
   min_zoom: number;
   coord_x: number;
@@ -23,28 +23,36 @@ export interface City {
   location_id: string;
 }
 
-export interface LegendItem {
+declare interface LegendItem {
   min: number;
   color: string;
   max: number;
 }
 
-export interface PictureInfo {
+declare interface PictureInfo {
   data_type_string: string;
   radar_url: string;
   data_type: "measurement" | "forecast";
   day: string;
   timepoint: string;
   timestamp: number;
-  // Optional properties for forecast type
   snowrain_url?: string;
   freezingrain_url?: string;
   snow_url?: string;
 }
 
-export interface Config {
+declare interface Config {
   name: string;
   language: string;
   version: string;
   timestamp: number;
 }
+
+export {
+  VersionsData,
+  AnimationData,
+  City,
+  LegendItem,
+  PictureInfo,
+  Config
+};

@@ -1,10 +1,14 @@
-import { LayerSpecification } from "maplibre-gl";
+/// <reference types="maplibre-gl" />
 
-export interface LayerConfig {
+declare interface LayerConfig {
   id: string;
   label?: string;
   visible?: boolean;  // default: true
   source: string;
   sourceConfig?: object;
-  layers: LayerSpecification[];
+  layers: maplibregl.LayerSpecification[];
 }
+
+export {
+  LayerConfig
+};

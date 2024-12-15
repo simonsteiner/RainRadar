@@ -1,11 +1,16 @@
 {
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.fixAll.stylelint": true
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit"
   },
+  "eslint.packageManager": "npm",
+  "eslint.runtime": null,
   "eslint.validate": [
     "javascript",
-    "typescript"
+    "typescript",
+    "javascriptreact",
+    "typescriptreact",
+    "html"
   ],
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "eslint.format.enable": true,
@@ -23,5 +28,18 @@
   ],
   "[css]": {
     "editor.defaultFormatter": "stylelint.vscode-stylelint"
-  }
+  },
+  "[javascript][typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+  },
+  "liveServer.settings.port": 5501,
 }

@@ -1,6 +1,7 @@
 import express from "express";
 import path from "path";
 import umami from "@umami/node";
+import rateLimit from "express-rate-limit";
 import { SERVER, METEOSWISS } from "./server/config";
 import { staticFiles, requestLogger, corsHeaders } from "./server/middleware";
 import { createProxy } from "./server/proxy-utils";
@@ -31,8 +32,14 @@ app.use((req, res, next) => {
   next();
 });
 
-// Root route handler
-app.get("/", (req, res) => {
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 50, // limit each IP to 50 requests per minute
+  message: "Too many requests, please try again later."
+});
+
+// Root route handler with rate limiting
+app.get("/", limiter, (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 

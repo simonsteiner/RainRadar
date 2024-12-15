@@ -1,5 +1,5 @@
-import { Map } from "maplibre-gl";
 import { getCurrentPosition } from "../map/location-button";
+import type { Map } from "maplibre-gl";
 
 export class ParaglidingMode {
     private static instance: ParaglidingMode;

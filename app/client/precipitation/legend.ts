@@ -1,8 +1,4 @@
-interface LegendItem {
-  min: number;
-  max: number;
-  color: string;
-}
+import type { LegendItem } from "../_types/precipitation";
 
 export function createLegend(
   legendData: LegendItem[],

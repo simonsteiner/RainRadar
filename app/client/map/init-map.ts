@@ -1,14 +1,15 @@
-import maplibregl, { Map, MapMouseEvent } from "maplibre-gl";
-import { mapConfig } from "./configs/map-config";
-import { LAYER_CONFIGS } from "./layers-config";
-import { LayerManager } from "./layer-manager";
-import { initializePrecipitationDisplay } from "../precipitation/init-display";
-import { setupLocationButton } from "./location-button";
-import { ViewportHandler } from "./viewport-handler";
-import { MapUI } from "./map-ui";
-import { ParaglidingMode } from "../precipitation/paragliding-mode";
 import { hasZoomParameter, getZoomFromUrl } from "./map-utils";
 import { initializeControls } from "../container-controls";
+import { initializePrecipitationDisplay } from "../precipitation/init-display";
+import { LAYER_CONFIGS } from "./layers-config";
+import { LayerManager } from "./layer-manager";
+import { mapConfig } from "./configs/map-config";
+import { MapUI } from "./map-ui";
+import { ParaglidingMode } from "../precipitation/paragliding-mode";
+import { setupLocationButton } from "./location-button";
+import { ViewportHandler } from "./viewport-handler";
+import maplibregl from "maplibre-gl";
+import type { Map, MapMouseEvent } from "maplibre-gl";
 
 interface IMapInitializer {
   getMap(): Map;

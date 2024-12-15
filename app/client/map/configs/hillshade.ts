@@ -1,5 +1,4 @@
-
-import { LayerConfig } from "../types";
+import type { LayerConfig } from "../../_types/map";
 
 export const hillshade: LayerConfig = {
   id: "hillshade",

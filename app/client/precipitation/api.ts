@@ -1,4 +1,4 @@
-import { VersionsData, AnimationData } from "./types";
+import type { VersionsData, AnimationData } from "../_types/precipitation";
 
 const API_ENDPOINTS = {
   versions: "/api/versions.json",

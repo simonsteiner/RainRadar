@@ -1,7 +1,7 @@
-import { Map, SourceSpecification, GeoJSONSource } from "maplibre-gl";
-import type { GeoJSON } from "geojson";
 import { LAYER_CONFIGS } from "./layers-config";
-import { LayerConfig } from "./types";
+import type { GeoJSON } from "geojson";
+import type { LayerConfig } from "../_types/map";
+import type { Map, SourceSpecification, GeoJSONSource } from "maplibre-gl";
 
 const TRANSITION_CONFIG = { duration: 300 };
 

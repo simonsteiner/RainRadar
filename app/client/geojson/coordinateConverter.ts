@@ -1,4 +1,4 @@
-import { GeoPoint } from "./types";
+import type { GeoPoint } from "../_types/geojson";
 
 export const CoordinateConverter = {
   CHtoWGS(x: number, y: number): number[] {

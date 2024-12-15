@@ -1,14 +1,6 @@
-import { PictureInfo } from "./types";
-import { PrecipitationRenderer } from "./render";
 import { ParaglidingMode } from "./paragliding-mode";
-
-interface AnimationControls {
-  slider: HTMLInputElement;
-  playButton: HTMLElement;
-  prevButton: HTMLElement;
-  nextButton: HTMLElement;
-  speedButtons: NodeListOf<Element>;
-}
+import { PrecipitationRenderer } from "./render";
+import type { AnimationControls, PictureInfo } from "../_types/precipitation";
 
 export class AnimationController {
   private isPlaying = false;
@@ -30,7 +22,7 @@ export class AnimationController {
     this.renderer = renderer;
     this.isParaglidingMode = isParaglidingMode;
     this.initializeControls();
-    
+
     if (ParaglidingMode.getInstance().isEnabled()) {
       this.animationSpeed = 500; // Fixed speed for paragliding
       this.play();
@@ -149,9 +141,9 @@ export function setupSlider(
 
   if (controls.slider) {
     return new AnimationController(
-      controls, 
-      pictures, 
-      renderer, 
+      controls,
+      pictures,
+      renderer,
       ParaglidingMode.getInstance().isEnabled()
     );
   }

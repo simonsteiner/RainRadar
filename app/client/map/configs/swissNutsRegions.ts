@@ -1,4 +1,4 @@
-import { LayerConfig } from "../types";
+import type { LayerConfig } from "../../_types/map";
 
 export const swissNutsRegions: LayerConfig = {
   id: "swissNutsRegions",

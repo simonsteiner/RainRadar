@@ -1,12 +1,12 @@
-import { Map } from "maplibre-gl";
-import { fetchPrecipitationAnimation } from "./api";
-import { extractPictureInfo } from "./utils";
-import { AnimationData, PictureInfo } from "./types";
-import { setupSlider, findLatestMeasurementIndex } from "./slider";
-import { PrecipitationRenderer } from "./render";
-import { createLegend } from "./legend";
 import { AnimationController } from "./slider";
+import { createLegend } from "./legend";
+import { extractPictureInfo } from "./utils";
+import { fetchPrecipitationAnimation } from "./api";
+import { Map } from "maplibre-gl";
 import { ParaglidingMode } from "./paragliding-mode";
+import { PrecipitationRenderer } from "./render";
+import { setupSlider, findLatestMeasurementIndex } from "./slider";
+import type { AnimationData, PictureInfo } from "../_types/precipitation";
 
 export class PrecipitationDisplayManager {
   private renderer: PrecipitationRenderer;

@@ -1,8 +1,12 @@
-declare interface VersionsData {
-  "precipitation/animation": string;
+export interface AnimationControls {
+  slider: HTMLInputElement;
+  playButton: HTMLElement;
+  prevButton: HTMLElement;
+  nextButton: HTMLElement;
+  speedButtons: NodeListOf<Element>;
 }
 
-declare interface AnimationData {
+export interface AnimationData {
   cities: City[];
   legend: LegendItem[];
   map_images: [
@@ -15,7 +19,7 @@ declare interface AnimationData {
   config: Config;
 }
 
-declare interface City {
+export interface City {
   city_name: string;
   min_zoom: number;
   coord_x: number;
@@ -23,13 +27,20 @@ declare interface City {
   location_id: string;
 }
 
-declare interface LegendItem {
+export interface Config {
+  name: string;
+  language: string;
+  version: string;
+  timestamp: number;
+}
+
+export interface LegendItem {
   min: number;
   color: string;
   max: number;
 }
 
-declare interface PictureInfo {
+export interface PictureInfo {
   data_type_string: string;
   radar_url: string;
   data_type: "measurement" | "forecast";
@@ -41,18 +52,6 @@ declare interface PictureInfo {
   snow_url?: string;
 }
 
-declare interface Config {
-  name: string;
-  language: string;
-  version: string;
-  timestamp: number;
+export interface VersionsData {
+  "precipitation/animation": string;
 }
-
-export {
-  VersionsData,
-  AnimationData,
-  City,
-  LegendItem,
-  PictureInfo,
-  Config
-};

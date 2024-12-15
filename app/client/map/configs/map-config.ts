@@ -1,4 +1,4 @@
-const mapConfig = {
+export const mapConfig = {
   container: "map",
   style: "styles/mch-style.json",
   center: [8.2, 46.8] as [number, number],
@@ -12,5 +12,3 @@ const mapConfig = {
     number
   ],
 };
-
-export { mapConfig };

@@ -1,4 +1,4 @@
-import { AnimationData, PictureInfo } from "./types";
+import type { AnimationData, PictureInfo } from "../_types/precipitation";
 
 export function extractPictureInfo(
   animationData: AnimationData

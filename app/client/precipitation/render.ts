@@ -1,9 +1,9 @@
-import { Map } from "maplibre-gl";
-import { AnimationData, PictureInfo } from "./types";
 import { fetchJson } from "./api";
-import { radar2geojson } from "../geojson/radar2geojson";
 import { LayerManager } from "../map/layer-manager";
-import { RadarData } from "../geojson/types";
+import { Map } from "maplibre-gl";
+import { radar2geojson } from "../geojson/radar2geojson";
+import type { AnimationData, PictureInfo } from "../_types/precipitation";
+import type { RadarData } from "../_types/geojson";
 
 export class PrecipitationRenderer {
   private precipitationImage: HTMLElement | null;

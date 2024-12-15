@@ -1,6 +1,6 @@
 /// <reference types="maplibre-gl" />
 
-declare interface LayerConfig {
+export interface LayerConfig {
   id: string;
   label?: string;
   visible?: boolean;  // default: true
@@ -8,7 +8,3 @@ declare interface LayerConfig {
   sourceConfig?: object;
   layers: maplibregl.LayerSpecification[];
 }
-
-export {
-  LayerConfig
-};

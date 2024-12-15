@@ -1,5 +1,5 @@
-import { ShapeInput, Bounds, GeoPoint } from "./types";
 import { CoordinateConverter } from "./coordinateConverter";
+import type { ShapeInput, Bounds, GeoPoint } from "../_types/geojson";
 
 export const decodeCoordinates = (
   input: ShapeInput,
@@ -38,12 +38,12 @@ const calculatePosition = (
     yPosition =
       bounds.y_min +
       ((bounds.y_max - bounds.y_min) * ((y - 1) / 2 + fraction)) /
-        bounds.y_count;
+      bounds.y_count;
   } else {
     xPosition =
       bounds.x_min +
       ((bounds.x_max - bounds.x_min) * ((x - 1) / 2 + fraction)) /
-        bounds.x_count;
+      bounds.x_count;
     yPosition =
       bounds.y_min + ((bounds.y_max - bounds.y_min) * (y / 2)) / bounds.y_count;
   }

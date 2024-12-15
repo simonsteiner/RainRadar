@@ -3,9 +3,8 @@
  * This module handles the transformation of proprietary radar data coordinates
  * to standard geographic coordinates (WGS84) and creates valid GeoJSON polygons.
  */
-
 import { decodeCoordinates } from "./decode";
-import { RadarData, GeoJSONFeature, GeoJSONFeatureCollection } from "./types";
+import type { RadarData, GeoJSONFeature, GeoJSONFeatureCollection } from "../_types/geojson";
 
 /**
  * Creates a GeoJSON feature from coordinates and color

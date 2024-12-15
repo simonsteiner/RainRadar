@@ -70,7 +70,7 @@ const setupSidebarToggle = (): void => {
 };
 
 // Initialize the controls
-export const initializeControls = (): void => {
+export const initializeContainerControls = (): void => {
     setupMobileHandle();
     setupContainerToggles();
     setupSidebarToggle();

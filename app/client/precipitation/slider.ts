@@ -21,7 +21,7 @@ export class AnimationController {
     this.pictures = pictures;
     this.renderer = renderer;
     this.isParaglidingMode = isParaglidingMode;
-    this.initializeControls();
+    this.initializeSliderControls();
 
     if (ParaglidingMode.getInstance().isEnabled()) {
       this.animationSpeed = 500; // Fixed speed for paragliding
@@ -29,7 +29,7 @@ export class AnimationController {
     }
   }
 
-  private initializeControls() {
+  private initializeSliderControls() {
     const { slider, speedButtons } = this.controls;
     slider.max = (this.pictures.length - 1).toString();
     slider.value = findLatestMeasurementIndex(this.pictures).toString();

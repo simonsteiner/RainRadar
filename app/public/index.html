@@ -33,7 +33,8 @@
           <a href="https://maplibre.org/" target="_blank">MapLibre GL</a>, and hosted on a free
           <a href="https://render.com/" target="_blank">Render.com</a> instance. Analytics powered by
           <a href="https://umami.is/" target="_blank">Umami</a> for both frontend and backend monitoring.<br>
-          ⚠️ Note: The free Render.com hosting tier spins down after inactivity, which <strong>can cause initial delays of 50+ seconds</strong>.
+          ⚠️ Note: The free Render.com hosting tier spins down after inactivity, which <strong>can cause initial delays of
+            50+ seconds</strong>.
         </p>
         <p>
           💡 I'm open to feedback and suggestions to make this tool even better—don’t hesitate to share your
@@ -47,7 +48,7 @@
           free to contact me.
         </p>
         <div class="mode-wrapper">
-        
+
           <p>In <button id="paraglidingMode" class="mode-btn" data-mode="paragliding" title="Toggle paragliding mode">
               🪂 Paragliding Mode
             </button> we focus solely on the latest precipitation data. We take 1h from measurments and
@@ -65,7 +66,8 @@
       </div>
     </div>
     <div id="map"></div>
-    <button id="paraglidingMode" class="paragliding-mode-centered mode-btn" data-mode="paragliding" title="Toggle paragliding mode">
+    <button id="paraglidingMode" class="paragliding-mode-centered mode-btn" data-mode="paragliding"
+      title="Toggle paragliding mode">
       🪂
     </button>
     <div id="updatedOn" class="info-display info-display--left"></div>
@@ -114,7 +116,7 @@
       <h3>Meta Data</h3>
       <div id="precipitationImage"></div>
     </div>
-
+    <div id="messageOverlay" class="message-overlay flash hidden"></div>
     <script type="module" src="/js/map/init-map.js"></script>
     <script defer src="https://cloud.umami.is/script.js" data-website-id="572f796d-9334-408a-b3af-9f9a3520b0d7"></script>
   </body>

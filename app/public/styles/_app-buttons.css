@@ -67,6 +67,15 @@
     background-color: var(--location-active-color);
 }
 
+@keyframes button-error {
+    0% { background-color: #f44; }
+    100% { background-color: #fff; }
+}
+
+.location-button.error {
+    animation: button-error 750ms ease-out forwards;
+}
+
 .location-button.active .maplibregl-ctrl-icon {
     filter: invert(1);
 }

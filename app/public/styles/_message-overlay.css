@@ -1,0 +1,27 @@
+.message-overlay {
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    z-index: 1000;
+    max-width: 80%;
+    padding: 10px 20px;
+    color: #000;
+    text-align: center;
+    background-color: rgb(255 255 255 / 95%);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transform: translateX(-50%);
+}
+  
+@keyframes flash-message {
+    0% { background-color: #f44; }
+    100% { background-color: rgb(255 255 255 / 95%); }
+}
+
+.message-overlay.flash {
+    animation: flash-message 750ms ease-out forwards;
+}
+
+.message-overlay.hidden {
+    display: none;
+}

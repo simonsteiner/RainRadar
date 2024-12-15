@@ -5,6 +5,6 @@ export interface LayerConfig {
   label?: string;
   visible?: boolean;  // default: true
   source: string;
-  sourceConfig?: object;
+  sourceConfig?: maplibregl.SourceSpecification;
   layers: maplibregl.LayerSpecification[];
 }

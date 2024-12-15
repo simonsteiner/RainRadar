@@ -75,6 +75,7 @@ export const bounds: LayerConfig = {
               ],
             ],
           },
+          properties: {}
         },
       ],
     },

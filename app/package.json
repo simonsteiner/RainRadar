@@ -20,7 +20,7 @@
     "maplibre-gl": "^4.7.1"
   },
   "devDependencies": {
-    "@eslint/config-inspector": "^0.5.6",
+    "@eslint/config-inspector": "^0.6.0",
     "@eslint/js": "^9.16.0",
     "@html-eslint/eslint-plugin": "^0.31.1",
     "@html-eslint/parser": "^0.30.0",

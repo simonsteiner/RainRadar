@@ -1,3 +1,4 @@
+import { showMessageOverlay } from "../utils/message-overlay";
 import type { VersionsData, AnimationData } from "../_types/precipitation";
 
 const API_ENDPOINTS = {
@@ -6,11 +7,17 @@ const API_ENDPOINTS = {
 } as const;
 
 export async function fetchJson<T>(url: string): Promise<T> {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      showMessageOverlay(`🚨 HTTP error! status: ${response.status}`);
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return (await response.json()) as T;
+  } catch (error) {
+    showMessageOverlay("🚨 Network or parsing error!");
+    throw error;
   }
-  return (await response.json()) as T;
 }
 
 export async function fetchVersionsData(): Promise<VersionsData> {

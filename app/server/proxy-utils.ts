@@ -69,14 +69,21 @@ export const createProxyOptions = (
       `[${userReq.method}] Proxy response from ${path}: ${proxyRes.statusCode}`
     );
 
-    if (proxyRes.statusCode === 200) {
-      cacheManager.set(path, proxyResData);
-      umami.track({ 
-        url: "/server-side/proxy-success",
-        event: "proxy_success",
-        data: { path, statusCode: proxyRes.statusCode, environment }
-      });
+    // Handle JSON responses properly
+    if (proxyRes.headers["content-type"]?.includes("application/json")) {
+      const data = proxyResData.toString("utf8");
+      if (proxyRes.statusCode === 200) {
+        cacheManager.set(path, data);
+        umami.track({ 
+          url: "/server-side/proxy-success",
+          event: "proxy_success",
+          data: { path, statusCode: proxyRes.statusCode, environment }
+        });
+      }
+      return data;
     }
+
+    // Return raw data for other content types
     return proxyResData;
   },
   proxyErrorHandler: async (err: Error, res: express.Response, next: () => void) => {

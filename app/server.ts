@@ -1,10 +1,10 @@
-import express from "express";
-import path from "path";
-import umami from "@umami/node";
-import rateLimit from "express-rate-limit";
+import { createProxy } from "./server/proxy-utils";
 import { SERVER, METEOSWISS } from "./server/config";
 import { staticFiles, requestLogger, corsHeaders } from "./server/middleware";
-import { createProxy } from "./server/proxy-utils";
+import express from "express";
+import path from "path";
+import rateLimit from "express-rate-limit";
+import umami from "@umami/node";
 
 const app = express();
 

@@ -9,7 +9,7 @@ export function hillshadeLayer(map) {
     type: "raster",
     // WebP format tiles for better performance
     tiles: [
-      "https://api.maptiler.com/tiles/hillshade/{z}/{x}/{y}.webp?key=Vnp0eedJJqazTPLFXFbh",
+      "https://api.maptiler.com/tiles/hillshade/{z}/{x}/{y}.webp?key=YOUR_MAPTILER_KEY",
     ],
     tileSize: 512,
     attribution:

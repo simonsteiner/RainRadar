@@ -1,6 +1,9 @@
 import * as esbuild from "esbuild";
 import { glob } from "glob";
 import * as fs from "fs";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 function clearDirectory(directory: string) {
   if (fs.existsSync(directory)) {
@@ -24,12 +27,21 @@ async function build(dev = false) {
     console.log("Building production bundle with map initialization only");
   }
 
+  const maptilerKey = process.env.MAPTILER_KEY;
+  if (!maptilerKey) {
+    console.error("MAPTILER_KEY is not set. Add it to .env (see .env.example)");
+    process.exit(1);
+  }
+
   const baseOptions: esbuild.BuildOptions = {
     entryPoints,
     bundle: true,
     format: "esm",
     target: "es2020",
     loader: { ".ts": "ts" },
+    define: {
+      "process.env.MAPTILER_KEY": JSON.stringify(maptilerKey),
+    },
   };
 
   const devOptions: esbuild.BuildOptions = {

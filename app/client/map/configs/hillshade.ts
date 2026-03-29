@@ -7,7 +7,7 @@ export const hillshade: LayerConfig = {
   sourceConfig: {
     type: "raster",
     tiles: [
-      "https://api.maptiler.com/tiles/hillshade/{z}/{x}/{y}.webp?key=Vnp0eedJJqazTPLFXFbh",
+      `https://api.maptiler.com/tiles/hillshade/{z}/{x}/{y}.webp?key=${process.env.MAPTILER_KEY}`,
     ],
     tileSize: 512,
   },

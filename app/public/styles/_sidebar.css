@@ -100,8 +100,8 @@
     left: 50%;
     z-index: 1000;
     padding: 8px 12px;
-    filter: opacity(0.6);
     box-shadow: var(--shadow-default);
+    filter: opacity(0.6);
     transform: translateX(-50%);
 }
 

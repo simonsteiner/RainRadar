@@ -1,5 +1,38 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Upgraded MapLibre GL JS from 5.x to 6.6.0. MapLibre 6 is ESM-only,
+  requires WebGL 2 and targets ES2022; the client build target moved to
+  ES2022 to match.
+  - MapLibre's stylesheet is now vendored from `node_modules` at build time
+    instead of loaded from a hand-pinned unpkg URL that had drifted two
+    majors behind the bundled library.
+  - MapLibre's worker ships alongside it, because MapLibre 6 loads the
+    worker from a real URL rather than a blob.
+- Upgraded TypeScript from 6.0 to 7.0 (the native Go compiler). TypeScript
+  7 has no programmatic API yet, so `ts-node`, `ts-node-dev` and
+  `typescript-eslint` continue to use the 6.0 API through an npm alias.
+- Precipitation overlay uses MapLibre 6's `fill-layer-opacity` and
+  `line-layer-opacity`, which fade the composited layer once instead of
+  blending each polygon separately — this removes the faint seam grid along
+  shared edges of the radar cells.
+
+### Added
+
+- `npm run typecheck` — the repo had no type-checking script; the build
+  only ever stripped types via esbuild.
+- A message is now shown when the browser cannot provide a WebGL 2 context,
+  which MapLibre 6 requires. Previously the map container was simply blank.
+
+### Fixed
+
+- The client TypeScript config targeted ES6 without a `lib`, so it had never
+  type-checked cleanly. Correcting it surfaced two properties that were
+  assigned after construction without being marked optional.
+
 ## [1.0.1] - 2024-12-11
 
 ### Added

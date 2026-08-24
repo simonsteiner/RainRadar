@@ -40,6 +40,13 @@ This application provides real-time precipitation data visualization using Meteo
   - `esbuild` for fast TypeScript bundling
   - `ts-node` for development server
   - `concurrently` for parallel dev processes
+  - `tsc` (TypeScript 7, the native Go compiler) for type checking only
+
+  TypeScript 7 has no programmatic API yet, so tools that embed the
+  compiler — `ts-node`, `ts-node-dev`, `typescript-eslint` — still need the
+  6.0 API. `package.json` installs both through npm aliases: the `tsc`
+  binary is 7.0 via `@typescript/native`, while `require("typescript")`
+  resolves to `@typescript/typescript6`.
 
 ### Build Process
 
@@ -61,23 +68,29 @@ The project uses esbuild for an efficient and fast build pipeline with different
 Common build features:
 
 - ES modules format (ESM)
-- ES2020 target for modern browser support
+- ES2022 target — the baseline MapLibre GL 6 ships and requires
 - TypeScript compilation via esbuild loader
+- Copies MapLibre's stylesheet and worker from `node_modules` into
+  `public/vendor/` (generated, and gitignored). The worker has to ship as a
+  real file because MapLibre 6 loads it by URL rather than as a blob.
 
 Build commands:
 
 ```sh
 # Runs both development server and client watcher in parallel using concurrently
 npm run dev
-# Compiles TypeScript files with sourcemaps and development settings
-npm run build
 # Creates optimized production bundle with minification and tree-shaking
 npm run build:prod
 # Starts Express server using ts-node-dev with auto-reload
 npm run server
 # Watches client files and rebuilds on changes using esbuild
 npm run watch
+# Type-checks the server and client projects (no emit)
+npm run typecheck
 ```
+
+Note that the build never type-checks: esbuild strips types without
+looking at them. Run `npm run typecheck` to actually check them.
 
 ## Analyzing MeteoSwiss Data Source
 

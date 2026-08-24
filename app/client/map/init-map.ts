@@ -7,8 +7,9 @@ import { mapConfig } from "./configs/map-config";
 import { MapUI } from "./map-ui";
 import { ParaglidingMode } from "../precipitation/paragliding-mode";
 import { setupLocationButton } from "./location-button";
+import { showMessageOverlay } from "../utils/message-overlay";
 import { ViewportHandler } from "./viewport-handler";
-import { Map, setWorkerUrl } from "maplibre-gl";
+import { GPUInitializationError, Map, setWorkerUrl, type ErrorEvent } from "maplibre-gl";
 
 // MapLibre 6 loads its worker from a real URL instead of a blob, resolved
 // against `import.meta.url` — i.e. next to our esbuild bundle, where it is not.
@@ -56,8 +57,21 @@ class MapInitializer implements IMapInitializer {
   private initializeMapCore(): void {
     this.setupEventHandlers();
     this.setupMapControls();
+    this.map.on("error", this.handleMapError);
     this.map.on("load", this.handleMapLoad.bind(this));
   }
+
+  // MapLibre 6 dropped WebGL 1, so a context it cannot get is now a hard
+  // failure rather than a downgrade. It surfaces as a GPUInitializationError
+  // on the error event; without this the user just sees an empty container.
+  private handleMapError = (e: ErrorEvent): void => {
+    if (e.error instanceof GPUInitializationError) {
+      showMessageOverlay(
+        "This browser or device does not support WebGL 2, which the map requires."
+      );
+    }
+    console.error("Map error:", e.error);
+  };
 
   private setupEventHandlers(): void {
     // Registered one by one rather than looped over a map of handlers: since

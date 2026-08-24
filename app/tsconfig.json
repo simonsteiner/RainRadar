@@ -1,15 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es2022",
+    "lib": ["es2022"],
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
-    "rootDir": "./",
-    "removeComments": true,
-    "sourceMap": true,
+    "noEmit": true,
     "types": ["node"]
   },
   "include": ["*.ts", "server/**/*.ts"],

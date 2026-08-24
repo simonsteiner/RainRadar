@@ -5,7 +5,7 @@ export class ParaglidingMode {
   private static instance: ParaglidingMode;
   private isActive: boolean;
   private changeListeners: Array<(isActive: boolean) => void> = [];
-  private map: Map;
+  private map?: Map;
 
   public static getInstance(): ParaglidingMode {
     if (!ParaglidingMode.instance) {

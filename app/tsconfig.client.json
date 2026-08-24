@@ -1,14 +1,17 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "es6",
+    "target": "es2022",
+    "lib": ["es2022", "dom", "dom.iterable"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./public",
+    "noEmit": true,
     "removeComments": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "types": []
   },
   "include": [
     "client/**/*.ts",

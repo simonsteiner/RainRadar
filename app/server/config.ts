@@ -15,6 +15,9 @@ export const METEOSWISS = {
 
 export const MIME_TYPES: Record<string, string> = {
   ".js": "text/javascript; charset=utf-8",
+  // MapLibre's vendored worker is an ES module; browsers reject a module
+  // worker served with anything other than a JavaScript MIME type.
+  ".mjs": "text/javascript; charset=utf-8",
   ".json": "application/json",
   ".html": "text/html",
 };

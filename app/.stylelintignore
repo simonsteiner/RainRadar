@@ -1,0 +1,2 @@
+# Third-party CSS copied out of node_modules at build time (see build.ts)
+public/vendor/

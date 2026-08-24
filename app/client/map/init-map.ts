@@ -8,8 +8,12 @@ import { MapUI } from "./map-ui";
 import { ParaglidingMode } from "../precipitation/paragliding-mode";
 import { setupLocationButton } from "./location-button";
 import { ViewportHandler } from "./viewport-handler";
-import maplibregl from "maplibre-gl";
-import type { Map, MapMouseEvent } from "maplibre-gl";
+import { Map, setWorkerUrl } from "maplibre-gl";
+
+// MapLibre 6 loads its worker from a real URL instead of a blob, resolved
+// against `import.meta.url` — i.e. next to our esbuild bundle, where it is not.
+// build.ts vendors the worker (and the chunk it imports) here instead.
+setWorkerUrl("/vendor/maplibre-gl-worker.mjs");
 
 interface IMapInitializer {
   getMap(): Map;
@@ -20,7 +24,7 @@ class MapInitializer implements IMapInitializer {
   private readonly layerManager: LayerManager;
   private readonly viewportHandler: ViewportHandler;
   private readonly mapUI: MapUI;
-  private precipitationManager: import("../precipitation/init-display").PrecipitationDisplayManager;
+  private precipitationManager?: import("../precipitation/init-display").PrecipitationDisplayManager;
 
   constructor() {
     try {
@@ -31,7 +35,7 @@ class MapInitializer implements IMapInitializer {
         bounds: hasZoomParameter() ? undefined : mapConfig.bounds
       };
 
-      this.map = new maplibregl.Map(config);
+      this.map = new Map(config);
       this.layerManager = new LayerManager(this.map);
       this.viewportHandler = new ViewportHandler();
       this.mapUI = new MapUI();
@@ -56,15 +60,12 @@ class MapInitializer implements IMapInitializer {
   }
 
   private setupEventHandlers(): void {
-    const eventHandlers = {
-      mousemove: (e: MapMouseEvent) => this.mapUI.updateCoordinates(e),
-      click: (e: MapMouseEvent) => this.mapUI.copyCoordinates(e),
-      move: () => this.mapUI.updateZoom(this.map.getZoom())
-    };
-
-    Object.entries(eventHandlers).forEach(([event, handler]) => {
-      this.map.on(event, handler);
-    });
+    // Registered one by one rather than looped over a map of handlers: since
+    // MapLibre 6.3 `Map.on` is typed per event name, so this form checks the
+    // event names and infers each `e` — a loop erases both back to `string`.
+    this.map.on("mousemove", (e) => this.mapUI.updateCoordinates(e));
+    this.map.on("click", (e) => this.mapUI.copyCoordinates(e));
+    this.map.on("move", () => this.mapUI.updateZoom(this.map.getZoom()));
   }
 
   private setupMapControls(): void {

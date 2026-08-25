@@ -38,15 +38,24 @@ This application provides real-time precipitation data visualization using Meteo
   - No other frontend framework dependencies
 - **Build Tools**:
   - `esbuild` for fast TypeScript bundling
-  - `ts-node` for development server
+  - `node` runs the `.ts` files directly — Node strips types natively, so
+    there is no ts-node in the chain
   - `concurrently` for parallel dev processes
   - `tsc` (TypeScript 7, the native Go compiler) for type checking only
 
-  TypeScript 7 has no programmatic API yet, so tools that embed the
-  compiler — `ts-node`, `ts-node-dev`, `typescript-eslint` — still need the
-  6.0 API. `package.json` installs both through npm aliases: the `tsc`
-  binary is 7.0 via `@typescript/native`, while `require("typescript")`
+  Node only *strips* types, it never checks them, and it rejects syntax
+  that needs a real transform (enums, namespaces, parameter properties).
+  `tsconfig.json` sets `erasableSyntaxOnly` and `verbatimModuleSyntax` so
+  `npm run typecheck` catches both cases rather than leaving them to fail
+  at runtime.
+
+  TypeScript 7 has no programmatic API yet, so `typescript-eslint` still
+  needs the 6.0 API. `package.json` installs both through npm aliases: the
+  `tsc` binary is 7.0 via `@typescript/native`, while `require("typescript")`
   resolves to `@typescript/typescript6`.
+
+- **Runtime**: Node 22.18+ or 24 (`.nvmrc` pins the current LTS). 22.18 is
+  the release that unflagged type stripping.
 
 ### Build Process
 
@@ -56,7 +65,7 @@ The project uses esbuild for an efficient and fast build pipeline with different
    - Watches and rebuilds all TypeScript files in `client/`
    - Generates sourcemaps for debugging
    - Outputs individual bundles to `public/js/` maintaining directory structure
-   - Runs development server with hot reloading via `ts-node-dev`
+   - Runs development server with reload via `node --watch`
 
 2. Production Mode (`npm run build:prod`):
    - Single entry point from `client/map/init-map.ts`
@@ -81,7 +90,7 @@ Build commands:
 npm run dev
 # Creates optimized production bundle with minification and tree-shaking
 npm run build:prod
-# Starts Express server using ts-node-dev with auto-reload
+# Starts Express server using node --watch with auto-reload
 npm run server
 # Watches client files and rebuilds on changes using esbuild
 npm run watch

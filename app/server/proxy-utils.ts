@@ -1,9 +1,10 @@
-import express, { RequestHandler } from "express";
-import { IncomingMessage } from "http";
+import express from "express";
+import type { RequestHandler } from "express";
+import type { IncomingMessage } from "http";
 import proxy from "express-http-proxy";
-import umami from "@umami/node";
-import { CacheManager } from "./cache-manager";
-import { CACHE, RETRY } from "./config";
+import { umami } from "./analytics.ts";
+import { CacheManager } from "./cache-manager.ts";
+import { CACHE, RETRY } from "./config.ts";
 
 const cacheManager = new CacheManager(CACHE.MAX_AGE);
 

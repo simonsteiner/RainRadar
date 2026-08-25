@@ -3,6 +3,7 @@ import { glob } from "glob";
 import * as fs from "fs";
 import * as path from "path";
 import * as dotenv from "dotenv";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 
@@ -29,7 +30,7 @@ const MAPLIBRE_ASSETS = [
 function vendorMapLibreAssets() {
   fs.mkdirSync(VENDOR_DIR, { recursive: true });
   for (const asset of MAPLIBRE_ASSETS) {
-    const source = require.resolve(`maplibre-gl/dist/${asset}`);
+    const source = fileURLToPath(import.meta.resolve(`maplibre-gl/dist/${asset}`));
     fs.copyFileSync(source, path.join(VENDOR_DIR, asset));
   }
   console.log(`Vendored ${MAPLIBRE_ASSETS.length} MapLibre assets -> ${VENDOR_DIR}`);

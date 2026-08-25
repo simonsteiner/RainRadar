@@ -25,17 +25,17 @@
     "maplibre-gl": "^6.6.0"
   },
   "devDependencies": {
-    "@eslint/config-inspector": "^3.2.0",
+    "@eslint/config-inspector": "^3.3.0",
     "@eslint/js": "^10.0.1",
     "@html-eslint/eslint-plugin": "^0.65.0",
     "@html-eslint/parser": "^0.65.0",
     "@types/express": "^5.0.6",
     "@types/express-http-proxy": "^1.6.7",
-    "@types/node": "^26.2.0",
+    "@types/node": "^26.3.0",
     "@typescript/native": "npm:typescript@^7.0.2",
     "concurrently": "^10.0.5",
     "esbuild": "^0.28.2",
-    "eslint": "^10.8.1",
+    "eslint": "^10.9.1",
     "glob": "^13.0.6",
     "globals": "^17.11.0",
     "stylelint": "^17.14.1",
@@ -45,6 +45,6 @@
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
-    "typescript-eslint": "^8.67.0"
+    "typescript-eslint": "^8.68.0"
   }
 }

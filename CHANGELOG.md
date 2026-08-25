@@ -51,6 +51,8 @@
 - Removed `legacy-peer-deps=true` from `.npmrc`, which suppressed ERESOLVE
   errors. All peers now resolve on their own.
 
+[unreleased]: https://github.com/simonsteiner/rainradar/compare/v1.0.1...HEAD
+
 ## [1.0.1] - 2024-12-11
 
 ### Added

@@ -1,5 +1,5 @@
 interface CacheEntry {
-  data: Buffer;
+  data: string;
   timestamp: number;
 }
 
@@ -11,14 +11,14 @@ export class CacheManager {
     this.maxAge = maxAgeSeconds * 1000;
   }
 
-  set(key: string, data: Buffer): void {
+  set(key: string, data: string): void {
     this.cache.set(key, {
       data,
       timestamp: Date.now(),
     });
   }
 
-  get(key: string): Buffer | null {
+  get(key: string): string | null {
     const entry = this.cache.get(key);
     if (!entry) return null;
 

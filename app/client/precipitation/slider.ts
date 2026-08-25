@@ -30,7 +30,7 @@ export class AnimationController {
   }
 
   private initializeSliderControls() {
-    const { slider, speedButtons } = this.controls;
+    const { slider } = this.controls;
     slider.max = (this.pictures.length - 1).toString();
     slider.value = findLatestMeasurementIndex(this.pictures).toString();
 

@@ -1,4 +1,5 @@
 import express, { RequestHandler } from "express";
+import { IncomingMessage } from "http";
 import proxy from "express-http-proxy";
 import umami from "@umami/node";
 import { CacheManager } from "./cache-manager";
@@ -24,10 +25,10 @@ const isLocalEnvironment = () => {
 
 const environment = isLocalEnvironment() ? "local" : "production";
 
-const retryRequest = async (
-  proxyFn: () => Promise<any>,
+const retryRequest = async <T>(
+  proxyFn: () => Promise<T>,
   maxAttempts: number = RETRY.MAX_ATTEMPTS
-): Promise<any> => {
+): Promise<T> => {
   let lastError: Error;
   
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
@@ -60,8 +61,8 @@ export const createProxyOptions = (
     return path;
   },
   userResDecorator: (
-    proxyRes: any,
-    proxyResData: any,
+    proxyRes: IncomingMessage,
+    proxyResData: Buffer,
     userReq: express.Request
   ) => {
     const path = userReq.originalUrl;
@@ -86,7 +87,7 @@ export const createProxyOptions = (
     // Return raw data for other content types
     return proxyResData;
   },
-  proxyErrorHandler: async (err: Error, res: express.Response, next: () => void) => {
+  proxyErrorHandler: async (err: Error, res: express.Response) => {
     try {
       await retryRequest(() => Promise.reject(err));
     } catch (finalError) {
@@ -125,7 +126,9 @@ export const createProxy = (
         event: "proxy_cache_hit",
         data: { path: req.originalUrl, environment }
       });
-      res.send(cachedData);
+      // Only JSON bodies are ever cached (see userResDecorator), and a bare
+      // res.send of a string would label them text/html.
+      res.type("application/json").send(cachedData);
       return next();
     }
     proxyMiddleware(req, res, next);

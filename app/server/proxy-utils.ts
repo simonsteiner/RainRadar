@@ -130,7 +130,9 @@ export const createProxy = (
       // Only JSON bodies are ever cached (see userResDecorator), and a bare
       // res.send of a string would label them text/html.
       res.type("application/json").send(cachedData);
-      return next();
+      // No next(): the response is complete. Passing control on would run
+      // downstream handlers against a finished response.
+      return;
     }
     proxyMiddleware(req, res, next);
   };

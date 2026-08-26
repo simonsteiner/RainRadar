@@ -61,11 +61,13 @@ const retryRequest = async <T>(
 export type ProxyPathResolver = (req: express.Request) => string | null;
 
 // Takes the already-resolved path rather than the resolver, so the type is
-// total: by the time these options exist the path is known good.
-export const createProxyOptions = (path: string, baseUrl: string) => ({
+// total: by the time these options exist the path is known good. Named
+// `upstreamPath` because `userResDecorator` below has its own `path` — the
+// inbound request URL, which is a different thing.
+export const createProxyOptions = (upstreamPath: string, baseUrl: string) => ({
   proxyReqPathResolver: (req: express.Request) => {
-    console.log(`[${req.method}] Proxying to: ${baseUrl}${path}`);
-    return path;
+    console.log(`[${req.method}] Proxying to: ${baseUrl}${upstreamPath}`);
+    return upstreamPath;
   },
   userResDecorator: (
     proxyRes: IncomingMessage,

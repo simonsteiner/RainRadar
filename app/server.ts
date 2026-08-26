@@ -54,13 +54,37 @@ app.use(
   createProxy(METEOSWISS.BASE_URL, () => METEOSWISS.VERSIONS_PATH),
 );
 
+// MeteoSwiss publishes version ids as timestamps of the form YYYYMMDD_HHMM
+// (see /product/output/versions.json).
+const VERSION_ID = /^\d{8}_\d{4}$/;
+
+/**
+ * Express types a route param as `string | string[]`, because a repeated param
+ * arrives as an array — and an array interpolated into the upstream path
+ * stringifies to `a,b`, building a URL this code never intended. Narrow by
+ * validating rather than by asserting the type away.
+ */
+const parseVersion = (value: string | string[] | undefined): string | null =>
+  typeof value === "string" && VERSION_ID.test(value) ? value : null;
+
+const requireValidVersion: express.RequestHandler = (req, res, next) => {
+  if (parseVersion(req.params.version) === null) {
+    res.status(400).send("Invalid precipitation version");
+    return;
+  }
+  next();
+};
+
 app.use(
   "/api/precipitation/:version/animation.json",
-  createProxy(
-    METEOSWISS.BASE_URL,
-    (req: express.Request) =>
-      `${METEOSWISS.PRECIPITATION_PATH}/version__${req.params.version}/en/animation.json`,
-  ),
+  requireValidVersion,
+  createProxy(METEOSWISS.BASE_URL, (req: express.Request) => {
+    const version = parseVersion(req.params.version);
+    // requireValidVersion already rejected anything else; the express types
+    // just cannot carry that guarantee from one middleware to the next.
+    if (version === null) throw new Error("Unvalidated version reached the proxy");
+    return `${METEOSWISS.PRECIPITATION_PATH}/version__${version}/en/animation.json`;
+  }),
 );
 
 app.use(

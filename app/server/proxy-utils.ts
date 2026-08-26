@@ -52,12 +52,18 @@ const retryRequest = async <T>(
   throw lastError!;
 };
 
-export const createProxyOptions = (
-  pathResolver: (req: express.Request) => string,
-  baseUrl: string
-) => ({
+/**
+ * A path resolver returns `null` to reject the request. Validation therefore
+ * lives next to the URL it builds, and `createProxy` turns a `null` into a 400
+ * before the proxy ever runs — so nothing downstream has to represent a state
+ * that cannot happen.
+ */
+export type ProxyPathResolver = (req: express.Request) => string | null;
+
+// Takes the already-resolved path rather than the resolver, so the type is
+// total: by the time these options exist the path is known good.
+export const createProxyOptions = (path: string, baseUrl: string) => ({
   proxyReqPathResolver: (req: express.Request) => {
-    const path = pathResolver(req);
     console.log(`[${req.method}] Proxying to: ${baseUrl}${path}`);
     return path;
   },
@@ -105,18 +111,21 @@ export const createProxyOptions = (
 
 export const createProxy = (
   baseUrl: string,
-  pathResolver: (req: express.Request) => string
+  resolvePath: ProxyPathResolver
 ): RequestHandler => {
-  const proxyMiddleware = proxy(
-    baseUrl,
-    createProxyOptions(pathResolver, baseUrl)
-  );
-
   return (
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) => {
+    // Resolve up front: a request the resolver rejects never reaches the proxy,
+    // and the proxy is only ever handed a validated path.
+    const path = resolvePath(req);
+    if (path === null) {
+      res.status(400).send("Bad Request");
+      return;
+    }
+
     const cachedData = cacheManager.get(req.originalUrl);
     if (cachedData) {
       console.log(
@@ -134,6 +143,10 @@ export const createProxy = (
       // downstream handlers against a finished response.
       return;
     }
-    proxyMiddleware(req, res, next);
+    // Built per request so the options can close over the resolved path.
+    // `proxy()` only asserts its host and returns a closure — the option
+    // normalisation that looks expensive here already runs per request inside
+    // the library.
+    proxy(baseUrl, createProxyOptions(path, baseUrl))(req, res, next);
   };
 };

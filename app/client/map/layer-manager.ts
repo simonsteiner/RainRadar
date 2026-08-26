@@ -1,7 +1,7 @@
 import { LAYER_CONFIGS } from "./layers-config";
 import type { GeoJSON } from "geojson";
 import type { LayerConfig } from "../_types/map";
-import type { Map, SourceSpecification, GeoJSONSource } from "maplibre-gl";
+import type { Map, GeoJSONSource } from "maplibre-gl";
 
 export class LayerManager {
   private map: Map;
@@ -13,10 +13,7 @@ export class LayerManager {
 
   addLayer(config: LayerConfig): void {
     if (config.sourceConfig && !this.map.getSource(config.source)) {
-      this.map.addSource(
-        config.source,
-        config.sourceConfig as SourceSpecification
-      );
+      this.map.addSource(config.source, config.sourceConfig);
     }
 
     const visibility = config.visible === false ? "none" : "visible";
@@ -82,16 +79,18 @@ export class LayerManager {
     });
   }
 
-  updateSourceData(layerId: string, data: string | GeoJSON): void {
+  // MapLibre 6 made `setData` asynchronous — it resolves once the worker has
+  // parsed the new data — so this returns the promise rather than dropping it.
+  // Callers that render a frame need to know when the data actually landed.
+  async updateSourceData(layerId: string, data: string | GeoJSON): Promise<void> {
     const config = LAYER_CONFIGS[layerId];
     if (!config) return;
 
-    const source = this.map.getSource(config.source) as GeoJSONSource;
-    if (!source) {
+    if (!this.map.getSource(config.source)) {
       this.addLayer(config);
-      (this.map.getSource(config.source) as GeoJSONSource).setData(data);
-    } else {
-      source.setData(data);
     }
+
+    const source = this.map.getSource<GeoJSONSource>(config.source);
+    await source?.setData(data);
   }
 }

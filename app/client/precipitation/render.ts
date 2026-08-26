@@ -45,7 +45,7 @@ export class PrecipitationRenderer {
     try {
       const radarData: RadarData = await fetchJson("/api" + picture.radar_url);
       const geojson = radar2geojson(radarData);
-      this.layerManager.updateSourceData("precipitation", geojson);
+      await this.layerManager.updateSourceData("precipitation", geojson);
     } catch (error) {
       console.error("Error updating radar data:", error);
       throw error;

@@ -33,9 +33,16 @@ function updateLocation(map: Map, longitude: number, latitude: number): void {
     coordsDisplay.innerHTML = formatCoordinates(longitude, latitude);
   }
 
-  const source = map.getSource(locationMarker.source) as GeoJSONSource;
+  // `setData` is asynchronous since MapLibre 6, but this runs inside the
+  // geolocation callback with nothing to propagate a rejection to — a failed
+  // marker update should not stop the flyTo below.
+  const source = map.getSource<GeoJSONSource>(locationMarker.source);
   if (source) {
-    source.setData(createLocationGeoJSON(longitude, latitude));
+    void source
+      .setData(createLocationGeoJSON(longitude, latitude))
+      .catch((error: unknown) => {
+        console.error("Failed to update the location marker:", error);
+      });
   }
 
   const flyToOptions: { center: [number, number]; zoom?: number } = {

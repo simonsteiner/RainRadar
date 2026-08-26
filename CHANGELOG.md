@@ -19,6 +19,10 @@
   `line-layer-opacity`, which fade the composited layer once instead of
   blending each polygon separately — this removes the faint seam grid along
   shared edges of the radar cells.
+- The standalone maps in `map-html-playground/` and `map-geojson-features/`
+  moved to MapLibre 6.6.0 as well. They loaded the UMD build, which version 6
+  discontinued, so each page imports the ES module instead of relying on a
+  global `maplibregl`.
 - Replaced `ts-node` / `ts-node-dev` with Node's native type stripping;
   `node build.ts` and `node --watch server.ts` do the same job. Both
   packages were effectively unmaintained. This moves the server to ESM and

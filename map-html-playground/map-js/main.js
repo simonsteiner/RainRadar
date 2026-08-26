@@ -5,8 +5,11 @@ import { swissCantonBoundariesLayer } from './layers/swiss-canton-boundaries.js'
 import { swissCitiesLayer } from './layers/swiss-cities.js';
 import { swissNutsRegionsLayer } from './layers/swiss-nuts-regions.js';
 import { setupWeatherData } from './layers/weather-data.js';
+// MapLibre 6 dropped the UMD build, so there is no global `maplibregl`; the
+// library is an ES module imported here rather than a <script> tag in the page.
+import { Map } from 'https://unpkg.com/maplibre-gl@6.6.0/dist/maplibre-gl.mjs';
 
-const map = new maplibregl.Map(mapConfig);
+const map = new Map(mapConfig);
 
 // Coordinate display
 map.on('mousemove', (e) => {
@@ -28,7 +31,8 @@ document.getElementById('coordinates').addEventListener('click', async () => {
 });
 
 // // Create a popup but don't add it to the map yet
-// const popup = new maplibregl.Popup({
+// // (uncommenting this also needs `Popup` added to the import above)
+// const popup = new Popup({
 //   closeButton: false,
 //   closeOnClick: false
 // });

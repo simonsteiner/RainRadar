@@ -7,7 +7,7 @@
  * - URL: https://data.opendatasoft.com/explore/dataset/georef-switzerland-kanton@public
  * - Format: GeoJSON
  * 
- * @param {maplibregl.Map} map - The MapLibre GL JS map instance
+ * @param {import('maplibre-gl').Map} map - The MapLibre GL JS map instance
  * @returns {void}
  */
 export function swissCantonBoundariesLayer(map) {

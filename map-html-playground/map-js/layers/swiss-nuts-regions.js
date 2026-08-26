@@ -8,7 +8,7 @@
 
 /**
  * Creates and adds Swiss NUTS region layers to the map
- * @param {mapboxgl.Map} map - The Mapbox GL JS map instance
+ * @param {import('maplibre-gl').Map} map - The MapLibre GL JS map instance
  * @returns {void}
  * 
  * The function adds the following layers:

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SwissTopo Map</title>
     <link
-      href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
+      href="https://unpkg.com/maplibre-gl@6.6.0/dist/maplibre-gl.css"
       rel="stylesheet"
     />
     <style>
@@ -24,9 +24,12 @@
 
   <body>
     <div id="map"></div>
-    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-    <script>
-      const map = new maplibregl.Map({
+    <script type="module">
+      // MapLibre 6 is ESM-only -- there is no UMD build providing a global
+      // `maplibregl`, so the classes are imported by name.
+      import { Map } from "https://unpkg.com/maplibre-gl@6.6.0/dist/maplibre-gl.mjs";
+
+      const map = new Map({
         container: "map",
         style: "map_style.json",
         center: [8.2, 46.8],

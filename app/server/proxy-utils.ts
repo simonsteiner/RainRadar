@@ -2,7 +2,7 @@ import express from "express";
 import type { RequestHandler } from "express";
 import type { IncomingMessage } from "http";
 import proxy from "express-http-proxy";
-import { umami } from "./analytics.ts";
+import { track } from "./analytics.ts";
 import { CacheManager } from "./cache-manager.ts";
 import { CACHE, RETRY } from "./config.ts";
 
@@ -40,7 +40,7 @@ const retryRequest = async <T>(
       if (attempt < maxAttempts - 1) {
         const delay = getBackoffDelay(attempt);
         console.log(`Retry attempt ${attempt + 1}/${maxAttempts} after ${delay}ms`);
-        umami.track({ 
+        track({ 
           url: "/server-side/proxy-retry",
           event: "proxy_retry",
           data: { attempt: attempt + 1, delay, environment }
@@ -52,14 +52,22 @@ const retryRequest = async <T>(
   throw lastError!;
 };
 
-export const createProxyOptions = (
-  pathResolver: (req: express.Request) => string,
-  baseUrl: string
-) => ({
+/**
+ * A path resolver returns `null` to reject the request. Validation therefore
+ * lives next to the URL it builds, and `createProxy` turns a `null` into a 400
+ * before the proxy ever runs — so nothing downstream has to represent a state
+ * that cannot happen.
+ */
+export type ProxyPathResolver = (req: express.Request) => string | null;
+
+// Takes the already-resolved path rather than the resolver, so the type is
+// total: by the time these options exist the path is known good. Named
+// `upstreamPath` because `userResDecorator` below has its own `path` — the
+// inbound request URL, which is a different thing.
+export const createProxyOptions = (upstreamPath: string, baseUrl: string) => ({
   proxyReqPathResolver: (req: express.Request) => {
-    const path = pathResolver(req);
-    console.log(`[${req.method}] Proxying to: ${baseUrl}${path}`);
-    return path;
+    console.log(`[${req.method}] Proxying to: ${baseUrl}${upstreamPath}`);
+    return upstreamPath;
   },
   userResDecorator: (
     proxyRes: IncomingMessage,
@@ -76,7 +84,7 @@ export const createProxyOptions = (
       const data = proxyResData.toString("utf8");
       if (proxyRes.statusCode === 200) {
         cacheManager.set(path, data);
-        umami.track({ 
+        track({ 
           url: "/server-side/proxy-success",
           event: "proxy_success",
           data: { path, statusCode: proxyRes.statusCode, environment }
@@ -93,7 +101,7 @@ export const createProxyOptions = (
       await retryRequest(() => Promise.reject(err));
     } catch (finalError) {
       console.error("Proxy Error after all retries:", finalError);
-      umami.track({ 
+      track({ 
         url: "/server-side/proxy-error",
         event: "proxy_error",
         data: { error: (finalError as Error).message, environment }
@@ -105,24 +113,27 @@ export const createProxyOptions = (
 
 export const createProxy = (
   baseUrl: string,
-  pathResolver: (req: express.Request) => string
+  resolvePath: ProxyPathResolver
 ): RequestHandler => {
-  const proxyMiddleware = proxy(
-    baseUrl,
-    createProxyOptions(pathResolver, baseUrl)
-  );
-
   return (
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) => {
+    // Resolve up front: a request the resolver rejects never reaches the proxy,
+    // and the proxy is only ever handed a validated path.
+    const path = resolvePath(req);
+    if (path === null) {
+      res.status(400).send("Bad Request");
+      return;
+    }
+
     const cachedData = cacheManager.get(req.originalUrl);
     if (cachedData) {
       console.log(
         `[${req.method}] Serving cached response for: ${req.originalUrl}`
       );
-      umami.track({ 
+      track({ 
         url: "/server-side/proxy-cache-hit",
         event: "proxy_cache_hit",
         data: { path: req.originalUrl, environment }
@@ -134,6 +145,10 @@ export const createProxy = (
       // downstream handlers against a finished response.
       return;
     }
-    proxyMiddleware(req, res, next);
+    // Built per request so the options can close over the resolved path.
+    // `proxy()` only asserts its host and returns a closure — the option
+    // normalisation that looks expensive here already runs per request inside
+    // the library.
+    proxy(baseUrl, createProxyOptions(path, baseUrl))(req, res, next);
   };
 };

@@ -19,7 +19,11 @@ export class PrecipitationDisplayManager {
   }
 
   private setupParaglidingModeListener(): void {
-    ParaglidingMode.getInstance().addChangeListener(() => this.reinitialize());
+    ParaglidingMode.getInstance().addChangeListener(() => {
+      // The listener is typed `() => void`; reinitialize handles its own
+      // errors, so there is nothing to propagate.
+      void this.reinitialize();
+    });
   }
 
   private async reinitialize(): Promise<void> {
@@ -31,7 +35,7 @@ export class PrecipitationDisplayManager {
     this.animationController?.pause();
   }
 
-  private async setupAnimationController(latestMeasurementIndex: number): Promise<void> {
+  private setupAnimationController(latestMeasurementIndex: number): void {
     this.stopCurrentAnimation();
     const pictures = ParaglidingMode.getInstance().isEnabled()
       ? this.getSubsetPicturesForParaglidingMode(latestMeasurementIndex)
@@ -52,7 +56,7 @@ export class PrecipitationDisplayManager {
       const animationData = await fetchPrecipitationAnimation();
       this.updateDisplayData(animationData);
       const latestMeasurementIndex = findLatestMeasurementIndex(this.pictures);
-      await this.setupAnimationController(latestMeasurementIndex);
+      this.setupAnimationController(latestMeasurementIndex);
       await this.renderer.updateImage(latestMeasurementIndex, this.pictures);
     } catch (error) {
       this.handleInitializationError(error);
@@ -79,6 +83,8 @@ export class PrecipitationDisplayManager {
 
 export function initializePrecipitationDisplay(map: Map): PrecipitationDisplayManager {
   const precipitationManager = new PrecipitationDisplayManager(map);
-  precipitationManager.initialize();
+  // Deliberately not awaited: callers get the manager straight away and the
+  // first render fills in when it arrives. `initialize` logs its own failures.
+  void precipitationManager.initialize();
   return precipitationManager;
 }

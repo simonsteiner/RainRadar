@@ -55,6 +55,20 @@ export class AnimationController {
     });
   }
 
+  /**
+   * Render a frame, fire-and-forget.
+   *
+   * Every call site is an event handler or the playback interval, none of
+   * which can propagate a rejection — and `updateImage` does reject when the
+   * radar fetch fails. Log there rather than leaving four unhandled rejections
+   * scattered through the class.
+   */
+  private renderFrame(index: number): void {
+    void this.renderer.updateImage(index, this.pictures).catch((error: unknown) => {
+      console.error("Failed to render the precipitation frame:", error);
+    });
+  }
+
   public pause() {
     if (this.isPlaying) {
       this.isPlaying = false;
@@ -76,7 +90,7 @@ export class AnimationController {
         currentIndex =
           currentIndex >= this.pictures.length - 1 ? 0 : currentIndex + 1;
         this.controls.slider.value = currentIndex.toString();
-        this.renderer.updateImage(currentIndex, this.pictures);
+        this.renderFrame(currentIndex);
       }, this.animationSpeed);
     }
   }
@@ -91,7 +105,7 @@ export class AnimationController {
     this.controls.slider.addEventListener("input", (e) => {
       this.pause();
       const index = parseInt((e.target as HTMLInputElement).value);
-      this.renderer.updateImage(index, this.pictures);
+      this.renderFrame(index);
     });
   }
 
@@ -102,7 +116,7 @@ export class AnimationController {
       if (currentIndex > 0) {
         const newIndex = currentIndex - 1;
         this.controls.slider.value = newIndex.toString();
-        this.renderer.updateImage(newIndex, this.pictures);
+        this.renderFrame(newIndex);
       }
     });
 
@@ -112,7 +126,7 @@ export class AnimationController {
       if (currentIndex < this.pictures.length - 1) {
         const newIndex = currentIndex + 1;
         this.controls.slider.value = newIndex.toString();
-        this.renderer.updateImage(newIndex, this.pictures);
+        this.renderFrame(newIndex);
       }
     });
   }

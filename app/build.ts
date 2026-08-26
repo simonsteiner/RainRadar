@@ -108,4 +108,6 @@ async function build(dev = false) {
 
 // Simplify dev mode detection - default to dev unless explicitly in production
 const isDev = process.env.NODE_ENV !== "production";
-build(isDev);
+// `build` handles its own errors and exits non-zero, so there is nothing left
+// to await at the top level.
+void build(isDev);

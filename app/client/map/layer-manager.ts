@@ -91,6 +91,15 @@ export class LayerManager {
     }
 
     const source = this.map.getSource<GeoJSONSource>(config.source);
-    await source?.setData(data);
+    if (!source) {
+      // addLayer above adds the source when the config carries one, so getting
+      // here means the layer is misconfigured. Returning normally would report
+      // a frame as rendered when nothing was updated — the exact thing making
+      // this method async was meant to stop.
+      throw new Error(
+        `Layer "${layerId}" has no source "${config.source}" to update`
+      );
+    }
+    await source.setData(data);
   }
 }

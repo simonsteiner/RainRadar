@@ -4,7 +4,7 @@ import { staticFiles, requestLogger, corsHeaders } from "./server/middleware.ts"
 import express from "express";
 import path from "path";
 import rateLimit from "express-rate-limit";
-import { umami } from "./server/analytics.ts";
+import { umami, track } from "./server/analytics.ts";
 
 const app = express();
 
@@ -27,7 +27,7 @@ umami.init({
 // Middleware
 app.use(staticFiles);
 app.use((req, res, next) => {
-  umami.track({
+  track({
     url: req.path,
     data: { environment },
   });

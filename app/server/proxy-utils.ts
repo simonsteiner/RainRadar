@@ -2,7 +2,7 @@ import express from "express";
 import type { RequestHandler } from "express";
 import type { IncomingMessage } from "http";
 import proxy from "express-http-proxy";
-import { umami } from "./analytics.ts";
+import { track } from "./analytics.ts";
 import { CacheManager } from "./cache-manager.ts";
 import { CACHE, RETRY } from "./config.ts";
 
@@ -40,7 +40,7 @@ const retryRequest = async <T>(
       if (attempt < maxAttempts - 1) {
         const delay = getBackoffDelay(attempt);
         console.log(`Retry attempt ${attempt + 1}/${maxAttempts} after ${delay}ms`);
-        umami.track({ 
+        track({ 
           url: "/server-side/proxy-retry",
           event: "proxy_retry",
           data: { attempt: attempt + 1, delay, environment }
@@ -76,7 +76,7 @@ export const createProxyOptions = (
       const data = proxyResData.toString("utf8");
       if (proxyRes.statusCode === 200) {
         cacheManager.set(path, data);
-        umami.track({ 
+        track({ 
           url: "/server-side/proxy-success",
           event: "proxy_success",
           data: { path, statusCode: proxyRes.statusCode, environment }
@@ -93,7 +93,7 @@ export const createProxyOptions = (
       await retryRequest(() => Promise.reject(err));
     } catch (finalError) {
       console.error("Proxy Error after all retries:", finalError);
-      umami.track({ 
+      track({ 
         url: "/server-side/proxy-error",
         event: "proxy_error",
         data: { error: (finalError as Error).message, environment }
@@ -122,7 +122,7 @@ export const createProxy = (
       console.log(
         `[${req.method}] Serving cached response for: ${req.originalUrl}`
       );
-      umami.track({ 
+      track({ 
         url: "/server-side/proxy-cache-hit",
         event: "proxy_cache_hit",
         data: { path: req.originalUrl, environment }

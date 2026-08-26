@@ -48,12 +48,35 @@
   rules were running — `indent` and `quotes`. It now applies 71, which
   found a ternary used as a statement, a `String` wrapper-object type, two
   unused variables and four `any`s in the proxy. One of those `any`s was
-  hiding a `CacheManager` typed as holding `Buffer` while storing `string`.
+  hiding a `CacheManager` typed as holding `Buffer` while storing `string`. The
+  type-aware set, `recommendedTypeChecked`, is now enabled on top of that —
+  it found 22 further issues, almost all unhandled promise rejections. It
+  needs a type program per project, so the client and server blocks each
+  point the parser at their own tsconfig, and linting is slower as a
+  result.
 - Cached `/api` responses were served as `text/html` instead of
   `application/json`; only the first, uncached response carried the right
   type. Exposed by removing the `any` that hid the CacheManager mismatch.
 - Removed `legacy-peer-deps=true` from `.npmrc`, which suppressed ERESOLVE
   errors. All peers now resolve on their own.
+- Six `umami.track` calls on the server dropped the promise they returned.
+  `track` rejects when the Umami host is unreachable, and an unhandled
+  rejection terminates Node — while the request middleware tracks *every*
+  request, so an analytics outage would have taken the server down.
+  Tracking is now wrapped once and stays fire-and-forget.
+- The precipitation route interpolated `req.params.version` into the
+  upstream MeteoSwiss URL without validating it. Express types a route
+  param as `string | string[]`, and a repeated param stringifies to `a,b`,
+  so a crafted request produced a URL the code never intended. Version ids
+  are now checked against the `YYYYMMDD_HHMM` form MeteoSwiss publishes and
+  rejected with a 400 otherwise.
+- MapLibre 6 made `GeoJSONSource.setData` asynchronous; three call sites
+  still treated it as the synchronous version 5 call. The renderer now
+  awaits it, so a frame counts as rendered only once the data has landed.
+- Async functions were passed to MapLibre listeners and DOM event handlers,
+  which expect a `void` return, leaving rejections nowhere to go. Two more
+  functions were `async` without ever awaiting, which turned errors their
+  own `try`/`catch` was meant to log into unhandled rejections.
 
 [unreleased]: https://github.com/simonsteiner/rainradar/compare/v1.0.1...HEAD
 

@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
   pull_request:
+  # Manual trigger. The pull_request event has been slow to fire on occasion —
+  # PR #95 waited several minutes for a run that never appeared until the PR was
+  # reopened — and without this there is no way to start CI by hand. Note a
+  # dispatched run checks out the branch head, where a pull_request run checks
+  # out its merge with the base.
+  workflow_dispatch:
 
 permissions:
   contents: read

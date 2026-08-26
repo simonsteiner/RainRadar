@@ -58,7 +58,7 @@ class MapInitializer implements IMapInitializer {
     this.setupEventHandlers();
     this.setupMapControls();
     this.map.on("error", this.handleMapError);
-    this.map.on("load", this.handleMapLoad.bind(this));
+    this.map.on("load", this.handleMapLoad);
   }
 
   // MapLibre 6 dropped WebGL 1, so a context it cannot get is now a hard
@@ -78,7 +78,9 @@ class MapInitializer implements IMapInitializer {
     // MapLibre 6.3 `Map.on` is typed per event name, so this form checks the
     // event names and infers each `e` — a loop erases both back to `string`.
     this.map.on("mousemove", (e) => this.mapUI.updateCoordinates(e));
-    this.map.on("click", (e) => this.mapUI.copyCoordinates(e));
+    this.map.on("click", (e) => {
+      void this.mapUI.copyCoordinates(e);
+    });
     this.map.on("move", () => this.mapUI.updateZoom(this.map.getZoom()));
   }
 
@@ -92,7 +94,9 @@ class MapInitializer implements IMapInitializer {
     const fullscreenButton = document.querySelector(".fullscreen-button");
     if (!fullscreenButton) return;
 
-    fullscreenButton.addEventListener("click", this.handleFullscreenToggle);
+    fullscreenButton.addEventListener("click", () => {
+      void this.handleFullscreenToggle();
+    });
   }
 
   private handleFullscreenToggle = async (): Promise<void> => {
@@ -109,14 +113,17 @@ class MapInitializer implements IMapInitializer {
     }
   };
 
-  private async handleMapLoad(): Promise<void> {
+  // Not async: both calls are synchronous, and an async listener would hand
+  // MapLibre a promise it does not look at, so a throw would surface as an
+  // unhandled rejection instead of the log below.
+  private handleMapLoad = (): void => {
     try {
       this.initializeLayers();
       this.precipitationManager = initializePrecipitationDisplay(this.map);
     } catch (error) {
       console.error("Failed to initialize map layers:", error);
     }
-  }
+  };
 
   private initializeLayers(): void {
     Object.values(LAYER_CONFIGS).forEach(config => {

@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      # Both Node lines app/package.json declares support for. 22.18 is the
+      # release that unflagged type stripping, which the build and server rely
+      # on now that ts-node is gone; 24 is the current LTS and what .nvmrc pins.
+      matrix:
+        node-version: ["22.18", "24"]
+
+    defaults:
+      run:
+        working-directory: app
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      # `npm ci` fails on a lockfile that has drifted from package.json, which
+      # is the check that matters for the Dependabot PRs this repo receives.
+      - run: npm ci
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Lint CSS
+        run: npm run lint:css
+
+      # esbuild inlines this at build time and refuses to build without it. The
+      # bundle is not published from CI, so a placeholder is enough to prove the
+      # build works; a real key can be added as a repository secret.
+      - name: Build
+        run: npm run build:prod
+        env:
+          MAPTILER_KEY: ${{ secrets.MAPTILER_KEY || 'ci-placeholder' }}

@@ -1,6 +1,6 @@
 /**
  * Adds a hillshade layer to the map for terrain visualization
- * @param {mapboxgl.Map} map - The Mapbox GL JS map instance
+ * @param {import('maplibre-gl').Map} map - The MapLibre GL JS map instance
  * @returns {void}
  */
 export function hillshadeLayer(map) {

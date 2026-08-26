@@ -1,80 +1,56 @@
 import pkg from "globals";
 const { browser, node } = pkg;
+import { defineConfig, globalIgnores } from "eslint/config";
+import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 import htmlPlugin from "@html-eslint/parser";
 import htmlRules from "@html-eslint/eslint-plugin";
 
-export default [
+// Generated output. public/js holds the esbuild bundles and public/vendor the
+// files copied out of node_modules; linting either is meaningless and linting
+// a 900 KB minified bundle is slow.
+const GENERATED = ["public/js/**", "public/vendor/**"];
+
+// `js.configs.recommended` and the typescript-eslint sets carry no `files`
+// key, so they would otherwise apply to every file ESLint reaches, including
+// the generated JS above.
+const SOURCE = ["client/**/*.ts", "server/**/*.ts", "server.ts", "build.ts"];
+
+const houseStyle = {
+  quotes: ["error", "double"],
+  indent: ["error", 2],
+};
+
+export default defineConfig([
+  globalIgnores(GENERATED),
   {
-    name: "Node.js TypeScript files",
-    files: ["server/**/*.ts", "build.ts", "server.ts"],
-    plugins: {
-      "@typescript-eslint": tseslint.plugin
-    },
-    languageOptions: {
-      ecmaVersion: "latest",
-      sourceType: "module",
-      parser: tseslint.parser,
-      globals: {
-        ...node
-      },
-      parserOptions: {
-        project: "./tsconfig.json"
-      }
-    },
-    rules: {
-      ...tseslint.configs.recommended.rules,
-      quotes: ["error", "double"],
-      indent: ["error", 2]
-    },
+    name: "TypeScript sources",
+    files: SOURCE,
+    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    rules: houseStyle,
     linterOptions: {
       noInlineConfig: false,
       reportUnusedDisableDirectives: "warn"
-    },
-    settings: {
-      node: true
     }
   },
   {
-    name: "Browser TypeScript files",
+    name: "Node.js globals",
+    files: ["server/**/*.ts", "server.ts", "build.ts"],
+    languageOptions: { globals: node }
+  },
+  {
+    name: "Browser globals",
     files: ["client/**/*.ts"],
-    plugins: {
-      "@typescript-eslint": tseslint.plugin
-    },
-    languageOptions: {
-      ecmaVersion: "latest",
-      sourceType: "module",
-      parser: tseslint.parser,
-      globals: browser,
-      parserOptions: {
-        project: "./tsconfig.client.json"
-      }
-    },
-    rules: {
-      ...tseslint.configs.recommended.rules,
-      quotes: ["error", "double"],
-      indent: ["error", 2]
-    },
-    linterOptions: {
-      noInlineConfig: false,
-      reportUnusedDisableDirectives: "warn"
-    },
-    settings: {
-      browser: true
-    }
+    languageOptions: { globals: browser }
   },
   {
     name: "HTML files in /public",
     files: ["public/**/*.html"],
-    plugins: {
-      "html": htmlRules
-    },
-    languageOptions: {
-      parser: htmlPlugin
-    },
+    plugins: { "html": htmlRules },
+    languageOptions: { parser: htmlPlugin },
     rules: {
       "html/indent": ["error", 2],
       "html/require-doctype": "error"
     }
   }
-];
+]);

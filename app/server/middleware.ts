@@ -1,9 +1,9 @@
 import express from "express";
 import path from "path";
-import { MIME_TYPES } from "./config";
+import { MIME_TYPES } from "./config.ts";
 
 export const staticFiles = express.static(
-  path.join(__dirname, "..", "public"),
+  path.join(import.meta.dirname, "..", "public"),
   {
     setHeaders: (res, filepath) => {
       console.debug(`Serving static file: ${filepath}`);

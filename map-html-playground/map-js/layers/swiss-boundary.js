@@ -4,7 +4,7 @@
  * 1. A transparent fill layer for the Swiss territory
  * 2. A border line layer outlining Switzerland
  * 
- * @param {mapboxgl.Map} map - The Mapbox GL JS map instance to add the layers to
+ * @param {import('maplibre-gl').Map} map - The MapLibre GL JS map instance to add the layers to
  * @returns {void}
  */
 export function swissBoundaryLayer(map) {

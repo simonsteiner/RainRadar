@@ -3,8 +3,6 @@ import type { GeoJSON } from "geojson";
 import type { LayerConfig } from "../_types/map";
 import type { Map, SourceSpecification, GeoJSONSource } from "maplibre-gl";
 
-const TRANSITION_CONFIG = { duration: 300 };
-
 export class LayerManager {
   private map: Map;
 
@@ -33,17 +31,6 @@ export class LayerManager {
         });
       }
     });
-
-    // Add transitions for paint properties if layer is precipitation
-    if (config.id === "precipitation") {
-      config.layers.forEach(layer => {
-        if (layer.paint) {
-          Object.keys(layer.paint).forEach(prop => {
-            this.map.setPaintProperty(layer.id, `${prop}-transition`, TRANSITION_CONFIG);
-          });
-        }
-      });
-    }
   }
 
   toggleLayer(layerId: string, visible: boolean): void {

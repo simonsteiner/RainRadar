@@ -30,3 +30,6 @@ venv/
 .DS_Store
 
 precipitation_data
+
+# vendored at build time from node_modules (see build.ts)
+app/public/vendor/

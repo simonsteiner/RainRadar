@@ -1,4 +1,8 @@
 
+// Mirrors the precipitation layer in app/client/map/configs/precipitation.ts.
+// Uses MapLibre 6's `*-layer-opacity` for the same reason the app does: the
+// radar grid is adjacent polygons, and per-feature opacity blends every shared
+// edge twice, leaving a visible seam grid.
 export function setupWeatherData(map) {
   map.addSource("precipitation-rate", {
     type: "geojson",
@@ -11,7 +15,7 @@ export function setupWeatherData(map) {
     source: "precipitation-rate",
     paint: {
       "fill-color": ["get", "color"],
-      "fill-opacity": 0.5
+      "fill-layer-opacity": 0.5
     }
   });
 
@@ -22,7 +26,7 @@ export function setupWeatherData(map) {
     paint: {
       "line-color": ["get", "color"],
       "line-width": 1,
-      "line-opacity": 0.8
+      "line-layer-opacity": 0.8
     }
   });
 }

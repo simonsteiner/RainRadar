@@ -1,8 +1,10 @@
-import express, { RequestHandler } from "express";
+import express from "express";
+import type { RequestHandler } from "express";
+import type { IncomingMessage } from "http";
 import proxy from "express-http-proxy";
-import umami from "@umami/node";
-import { CacheManager } from "./cache-manager";
-import { CACHE, RETRY } from "./config";
+import { umami } from "./analytics.ts";
+import { CacheManager } from "./cache-manager.ts";
+import { CACHE, RETRY } from "./config.ts";
 
 const cacheManager = new CacheManager(CACHE.MAX_AGE);
 
@@ -24,10 +26,10 @@ const isLocalEnvironment = () => {
 
 const environment = isLocalEnvironment() ? "local" : "production";
 
-const retryRequest = async (
-  proxyFn: () => Promise<any>,
+const retryRequest = async <T>(
+  proxyFn: () => Promise<T>,
   maxAttempts: number = RETRY.MAX_ATTEMPTS
-): Promise<any> => {
+): Promise<T> => {
   let lastError: Error;
   
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
@@ -60,8 +62,8 @@ export const createProxyOptions = (
     return path;
   },
   userResDecorator: (
-    proxyRes: any,
-    proxyResData: any,
+    proxyRes: IncomingMessage,
+    proxyResData: Buffer,
     userReq: express.Request
   ) => {
     const path = userReq.originalUrl;
@@ -86,7 +88,7 @@ export const createProxyOptions = (
     // Return raw data for other content types
     return proxyResData;
   },
-  proxyErrorHandler: async (err: Error, res: express.Response, next: () => void) => {
+  proxyErrorHandler: async (err: Error, res: express.Response) => {
     try {
       await retryRequest(() => Promise.reject(err));
     } catch (finalError) {
@@ -125,8 +127,12 @@ export const createProxy = (
         event: "proxy_cache_hit",
         data: { path: req.originalUrl, environment }
       });
-      res.send(cachedData);
-      return next();
+      // Only JSON bodies are ever cached (see userResDecorator), and a bare
+      // res.send of a string would label them text/html.
+      res.type("application/json").send(cachedData);
+      // No next(): the response is complete. Passing control on would run
+      // downstream handlers against a finished response.
+      return;
     }
     proxyMiddleware(req, res, next);
   };

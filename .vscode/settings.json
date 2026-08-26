@@ -17,7 +17,13 @@
   "editor.formatOnSave": true,
   "files.eol": "\n",
   "editor.tabSize": 2,
-  "typescript.tsdk": "node_modules/typescript/lib",
+  // Two reasons this is not the obvious `node_modules/typescript/lib`: the
+  // workspace root is the repo, whose dependencies live under app/, and the
+  // `typescript` entry there is an alias to @typescript/typescript6 -- a shim
+  // that re-exports the compiler API but ships no tsserver of its own.
+  // TypeScript 7 has no tsserver either, so the editor needs the real 6.0
+  // install that the shim delegates to.
+  "typescript.tsdk": "app/node_modules/@typescript/old/lib",
   "[json][jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },

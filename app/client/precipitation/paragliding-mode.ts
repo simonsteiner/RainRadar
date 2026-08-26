@@ -5,7 +5,7 @@ export class ParaglidingMode {
   private static instance: ParaglidingMode;
   private isActive: boolean;
   private changeListeners: Array<(isActive: boolean) => void> = [];
-  private map: Map;
+  private map?: Map;
 
   public static getInstance(): ParaglidingMode {
     if (!ParaglidingMode.instance) {
@@ -41,7 +41,11 @@ export class ParaglidingMode {
 
   private updateUrl(active: boolean): void {
     const url = new URL(window.location.href);
-    active ? url.searchParams.set("mode", "paragliding") : url.searchParams.delete("mode");
+    if (active) {
+      url.searchParams.set("mode", "paragliding");
+    } else {
+      url.searchParams.delete("mode");
+    }
     window.history.replaceState({}, "", url);
   }
 

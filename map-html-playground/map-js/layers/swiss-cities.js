@@ -1,6 +1,6 @@
 /**
  * Creates and adds Swiss cities layers to the map
- * @param {mapboxgl.Map} map - The Mapbox GL JS map instance
+ * @param {import('maplibre-gl').Map} map - The MapLibre GL JS map instance
  * @returns {void}
  */
 export function swissCitiesLayer(map) {

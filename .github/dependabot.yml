@@ -14,3 +14,19 @@ updates:
     commit-message:
       prefix: "chore"
       include: "scope"
+
+  # The CI workflow pins actions/checkout and actions/setup-node by major tag;
+  # without this nothing keeps those current.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    assignees:
+      - "simonsteiner"
+    commit-message:
+      prefix: "ci"
+      include: "scope"

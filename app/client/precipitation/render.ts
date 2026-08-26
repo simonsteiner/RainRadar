@@ -26,7 +26,7 @@ export class PrecipitationRenderer {
     await this.updateRadarData(picture);
   }
 
-  getWeekdayFromDate(dateString: String): string {
+  getWeekdayFromDate(dateString: string): string {
     const [day, month, year] = dateString.split(".").map(Number);
     const date = new Date(year, month - 1, day);
     const weekday = date.toLocaleDateString("en-GB", { weekday: "short" });

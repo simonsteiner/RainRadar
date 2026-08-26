@@ -1,10 +1,10 @@
-import { createProxy } from "./server/proxy-utils";
-import { SERVER, METEOSWISS } from "./server/config";
-import { staticFiles, requestLogger, corsHeaders } from "./server/middleware";
+import { createProxy } from "./server/proxy-utils.ts";
+import { SERVER, METEOSWISS } from "./server/config.ts";
+import { staticFiles, requestLogger, corsHeaders } from "./server/middleware.ts";
 import express from "express";
 import path from "path";
 import rateLimit from "express-rate-limit";
-import umami from "@umami/node";
+import { umami } from "./server/analytics.ts";
 
 const app = express();
 
@@ -42,7 +42,7 @@ const limiter = rateLimit({
 
 // Root route handler with rate limiting
 app.get("/", limiter, (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(import.meta.dirname, "public", "index.html"));
 });
 
 app.use("/api", requestLogger);

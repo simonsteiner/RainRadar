@@ -36,11 +36,15 @@ Features developed here will be integrated into the main rain radar application 
 
 ## Setup
 
-1. Serve the files using a local web server
+1. Serve the files using a local web server — `python3 -m http.server` from
+   the repository root works. Opening the file directly over `file://` will
+   not, because ES modules and the map's data fetches need an origin.
 2. Open `mch-map.html` in a browser
 3. The map will load with default layers enabled
 
 ## Dependencies
 
-- MapLibre GL JS v4.7.1
+- MapLibre GL JS v6.6.0, loaded from unpkg as an ES module. MapLibre 6
+  dropped the UMD build, so there is no global `maplibregl`; each page (or
+  `map-js/main.js`) imports the classes it needs by name.
 - Custom layer configurations (in `map-js/layers/`)

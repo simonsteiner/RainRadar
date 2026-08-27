@@ -6,9 +6,13 @@ on:
   pull_request:
   # Manual trigger. The pull_request event has been slow to fire on occasion —
   # PR #95 waited several minutes for a run that never appeared until the PR was
-  # reopened — and without this there is no way to start CI by hand. Note a
-  # dispatched run checks out the branch head, where a pull_request run checks
-  # out its merge with the base.
+  # reopened — and without this there is no way to start CI by hand.
+  #
+  # Two caveats. GitHub only offers the "Run workflow" button, and only accepts
+  # `gh workflow run`, for workflows on the *default* branch — so editing this
+  # block on a feature branch has no effect until it is merged. And a dispatched
+  # run checks out the branch head, where a pull_request run checks out its
+  # merge with the base: the same thing until main moves, different after.
   workflow_dispatch:
 
 permissions:

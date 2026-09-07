@@ -26,7 +26,7 @@
     "maplibre-gl": "^6.6.0"
   },
   "devDependencies": {
-    "@eslint/config-inspector": "^3.3.0",
+    "@eslint/config-inspector": "^3.4.0",
     "@eslint/js": "^10.0.1",
     "@html-eslint/eslint-plugin": "^0.65.0",
     "@html-eslint/parser": "^0.65.0",

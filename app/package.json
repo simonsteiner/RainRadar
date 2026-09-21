@@ -29,7 +29,7 @@
     "@eslint/config-inspector": "^3.4.0",
     "@eslint/js": "^10.0.1",
     "@html-eslint/eslint-plugin": "^0.65.0",
-    "@html-eslint/parser": "^0.65.0",
+    "@html-eslint/parser": "^0.66.1",
     "@types/express": "^5.0.6",
     "@types/express-http-proxy": "^1.6.7",
     "@types/node": "^26.4.1",

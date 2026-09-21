@@ -23,7 +23,7 @@
     "express": "^5.2.1",
     "express-http-proxy": "^2.1.2",
     "express-rate-limit": "^8.7.0",
-    "maplibre-gl": "^6.7.0"
+    "maplibre-gl": "^6.10.0"
   },
   "devDependencies": {
     "@eslint/config-inspector": "^3.4.0",

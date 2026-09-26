@@ -19,31 +19,31 @@
   },
   "dependencies": {
     "@umami/node": "^0.4.0",
-    "dotenv": "^17.4.2",
+    "dotenv": "^18.0.4",
     "express": "^5.2.1",
     "express-http-proxy": "^2.1.2",
     "express-rate-limit": "^8.7.0",
-    "maplibre-gl": "^6.7.0"
+    "maplibre-gl": "^6.11.2"
   },
   "devDependencies": {
-    "@eslint/config-inspector": "^3.4.0",
+    "@eslint/config-inspector": "^3.5.0",
     "@eslint/js": "^10.0.1",
-    "@html-eslint/eslint-plugin": "^0.65.0",
-    "@html-eslint/parser": "^0.65.0",
+    "@html-eslint/eslint-plugin": "^0.66.1",
+    "@html-eslint/parser": "^0.66.1",
     "@types/express": "^5.0.6",
     "@types/express-http-proxy": "^1.6.7",
-    "@types/node": "^26.4.1",
+    "@types/node": "^26.6.3",
     "@typescript/native": "npm:typescript@^7.0.2",
     "concurrently": "^10.0.5",
     "esbuild": "^0.28.2",
-    "eslint": "^10.9.1",
+    "eslint": "^10.11.0",
     "glob": "^13.0.6",
     "globals": "^17.12.0",
-    "stylelint": "^17.14.1",
+    "stylelint": "^17.15.0",
     "stylelint-config-recess-order": "^7.8.0",
     "stylelint-config-standard": "^40.0.0",
     "stylelint-order": "^8.1.1",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
-    "typescript-eslint": "^8.69.0"
+    "typescript-eslint": "^8.70.1"
   }
 }

@@ -1,0 +1,10 @@
+# Ref: https://github.com/evilmartians/lefthook
+# Install the git hooks with: uvx lefthook install
+
+pre-commit:
+  commands:
+    # Config in .rumdl.toml; an excluded staged file is skipped, not an error.
+    rumdl:
+      glob: "*.md"
+      run: uvx rumdl@0.2.78 check --fix {staged_files}
+      stage_fixed: true

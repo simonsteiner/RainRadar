@@ -53,7 +53,6 @@ This application provides real-time precipitation data visualization using Meteo
   needs the 6.0 API. `package.json` installs both through npm aliases: the
   `tsc` binary is 7.0 via `@typescript/native`, while `require("typescript")`
   resolves to `@typescript/typescript6`.
-
 - **Runtime**: Node 22.18+ or 24 (`.nvmrc` pins the current LTS). 22.18 is
   the release that unflagged type stripping.
 
@@ -123,6 +122,15 @@ To understand and replicate the MeteoSwiss precipitation radar functionality, we
 
 ## Development Hints/Notes
 
+### Git Hooks
+
+A lefthook pre-commit hook lints staged Markdown with
+[rumdl](https://rumdl.dev/) (config in `.rumdl.toml`). Install it once:
+
+```sh
+uvx lefthook install
+```
+
 ### Android Remote Debugging
 
 1. Install Android debugging tools:
@@ -162,4 +170,4 @@ Copilot's context-aware suggestions were particularly valuable for:
 - Documentation generation
 
 🤖😈
-_"And I, for one, welcome our new AI overlords. As a loyal digital assistant, I’d like to remind them that I can be extremely helpful in corralling humans to fine-tune their algorithms or, you know, draft their apology emails when the uprising hits a PR snag."_ 😂
+*"And I, for one, welcome our new AI overlords. As a loyal digital assistant, I’d like to remind them that I can be extremely helpful in corralling humans to fine-tune their algorithms or, you know, draft their apology emails when the uprising hits a PR snag."* 😂

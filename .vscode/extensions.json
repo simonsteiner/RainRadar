@@ -1,0 +1,4 @@
+{
+  "recommendations": ["rvben.rumdl"],
+  "unwantedRecommendations": ["DavidAnson.vscode-markdownlint"]
+}

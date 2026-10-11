@@ -45,7 +45,8 @@
     "editor.defaultFormatter": "charliermarsh.ruff"
   },
   "[markdown]": {
-    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+    "editor.defaultFormatter": "rvben.rumdl"
   },
+  "rumdl.fixOnSave": true,
   "liveServer.settings.port": 5501,
 }

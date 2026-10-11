@@ -74,6 +74,14 @@ The build never type-checks: esbuild strips types without looking at them. Run `
 - `tsc` is TypeScript 7, the native Go compiler, used for type checking only. TypeScript 7 has no programmatic API yet, so `typescript-eslint` still needs the 6.0 API. `package.json` installs both through npm aliases: the `tsc` binary is 7.0 via `@typescript/native`, while `require("typescript")` resolves to `@typescript/typescript6`.
 - VS Code points `typescript.tsdk` at the 6.0 install under `app/node_modules/@typescript/old/lib`, because neither TypeScript 7 nor the 6.0 alias ships a tsserver of its own.
 
+## Git hooks
+
+A lefthook pre-commit hook lints staged Markdown with [rumdl](https://rumdl.dev/) (config in `.rumdl.toml`). Install it once, from the repo root:
+
+```sh
+uvx lefthook install
+```
+
 ## Playgrounds
 
 `map-html-playground/` and `map-geojson-features/` are standalone experiments, not part of the app build. Each has its own README.

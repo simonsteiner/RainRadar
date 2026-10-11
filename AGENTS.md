@@ -5,7 +5,7 @@ Domain terms are in `GLOSSARY.md`; there are no ADRs yet.
 
 ## Commands
 
-Run every command in `app/`; the repo root has no `package.json`.
+Run every command in `app/` except the Markdown ones, which run from the repo root; the root has no `package.json`.
 
 ```bash
 npm ci  # install dependencies
@@ -17,6 +17,8 @@ npm run lint  # ESLint with type-aware rules
 npx eslint client/map/init-map.ts  # lint one file
 npm run lint:css  # Stylelint
 npx stylelint public/styles/_map.css  # lint one CSS file
+uvx rumdl@0.2.78 check docs/setup.md  # lint Markdown (repo root)
+uvx lefthook install  # pre-commit hook that runs rumdl (repo root)
 ```
 
 There are no automated tests. CI runs `typecheck`, `lint`, `lint:css` and `build:prod` on a Node 22.18 and 24 matrix; run the same before calling a change done.
@@ -55,6 +57,7 @@ There are no automated tests. CI runs `typecheck`, `lint`, `lint:css` and `build
 - **`tsc` is TypeScript 7, but `require("typescript")` is 6.0.** The 6.0 alias exists because `typescript-eslint` needs its API; don't "fix" either alias in `app/package.json`.
 - **Only `app/build.ts` loads `app/.env`.** The server reads `PORT` and `NODE_ENV` from the shell.
 - **The playgrounds are not part of the app.** `map-html-playground/` and `map-geojson-features/` load MapLibre 6.6.0 from unpkg and are served as static files; changes to `app/` don't reach them.
+- **The pre-commit hook rewrites staged Markdown.** It runs `rumdl check --fix` and re-stages the result, so a commit can differ from what you staged.
 - **Manual CI runs use the workflow on `main`.** Editing `workflow_dispatch` on a branch has no effect until it is merged.
 
 ## Docs

@@ -57,4 +57,4 @@ Copilot's context-aware suggestions were particularly valuable for:
 - Documentation generation
 
 🤖😈
-_"And I, for one, welcome our new AI overlords. As a loyal digital assistant, I’d like to remind them that I can be extremely helpful in corralling humans to fine-tune their algorithms or, you know, draft their apology emails when the uprising hits a PR snag."_ 😂
+*"And I, for one, welcome our new AI overlords. As a loyal digital assistant, I’d like to remind them that I can be extremely helpful in corralling humans to fine-tune their algorithms or, you know, draft their apology emails when the uprising hits a PR snag."* 😂

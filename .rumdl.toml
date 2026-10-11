@@ -1,0 +1,8 @@
+# Ref: https://rumdl.dev/ — the Markdown linter lefthook and the VS Code
+# extension (rvben.rumdl) both read this file.
+
+[global]
+# The docs keep long prose, links and tables on one line.
+disable = ["MD013"]
+# No exclude list: rumdl honours .gitignore, so app/node_modules/ and the build
+# output (js/, app/public/vendor/) are never scanned.

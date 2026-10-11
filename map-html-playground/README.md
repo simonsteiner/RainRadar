@@ -45,6 +45,8 @@ Features developed here will be integrated into the main rain radar application 
 ## Dependencies
 
 - MapLibre GL JS v6.6.0, loaded from unpkg as an ES module. MapLibre 6
-  dropped the UMD build, so there is no global `maplibregl`; each page (or
-  `map-js/main.js`) imports the classes it needs by name.
+  dropped the UMD build, so there is no global `maplibregl`; `mch-map.html`
+  (through `map-js/main.js`) and `swisstopo.html` import the classes they need
+  by name.
+- Leaflet 1.9.4 from unpkg, for `hillshade.html` only.
 - Custom layer configurations (in `map-js/layers/`)

@@ -22,9 +22,9 @@ Requirements:
 Create and activate virtual environment:
 
 ```sh
-# mac
+# macOS / Linux
 python3.13 -m venv venv
-source venv/bin/activate.fish
+source venv/bin/activate  # fish: source venv/bin/activate.fish
 # win
 python -m venv venv
 .\venv\Scripts\Activate.ps1

@@ -7,10 +7,12 @@ Source: [Downloads Dataset MeteoSwiss Weather Radar Network](https://www.meteosw
 ## Specifications
 
 - Pixel size: 1x1 km
-- Dimensions: 640 x 710 (columns x rows)
+- Dimensions: 710 x 640 (columns x rows)
 - Domains: PRECIP, CAPPI, POH, MESHS
 
 ## LV95 Coordinates
+
+Northing first, then easting:
 
 - Lower-left: 840000, 2255000
 - Upper-right: 1480000, 2965000

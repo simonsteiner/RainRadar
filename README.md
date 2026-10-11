@@ -6,7 +6,7 @@ A lightweight clone of the MeteoSwiss precipitation radar, optimized for paragli
 
 ## Project Overview
 
-This application provides real-time precipitation data visualization using MeteoSwiss data. It's built with Express.js (backend) and MapLibre GL (frontend), using TypeScript throughout. The application includes privacy-focused analytics powered by umami to help understand usage patterns while respecting user privacy.
+Real-time precipitation radar using MeteoSwiss data, with a paragliding mode that strips the view down for pilots in the field. An Express server proxies and caches the MeteoSwiss API; a TypeScript client renders the radar pictures on a MapLibre GL map. Usage is measured with privacy-focused [umami](https://umami.is) analytics.
 
 ### Key Features
 
@@ -16,134 +16,29 @@ This application provides real-time precipitation data visualization using Meteo
 - Swiss boundaries and cities overlay
 - Mobile-friendly interface
 
-### Project Structure
+## Quickstart
 
-- `client/` - Frontend TypeScript source code
-  - `geojson/` - GeoJSON data processing utilities
-  - `map/` - MapLibre GL setup and layer management
-  - `precipitation/` - Precipitation data handling and visualization
-- `public/` - Static assets and compiled JavaScript
-- `server/` - Backend utilities and configuration
-- `server.ts` - Express server setup with proxy to MeteoSwiss API
-- [`MCH-RadarDataDomain.md`](MCH-RadarDataDomain.md) - Technical documentation of radar domain calculations and coordinate systems
-
-### Technology Stack
-
-- **Backend**: Express.js with TypeScript
-  - `express-http-proxy` for MeteoSwiss API proxying
-  - `umami` track server requests and serverside proxy events
-- **Frontend**: Pure TypeScript with MapLibre GL
-  - `maplibre-gl` for map rendering
-  - `umami` basic analytics
-  - No other frontend framework dependencies
-- **Build Tools**:
-  - `esbuild` for fast TypeScript bundling
-  - `node` runs the `.ts` files directly — Node strips types natively, so
-    there is no ts-node in the chain
-  - `concurrently` for parallel dev processes
-  - `tsc` (TypeScript 7, the native Go compiler) for type checking only
-
-  Node only *strips* types, it never checks them, and it rejects syntax
-  that needs a real transform (enums, namespaces, parameter properties).
-  `tsconfig.json` sets `erasableSyntaxOnly` and `verbatimModuleSyntax` so
-  `npm run typecheck` catches both cases rather than leaving them to fail
-  at runtime.
-
-  TypeScript 7 has no programmatic API yet, so `typescript-eslint` still
-  needs the 6.0 API. `package.json` installs both through npm aliases: the
-  `tsc` binary is 7.0 via `@typescript/native`, while `require("typescript")`
-  resolves to `@typescript/typescript6`.
-
-- **Runtime**: Node 22.18+ or 24 (`.nvmrc` pins the current LTS). 22.18 is
-  the release that unflagged type stripping.
-
-### Build Process
-
-The project uses esbuild for an efficient and fast build pipeline with different configurations for development and production:
-
-1. Development Mode (`npm run dev`):
-   - Watches and rebuilds all TypeScript files in `client/`
-   - Generates sourcemaps for debugging
-   - Outputs individual bundles to `public/js/` maintaining directory structure
-   - Runs development server with reload via `node --watch`
-
-2. Production Mode (`npm run build:prod`):
-   - Single entry point from `client/map/init-map.ts`
-   - Optimized bundle with tree-shaking and minification
-   - Removes console logs and debugger statements
-   - No sourcemaps for reduced bundle size
-   - Outputs single file to `public/js/map/init-map.js`
-
-Common build features:
-
-- ES modules format (ESM)
-- ES2022 target — the baseline MapLibre GL 6 ships and requires
-- TypeScript compilation via esbuild loader
-- Copies MapLibre's stylesheet and worker from `node_modules` into
-  `public/vendor/` (generated, and gitignored). The worker has to ship as a
-  real file because MapLibre 6 loads it by URL rather than as a blob.
-
-Build commands:
+Requires Node 22.18+ or 24 and a MapTiler API key.
 
 ```sh
-# Runs both development server and client watcher in parallel using concurrently
-npm run dev
-# Creates optimized production bundle with minification and tree-shaking
-npm run build:prod
-# Starts Express server using node --watch with auto-reload
-npm run server
-# Watches client files and rebuilds on changes using esbuild
-npm run watch
-# Type-checks the server and client projects (no emit)
-npm run typecheck
+cd app
+npm ci
+cp .env.example .env   # then set MAPTILER_KEY
+npm run dev            # http://localhost:3300
 ```
 
-Note that the build never type-checks: esbuild strips types without
-looking at them. Run `npm run typecheck` to actually check them.
+## Docs
 
-## Analyzing MeteoSwiss Data Source
-
-To understand and replicate the MeteoSwiss precipitation radar functionality, we analyzed their web application using the following steps:
-
-1. Network Analysis
-   - Visit the [MeteoSwiss Precipitation Map](https://www.meteoswiss.admin.ch/services-and-publications/applications/precipitation.html)
-   - Open Browser Developer Tools (F12)
-   - Navigate to Network tab and interact with the precipitation map
-   - Export HAR file for detailed analysis
-
-2. Extract API Endpoints
-
-   ```sh
-   brew install jq
-   cat www.meteoswiss.admin.ch.har | jq '.log.entries[].request.url' -r | grep '.json' > meteoswiss-urls.log
-   ```
-
-3. Additional Resources
-   - Used [Resources Saver](https://github.com/Alex313031/Resources-Saver) browser extension to download static assets and analyze the application structure
+- [`docs/setup.md`](docs/setup.md) — local setup, scripts, build and troubleshooting
+- [`app/.env.example`](app/.env.example) — every environment variable, annotated
+- [`GLOSSARY.md`](GLOSSARY.md) — domain terms
+- [`docs/reference/radar-data-domain.md`](docs/reference/radar-data-domain.md) — MeteoSwiss radar domain and coordinate systems
+- [`docs/reference/analyzing-meteoswiss.md`](docs/reference/analyzing-meteoswiss.md) — how the MeteoSwiss API was reverse-engineered
+- [`AGENTS.md`](AGENTS.md) — rules for changing the code
+- [`CHANGELOG.md`](CHANGELOG.md) — release history
+- [`map-html-playground/`](map-html-playground/README.md) and [`map-geojson-features/`](map-geojson-features/README.md) — standalone map experiments
 
 ## Development Hints/Notes
-
-### Android Remote Debugging
-
-1. Install Android debugging tools:
-
-   ```sh
-   brew install android-platform-tools
-   ```
-
-2. Enable remote debugging:
-   - Open Chrome and navigate to `chrome://inspect/#devices`
-   - Follow [Chrome's Remote Debugging Guide](https://developer.chrome.com/docs/devtools/remote-debugging)
-   - Connect device and verify with: `adb devices`
-   - Set up port forwarding: `adb -s $(DEVICE) reverse tcp:3300 tcp:3300`
-
-### Asset Generation
-
-Convert SVG favicon to PNG (macOS):
-
-```sh
-qlmanage -t -s 48 -o . rain-radar-favicon.svg
-```
 
 ### Development with GitHub Copilot
 

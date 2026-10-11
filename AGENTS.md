@@ -26,7 +26,7 @@ There are no automated tests. CI runs `typecheck`, `lint`, `lint:css` and `build
 ### Server
 
 - **Upstream URLs live only in `app/server/config.ts`.** Port, cache age and retry settings live there too.
-- **Every upstream route goes through `createProxy` in `app/server/proxy-utils.ts`.** It caches JSON responses and retries with backoff; never call `express-http-proxy` directly.
+- **Every upstream route goes through `createProxy` in `app/server/proxy-utils.ts`.** It caches JSON responses; never call `express-http-proxy` directly.
 - **Each route's path resolver builds its upstream path.** Routes in `app/server.ts` pass one to `createProxy`; it validates its input and returns `null` to reject, which `createProxy` turns into a 400. The precipitation route is the example.
 - **Analytics go through `track()` in `app/server/analytics.ts`, never `umami.track`.** `track` swallows rejections; an unhandled one would terminate the server.
 

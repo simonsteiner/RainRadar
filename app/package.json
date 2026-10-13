@@ -20,7 +20,7 @@
   "dependencies": {
     "@umami/node": "^0.4.0",
     "dotenv": "^18.0.4",
-    "express": "^5.2.1",
+    "express": "^5.3.0",
     "express-http-proxy": "^2.1.2",
     "express-rate-limit": "^8.7.0",
     "maplibre-gl": "^6.11.2"
